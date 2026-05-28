@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>슈냥 업무 대시보드 ✨</title>
+<title>슈냥 업무 대시보드</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -310,53 +311,6 @@ font-weight:800;
 
 }
 
-.progress-top{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:10px;
-
-font-weight:700;
-
-}
-
-.progress-bar{
-
-width:100%;
-
-height:16px;
-
-background:#dbeafe;
-
-border-radius:999px;
-
-overflow:hidden;
-
-margin-top:12px;
-
-}
-
-.progress-fill{
-
-height:100%;
-
-width:0%;
-
-background:
-linear-gradient(
-90deg,
-#4f46e5,
-#60a5fa
-);
-
-transition:0.3s;
-
-}
-
 .memo{
 
 background:white;
@@ -567,37 +521,6 @@ onclick="addTask()">
 </div>
 
 <div>
-
-<div class="panel">
-
-<h2 style="margin-bottom:16px;">
-📈 진행률
-</h2>
-
-<div class="progress-top">
-
-<div>
-오늘 진행률
-</div>
-
-<div id="percent">
-0%
-</div>
-
-</div>
-
-<div class="progress-bar">
-
-<div
-id="progressFill"
-class="progress-fill">
-</div>
-
-</div>
-
-</div>
-
-<br>
 
 <div class="panel">
 
@@ -1051,48 +974,6 @@ wrap.appendChild(div);
 
 }
 
-function updateProgress(){
-
-let total = 0;
-let done = 0;
-
-state.tasks.forEach(task=>{
-
-total++;
-
-if(task.done){
-done++;
-}
-
-task.details.forEach(detail=>{
-
-total++;
-
-if(detail.done){
-done++;
-}
-
-});
-
-});
-
-const percent =
-total===0
-?0
-:Math.round(
-(done/total)*100
-);
-
-document.getElementById("percent")
-.textContent =
-percent + "%";
-
-document.getElementById("progressFill")
-.style.width =
-percent + "%";
-
-}
-
 function renderAll(){
 
 renderTasks();
@@ -1100,8 +981,6 @@ renderTasks();
 renderMemos();
 
 renderHistory();
-
-updateProgress();
 
 saveData();
 
@@ -1223,3 +1102,4 @@ renderAll();
 
 </body>
 </html>
+```
