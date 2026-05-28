@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -357,7 +358,7 @@ button{
 
 .task.done{
 
-  opacity:0.5;
+  opacity:0.55;
 }
 
 .task.done .task-title{
@@ -547,6 +548,29 @@ button{
   border-bottom:1px solid #eee;
 
   line-height:1.8;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  gap:14px;
+}
+
+.history-delete{
+
+  background:#ffe3e3;
+
+  color:#ff4a4a;
+
+  border:none;
+
+  border-radius:12px;
+
+  padding:8px 12px;
+
+  cursor:pointer;
+
+  font-size:12px;
 }
 
 @media(max-width:1300px){
@@ -844,6 +868,7 @@ function addTask(){
 
   histories.unshift({
 
+    id:Date.now(),
     date:new Date().toLocaleDateString(),
     type:"업무추가",
     text
@@ -875,11 +900,27 @@ function renderTasks(){
 
   list.innerHTML="";
 
-  /* 완료된건 아래로 */
+  const order = {
+    high:3,
+    medium:2,
+    low:1
+  };
+
+  /* 우선순위 높은 순 + 완료는 아래 */
 
   const sorted =
     [...tasks]
-    .sort((a,b)=>a.done - b.done);
+    .sort((a,b)=>{
+
+      if(a.done !== b.done){
+
+        return a.done - b.done;
+
+      }
+
+      return order[b.priority] - order[a.priority];
+
+    });
 
   sorted.forEach(task=>{
 
@@ -946,17 +987,9 @@ function renderTasks(){
 
           <select class="priority-change">
 
-            <option value="high">
-              🔥 높음
-            </option>
-
-            <option value="medium">
-              ✨ 보통
-            </option>
-
-            <option value="low">
-              ☁️ 낮음
-            </option>
+            <option value="high">🔥 높음</option>
+            <option value="medium">✨ 보통</option>
+            <option value="low">☁️ 낮음</option>
 
           </select>
 
@@ -986,7 +1019,7 @@ function renderTasks(){
     .querySelector(".priority-change")
     .value = task.priority;
 
-    /* 완료 체크 */
+    /* 완료 */
 
     div
     .querySelector(".task-check")
@@ -1020,7 +1053,7 @@ function renderTasks(){
 
     });
 
-    /* 우선순위 변경 */
+    /* 우선순위 */
 
     div
     .querySelector(".priority-change")
@@ -1103,6 +1136,15 @@ function renderTasks(){
 
         text:value,
         done:false
+
+      });
+
+      histories.unshift({
+
+        id:Date.now(),
+        date:new Date().toLocaleDateString(),
+        type:"상세업무추가",
+        text:value
 
       });
 
@@ -1353,6 +1395,17 @@ function closeHistory(){
 
 }
 
+function deleteHistory(id){
+
+  histories =
+    histories.filter(h=>h.id!==id);
+
+  save();
+
+  renderHistory();
+
+}
+
 function renderHistory(){
 
   const body =
@@ -1366,10 +1419,23 @@ function renderHistory(){
 
       <div class="history-item">
 
-        📅 ${h.date}<br>
+        <div>
 
-        ✨ ${h.type}
-        - ${h.text}
+          📅 ${h.date}<br>
+
+          ✨ ${h.type}
+          - ${h.text}
+
+        </div>
+
+        <button
+          class="history-delete"
+          onclick="deleteHistory(${h.id})"
+        >
+
+          삭제
+
+        </button>
 
       </div>
 
@@ -1386,3 +1452,4 @@ renderMemos();
 
 </body>
 </html>
+```
