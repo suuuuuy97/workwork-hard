@@ -92,6 +92,23 @@ h1{
   font-weight:800;
 }
 
+.history-btn{
+
+  border:none;
+
+  background:#1f1f1f;
+
+  color:white;
+
+  padding:12px 18px;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
+  font-weight:700;
+}
+
 .top3{
 
   display:grid;
@@ -206,6 +223,12 @@ textarea{
 
   box-shadow:
     0 10px 20px rgba(0,0,0,0.05);
+
+  cursor:grab;
+}
+
+.task:active{
+  cursor:grabbing;
 }
 
 .task.done{
@@ -439,6 +462,51 @@ textarea{
   font-weight:800;
 }
 
+.modal{
+
+  position:fixed;
+
+  inset:0;
+
+  background:rgba(0,0,0,0.4);
+
+  display:none;
+
+  justify-content:center;
+  align-items:center;
+
+  z-index:999;
+}
+
+.modal-content{
+
+  width:90%;
+  max-width:900px;
+
+  max-height:85vh;
+
+  overflow:auto;
+
+  background:white;
+
+  border-radius:30px;
+
+  padding:30px;
+}
+
+.history-item{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  padding:14px 0;
+
+  border-bottom:1px solid #eee;
+}
+
 @media(max-width:1200px){
 
   .container{
@@ -469,7 +537,19 @@ textarea{
   <div class="panel">
 
     <div class="section-title">
-      <h2>💼 오늘의 업무</h2>
+
+      <h2>
+        💼 오늘의 업무
+      </h2>
+
+      <button
+        class="history-btn"
+        onclick="openHistory()">
+
+        📚 히스토리
+
+      </button>
+
     </div>
 
     <div id="top3" class="top3"></div>
@@ -592,6 +672,30 @@ textarea{
 
 </div>
 
+<div class="modal" id="historyModal">
+
+  <div class="modal-content">
+
+    <h2 style="margin-bottom:20px;">
+      📚 업무 히스토리
+    </h2>
+
+    <div id="historyBody"></div>
+
+    <br>
+
+    <button
+      class="add-btn"
+      onclick="closeHistory()">
+
+      닫기
+
+    </button>
+
+  </div>
+
+</div>
+
 <script>
 
 const emojis = ["🌷","🎀","✨","💖","🍓"];
@@ -604,6 +708,9 @@ const memoColors = [
 
 let tasks = [];
 let memos = [];
+let histories = [];
+
+let draggedTaskId = null;
 
 function createId(){
 
@@ -625,7 +732,7 @@ function addTask(){
 
   if(!text) return;
 
-  tasks.unshift({
+  tasks.push({
 
     id:createId(),
     text,
@@ -638,6 +745,16 @@ function addTask(){
           Math.random()*emojis.length
         )
       ]
+
+  });
+
+  histories.unshift({
+
+    id:createId(),
+
+    date:new Date().toLocaleDateString(),
+
+    text
 
   });
 
@@ -667,27 +784,17 @@ function renderTasks(){
   taskList.innerHTML="";
   doneList.innerHTML="";
 
-  const order = {
-    high:3,
-    medium:2,
-    low:1
-  };
-
-  const sorted =
-    [...tasks]
-    .sort((a,b)=>
-      order[b.priority]
-      -
-      order[a.priority]
-    );
-
-  sorted.forEach(task=>{
+  tasks.forEach(task=>{
 
     const div =
       document.createElement("div");
 
     div.className =
       `task ${task.done ? "done" : ""}`;
+
+    div.draggable = true;
+
+    div.dataset.id = task.id;
 
     div.innerHTML = `
 
@@ -766,34 +873,53 @@ function renderTasks(){
 
           </div>
 
-          <div class="detail-list"></div>
-
-          ${
-            !task.done
-            ?
-            `
-            <div class="detail-input-wrap">
-
-              <input
-                class="detail-input"
-                placeholder="상세 업무 추가..."
-              >
-
-              <button class="add-btn detail-btn">
-                추가
-              </button>
-
-            </div>
-            `
-            :
-            ""
-          }
-
         </div>
 
       </div>
 
     `;
+
+    div.addEventListener("dragstart",()=>{
+
+      draggedTaskId = task.id;
+
+    });
+
+    div.addEventListener("dragover",(e)=>{
+
+      e.preventDefault();
+
+    });
+
+    div.addEventListener("drop",()=>{
+
+      if(draggedTaskId===task.id) return;
+
+      const draggedIndex =
+        tasks.findIndex(
+          t=>t.id===draggedTaskId
+        );
+
+      const targetIndex =
+        tasks.findIndex(
+          t=>t.id===task.id
+        );
+
+      const draggedItem =
+        tasks.splice(
+          draggedIndex,
+          1
+        )[0];
+
+      tasks.splice(
+        targetIndex,
+        0,
+        draggedItem
+      );
+
+      renderAll();
+
+    });
 
     div
     .querySelector(".task-check")
@@ -826,69 +952,6 @@ function renderTasks(){
 
     });
 
-    const detailBtn =
-      div.querySelector(".detail-btn");
-
-    if(detailBtn){
-
-      detailBtn.addEventListener("click",()=>{
-
-        const input =
-          div.querySelector(".detail-input");
-
-        const value =
-          input.value.trim();
-
-        if(!value) return;
-
-        task.details.push({
-
-          id:createId(),
-          text:value,
-          done:false
-
-        });
-
-        renderAll();
-
-      });
-
-    }
-
-    task.details.forEach(detail=>{
-
-      const detailDiv =
-        document.createElement("div");
-
-      detailDiv.className =
-        `detail ${detail.done ? "done" : ""}`;
-
-      detailDiv.innerHTML = `
-        <label>
-          <input
-            type="checkbox"
-            ${detail.done ? "checked" : ""}
-          >
-          ✨ ${detail.text}
-        </label>
-      `;
-
-      detailDiv
-      .querySelector("input")
-      .addEventListener("change",()=>{
-
-        detail.done=!detail.done;
-
-        renderAll();
-
-      });
-
-      div
-      .querySelector(".detail-list")
-      .appendChild(detailDiv);
-
-    });
-
     if(task.done){
 
       doneList.appendChild(div);
@@ -910,23 +973,10 @@ function renderTop3(){
 
   wrap.innerHTML="";
 
-  const order = {
-    high:3,
-    medium:2,
-    low:1
-  };
+  const active =
+    tasks.filter(t=>!t.done).slice(0,3);
 
-  const top =
-    [...tasks]
-    .filter(t=>!t.done)
-    .sort((a,b)=>
-      order[b.priority]
-      -
-      order[a.priority]
-    )
-    .slice(0,3);
-
-  top.forEach((task,index)=>{
+  active.forEach((task,index)=>{
 
     let cls="top1";
 
@@ -956,24 +1006,10 @@ function renderTop3(){
 
 function updateProgress(){
 
-  let total=0;
-  let done=0;
+  let total=tasks.length;
 
-  tasks.forEach(task=>{
-
-    total++;
-
-    if(task.done) done++;
-
-    task.details.forEach(detail=>{
-
-      total++;
-
-      if(detail.done) done++;
-
-    });
-
-  });
+  let done =
+    tasks.filter(t=>t.done).length;
 
   const percent =
     total===0
@@ -1070,6 +1106,50 @@ function deleteMemo(id){
 
 }
 
+function openHistory(){
+
+  document.getElementById(
+    "historyModal"
+  ).style.display="flex";
+
+  renderHistory();
+
+}
+
+function closeHistory(){
+
+  document.getElementById(
+    "historyModal"
+  ).style.display="none";
+
+}
+
+function renderHistory(){
+
+  const body =
+    document.getElementById("historyBody");
+
+  body.innerHTML="";
+
+  histories.forEach(h=>{
+
+    body.innerHTML += `
+
+      <div class="history-item">
+
+        <div>
+          📅 ${h.date}
+          - ${h.text}
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
 function renderAll(){
 
   renderTasks();
@@ -1088,4 +1168,4 @@ renderAll();
 
 </body>
 </html>
-```
+
