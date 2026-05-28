@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>슈냥이는 뚠뚠 Dashboard</title>
+<title>슈냥의 슬기로운 회사생활 Dashboard</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,33 +19,34 @@
 
 body{
   font-family:'Pretendard', sans-serif;
-  min-height:100vh;
   background:
-    radial-gradient(circle at top left,#fff0f6 0%,transparent 28%),
-    radial-gradient(circle at bottom right,#e9f7ff 0%,transparent 28%),
-    #f8f8f8;
+    radial-gradient(circle at top left,#ffeaf4 0%,transparent 28%),
+    radial-gradient(circle at bottom right,#e8f6ff 0%,transparent 28%),
+    #f7f7f7;
 
-  color:#1f1f1f;
+  min-height:100vh;
   padding:28px;
+  color:#1f1f1f;
 }
 
 .container{
-  max-width:1600px;
+  max-width:1750px;
   margin:auto;
 }
+
+/* 상단 */
 
 .top-area{
   display:flex;
   justify-content:space-between;
   align-items:center;
   margin-bottom:28px;
-  gap:20px;
   flex-wrap:wrap;
+  gap:20px;
 }
 
 .title-box h1{
-  font-size:38px;
-  font-weight:700;
+  font-size:40px;
   line-height:1.4;
   display:flex;
   align-items:center;
@@ -53,14 +54,14 @@ body{
 }
 
 .main-icon{
-  font-size:46px;
-  animation: bounce 2s infinite;
+  font-size:48px;
+  animation:bounce 2s infinite;
 }
 
 @keyframes bounce{
-  0%{transform:translateY(0px);}
-  50%{transform:translateY(-6px);}
-  100%{transform:translateY(0px);}
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+  100%{transform:translateY(0);}
 }
 
 .title-box p{
@@ -70,11 +71,11 @@ body{
 }
 
 .progress-card{
-  width:340px;
-  background:rgba(255,255,255,0.75);
+  width:360px;
+  background:rgba(255,255,255,0.78);
   backdrop-filter:blur(14px);
-  border-radius:28px;
-  padding:22px;
+  border-radius:30px;
+  padding:24px;
   box-shadow:0 12px 30px rgba(0,0,0,0.06);
 }
 
@@ -85,13 +86,8 @@ body{
   margin-bottom:14px;
 }
 
-.progress-title{
-  font-size:15px;
-  font-weight:600;
-}
-
 .progress-percent{
-  font-size:30px;
+  font-size:32px;
   font-weight:700;
 }
 
@@ -107,46 +103,41 @@ body{
   width:0%;
   height:100%;
   border-radius:999px;
-  background:linear-gradient(90deg,#ffb6d9,#ffddb0);
+  background:linear-gradient(90deg,#ffb5d8,#ffd7aa);
   transition:0.3s;
 }
 
+/* 메인 */
+
 .dashboard{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:1.15fr 0.85fr;
   gap:24px;
 }
 
 .board{
-  background:rgba(255,255,255,0.75);
+  background:rgba(255,255,255,0.78);
   backdrop-filter:blur(14px);
-  border-radius:34px;
-  padding:26px;
-  min-height:720px;
+  border-radius:36px;
+  padding:28px;
   box-shadow:0 14px 40px rgba(0,0,0,0.05);
 }
+
+/* 공통 */
 
 .board-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:22px;
+  margin-bottom:24px;
 }
 
 .board-title{
-  font-size:27px;
+  font-size:28px;
   font-weight:700;
   display:flex;
   align-items:center;
   gap:10px;
-}
-
-.task-count{
-  background:#f4f4f4;
-  padding:7px 14px;
-  border-radius:999px;
-  font-size:13px;
-  color:#666;
 }
 
 .input-wrap{
@@ -155,30 +146,39 @@ body{
   margin-bottom:24px;
 }
 
-.task-input{
-  flex:1;
+.task-input,
+.priority-select,
+.memo-input,
+.memo-select,
+.memo-textarea{
   border:none;
   outline:none;
-  border-radius:20px;
-  padding:18px;
-  font-size:15px;
   background:white;
+  border-radius:18px;
+  padding:16px;
   box-shadow:0 6px 18px rgba(0,0,0,0.05);
+  font-size:14px;
 }
 
-.add-btn{
+.task-input{
+  flex:1;
+}
+
+.priority-select{
+  width:150px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.add-btn,
+.memo-btn{
   border:none;
   background:#1f1f1f;
   color:white;
-  padding:0 24px;
-  border-radius:20px;
+  border-radius:18px;
+  padding:0 22px;
   cursor:pointer;
   font-weight:600;
-  transition:0.2s;
-}
-
-.add-btn:hover{
-  transform:translateY(-2px);
 }
 
 .task-list{
@@ -187,16 +187,63 @@ body{
   gap:18px;
 }
 
-.task-card{
-  background:white;
-  border-radius:26px;
-  padding:18px;
-  box-shadow:0 10px 24px rgba(0,0,0,0.05);
-  transition:0.25s;
+/* 우선순위 TOP */
+
+.top-priority-wrap{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:14px;
+  margin-bottom:26px;
 }
 
-.task-card:hover{
-  transform:translateY(-2px);
+.priority-rank{
+  padding:18px;
+  border-radius:24px;
+  color:white;
+  position:relative;
+  overflow:hidden;
+  min-height:120px;
+}
+
+.rank1{
+  background:linear-gradient(135deg,#ff7eb6,#ffb199);
+}
+
+.rank2{
+  background:linear-gradient(135deg,#a18cd1,#fbc2eb);
+}
+
+.rank3{
+  background:linear-gradient(135deg,#84fab0,#8fd3f4);
+}
+
+.rank-number{
+  font-size:13px;
+  opacity:0.8;
+  margin-bottom:10px;
+}
+
+.rank-title{
+  font-size:16px;
+  font-weight:700;
+  line-height:1.5;
+}
+
+.rank-emoji{
+  position:absolute;
+  right:14px;
+  bottom:10px;
+  font-size:28px;
+  opacity:0.3;
+}
+
+/* 업무 카드 */
+
+.task-card{
+  background:white;
+  border-radius:28px;
+  padding:18px;
+  box-shadow:0 10px 24px rgba(0,0,0,0.05);
 }
 
 .task-main{
@@ -217,7 +264,6 @@ body{
   height:22px;
   margin-top:2px;
   accent-color:#ff9fcf;
-  cursor:pointer;
 }
 
 .task-content{
@@ -226,14 +272,37 @@ body{
 
 .task-title{
   font-size:16px;
-  font-weight:600;
+  font-weight:700;
   line-height:1.5;
-  word-break:break-word;
 }
 
 .done .task-title{
   text-decoration:line-through;
-  color:#aaa;
+  opacity:0.5;
+}
+
+.priority-badge{
+  margin-top:10px;
+  display:inline-flex;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.priority-high{
+  background:#ffe1e1;
+  color:#ff4d4d;
+}
+
+.priority-medium{
+  background:#fff0cf;
+  color:#ff9800;
+}
+
+.priority-low{
+  background:#e3f4ff;
+  color:#4aa3df;
 }
 
 .subtask-list{
@@ -247,9 +316,23 @@ body{
   background:#fafafa;
   border-radius:16px;
   padding:12px 14px;
-  font-size:14px;
-  color:#666;
-  line-height:1.5;
+}
+
+.subtask-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.subtask-checkbox{
+  width:16px;
+  height:16px;
+  accent-color:#ff9fcf;
+}
+
+.done-subtask span{
+  text-decoration:line-through;
+  opacity:0.5;
 }
 
 .subtask-input-wrap{
@@ -265,7 +348,6 @@ body{
   background:#f5f5f5;
   border-radius:14px;
   padding:12px;
-  font-size:13px;
 }
 
 .subtask-btn{
@@ -274,41 +356,140 @@ body{
   border-radius:14px;
   padding:0 14px;
   cursor:pointer;
-  font-size:13px;
   font-weight:600;
 }
 
 .delete-btn{
   border:none;
   background:transparent;
-  cursor:pointer;
   font-size:18px;
-  opacity:0.45;
+  cursor:pointer;
+  opacity:0.4;
 }
 
-.delete-btn:hover{
-  opacity:1;
+/* 포스트잇 */
+
+.memo-input-wrap{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-bottom:24px;
 }
 
-.quote-box{
-  margin-top:24px;
-  background:linear-gradient(135deg,#ffeaf4,#fff0db);
-  padding:22px;
-  border-radius:24px;
-  color:#6a5060;
+.memo-textarea{
+  min-height:110px;
+  resize:none;
+  font-family:'Pretendard', sans-serif;
+}
+
+.memo-area{
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+}
+
+.memo-card{
+  width:220px;
+  min-height:230px;
+  padding:18px;
+  border-radius:30px 26px 32px 24px;
+  position:relative;
+  box-shadow:
+    0 12px 20px rgba(0,0,0,0.08),
+    inset 0 -10px 20px rgba(255,255,255,0.35);
+
+  transform:rotate(-2deg);
+}
+
+.memo-card:nth-child(even){
+  transform:rotate(2deg);
+}
+
+.memo-yellow{
+  background:#fff4ba;
+}
+
+.memo-pink{
+  background:#ffdce9;
+}
+
+.memo-blue{
+  background:#dff4ff;
+}
+
+.memo-card::before{
+  content:"";
+  width:70px;
+  height:20px;
+  background:rgba(255,255,255,0.45);
+  position:absolute;
+  top:-10px;
+  left:50%;
+  transform:translateX(-50%) rotate(-4deg);
+  border-radius:6px;
+}
+
+.memo-top{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+
+.memo-type{
+  font-size:13px;
+  font-weight:700;
+}
+
+.memo-title{
+  font-size:16px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.memo-text{
+  font-size:14px;
   line-height:1.7;
-  font-size:15px;
+  color:#555;
+  white-space:pre-wrap;
 }
 
-.quote-title{
+.memo-check{
+  margin-top:18px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:13px;
+}
+
+.memo-check input{
+  width:18px;
+  height:18px;
+  accent-color:#ff9fcf;
+}
+
+.done-stamp{
+  position:absolute;
+  bottom:14px;
+  right:14px;
+  background:#1f1f1f;
+  color:white;
+  padding:8px 12px;
+  border-radius:999px;
   font-size:12px;
-  opacity:0.7;
-  margin-bottom:8px;
+  transform:rotate(-12deg);
 }
 
-@media(max-width:1100px){
+.memo-done{
+  opacity:0.55;
+}
+
+@media(max-width:1300px){
 
   .dashboard{
+    grid-template-columns:1fr;
+  }
+
+  .top-priority-wrap{
     grid-template-columns:1fr;
   }
 
@@ -333,7 +514,7 @@ body{
       </h1>
 
       <p>
-        오늘도 하나씩 완료하는 중 ✨
+        오늘도 차근차근 완료하는 중 ✨
       </p>
 
     </div>
@@ -342,18 +523,25 @@ body{
 
       <div class="progress-top">
 
-        <div class="progress-title">
+        <div>
           오늘의 진행률
         </div>
 
-        <div class="progress-percent" id="progressPercent">
+        <div
+          class="progress-percent"
+          id="progressPercent">
+
           0%
+
         </div>
 
       </div>
 
       <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
+        <div
+          class="progress-fill"
+          id="progressFill">
+        </div>
       </div>
 
     </div>
@@ -362,85 +550,125 @@ body{
 
   <div class="dashboard">
 
-    <!-- 회사 -->
+    <!-- 왼쪽 -->
+
     <div class="board">
 
       <div class="board-header">
 
         <div class="board-title">
-          💼 회사 업무
-        </div>
-
-        <div class="task-count" id="workCount">
-          0개
+          💼 오늘의 업무
         </div>
 
       </div>
+
+      <!-- TOP3 -->
+
+      <div
+        class="top-priority-wrap"
+        id="topPriorityWrap">
+      </div>
+
+      <!-- 입력 -->
 
       <div class="input-wrap">
 
         <input
           type="text"
-          id="workInput"
+          id="taskInput"
           class="task-input"
-          placeholder="회사에서 해야 할 일 입력..."
+          placeholder="오늘 해야 할 업무 입력..."
         />
+
+        <select
+          id="priorityInput"
+          class="priority-select">
+
+          <option value="high">
+            🔥 높음
+          </option>
+
+          <option value="medium">
+            ✨ 보통
+          </option>
+
+          <option value="low">
+            ☁️ 낮음
+          </option>
+
+        </select>
 
         <button
           class="add-btn"
-          onclick="addTask('work')">
+          onclick="addTask()">
+
           추가
+
         </button>
 
       </div>
 
-      <div class="task-list" id="workList"></div>
+      <div
+        class="task-list"
+        id="taskList">
+      </div>
 
     </div>
 
-    <!-- 집 -->
+    <!-- 오른쪽 -->
+
     <div class="board">
 
       <div class="board-header">
 
         <div class="board-title">
-          🏡 집 / 개인 할 일
-        </div>
-
-        <div class="task-count" id="homeCount">
-          0개
+          💌 사업소 요청 리스트
         </div>
 
       </div>
 
-      <div class="input-wrap">
+      <div class="memo-input-wrap">
+
+        <select
+          id="memoType"
+          class="memo-select">
+
+          <option value="💬 카톡">
+            💬 카톡
+          </option>
+
+          <option value="☎️ 전화">
+            ☎️ 전화
+          </option>
+
+        </select>
 
         <input
           type="text"
-          id="homeInput"
-          class="task-input"
-          placeholder="집에서 해야 할 일 입력..."
+          id="memoTitle"
+          class="memo-input"
+          placeholder="사업소명 / 제목"
         />
 
+        <textarea
+          id="memoText"
+          class="memo-textarea"
+          placeholder="요청 내용 정리..."
+        ></textarea>
+
         <button
-          class="add-btn"
-          onclick="addTask('home')">
-          추가
+          class="memo-btn"
+          onclick="addMemo()">
+
+          포스트잇 붙이기 ✨
+
         </button>
 
       </div>
 
-      <div class="task-list" id="homeList"></div>
-
-      <div class="quote-box">
-
-        <div class="quote-title">
-          TODAY MESSAGE
-        </div>
-
-        작은 일도 꾸준히 하면 결국 쌓인다 🌷<br/>
-        오늘의 슈냥이도 열일중 🐹✨
-
+      <div
+        class="memo-area"
+        id="memoArea">
       </div>
 
     </div>
@@ -451,33 +679,42 @@ body{
 
 <script>
 
-/*
-========================================
-새로고침 유지 기능 포함
-localStorage 저장됨
-같은 브라우저 + 같은 PC면 유지됨
-========================================
-*/
-
 const cuteEmojis = [
   "🌷","🐹","🧸","🍓","✨","💖",
-  "🐰","☁️","🫧","🎀","🌸","🧁",
-  "💻","📚","📝","☕"
+  "🐰","☁️","🫧","🎀","🌸","🧁"
+];
+
+const memoColors = [
+  "memo-yellow",
+  "memo-pink",
+  "memo-blue"
 ];
 
 let tasks =
-  JSON.parse(
-    localStorage.getItem("shunyang_tasks")
-  ) || [];
+  JSON.parse(localStorage.getItem("tasks"))
+  || [];
 
-function saveTasks(){
+let memos =
+  JSON.parse(localStorage.getItem("memos"))
+  || [];
+
+/* 저장 */
+
+function saveAll(){
 
   localStorage.setItem(
-    "shunyang_tasks",
+    "tasks",
     JSON.stringify(tasks)
   );
 
+  localStorage.setItem(
+    "memos",
+    JSON.stringify(memos)
+  );
+
 }
+
+/* 랜덤 */
 
 function randomEmoji(){
 
@@ -487,59 +724,71 @@ function randomEmoji(){
 
 }
 
-function addTask(type){
+function randomColor(){
+
+  return memoColors[
+    Math.floor(Math.random()*memoColors.length)
+  ];
+
+}
+
+/* 업무 */
+
+function addTask(){
 
   const input =
-    type === "work"
-    ? document.getElementById("workInput")
-    : document.getElementById("homeInput");
+    document.getElementById("taskInput");
 
-  const text = input.value.trim();
+  const priority =
+    document.getElementById("priorityInput").value;
+
+  const text =
+    input.value.trim();
 
   if(!text) return;
 
   tasks.push({
 
     id:Date.now(),
-    type,
     text,
+    priority,
     done:false,
     emoji:randomEmoji(),
     subtasks:[]
 
   });
 
-  input.value = "";
+  input.value="";
 
-  saveTasks();
+  saveAll();
+
   renderTasks();
 
 }
 
 function toggleTask(id){
 
-  tasks = tasks.map(task => {
+  tasks = tasks.map(task=>{
 
-    if(task.id === id){
-      task.done = !task.done;
+    if(task.id===id){
+      task.done=!task.done;
     }
 
     return task;
 
   });
 
-  saveTasks();
+  saveAll();
   renderTasks();
 
 }
 
 function deleteTask(id){
 
-  tasks = tasks.filter(
-    task => task.id !== id
-  );
+  tasks =
+    tasks.filter(task=>task.id!==id);
 
-  saveTasks();
+  saveAll();
   renderTasks();
 
 }
@@ -549,16 +798,21 @@ function addSubtask(id){
   const input =
     document.getElementById(`sub-${id}`);
 
-  const text = input.value.trim();
+  const text =
+    input.value.trim();
 
   if(!text) return;
 
-  tasks = tasks.map(task => {
+  tasks = tasks.map(task=>{
 
-    if(task.id === id){
+    if(task.id===id){
 
       task.subtasks.push({
-        text
+
+        id:Date.now(),
+        text,
+        done:false
+
       });
 
     }
@@ -567,22 +821,131 @@ function addSubtask(id){
 
   });
 
-  input.value = "";
+  input.value="";
 
-  saveTasks();
+  saveAll();
   renderTasks();
 
 }
 
+function toggleSubtask(taskId, subtaskId){
+
+  tasks = tasks.map(task=>{
+
+    if(task.id===taskId){
+
+      task.subtasks =
+        task.subtasks.map(sub=>{
+
+          if(sub.id===subtaskId){
+            sub.done=!sub.done;
+          }
+
+          return sub;
+
+        });
+
+    }
+
+    return task;
+
+  });
+
+  saveAll();
+  renderTasks();
+
+}
+
+/* 요청 */
+
+function addMemo(){
+
+  const type =
+    document.getElementById("memoType").value;
+
+  const title =
+    document.getElementById("memoTitle").value.trim();
+
+  const text =
+    document.getElementById("memoText").value.trim();
+
+  if(!title || !text) return;
+
+  memos.unshift({
+
+    id:Date.now(),
+    type,
+    title,
+    text,
+    done:false,
+    color:randomColor()
+
+  });
+
+  document.getElementById("memoTitle").value="";
+  document.getElementById("memoText").value="";
+
+  saveAll();
+  renderMemos();
+
+}
+
+function toggleMemo(id){
+
+  memos = memos.map(memo=>{
+
+    if(memo.id===id){
+      memo.done=!memo.done;
+    }
+
+    return memo;
+
+  });
+
+  saveAll();
+  renderMemos();
+
+}
+
+/* 진행률 */
+
 function updateProgress(){
 
-  const total = tasks.length;
+  let total = 0;
+  let done = 0;
 
-  const done =
-    tasks.filter(t=>t.done).length;
+  tasks.forEach(task=>{
+
+    total++;
+
+    if(task.done){
+      done++;
+    }
+
+    task.subtasks.forEach(sub=>{
+
+      total++;
+
+      if(sub.done){
+        done++;
+      }
+
+    });
+
+  });
+
+  memos.forEach(memo=>{
+
+    total++;
+
+    if(memo.done){
+      done++;
+    }
+
+  });
 
   const percent =
-    total === 0
+    total===0
     ? 0
     : Math.round((done/total)*100);
 
@@ -596,30 +959,56 @@ function updateProgress(){
 
 }
 
+/* TOP3 */
+
+function renderTopPriority(){
+
+  const wrap =
+    document.getElementById("topPriorityWrap");
+
+  wrap.innerHTML="";
+
+  const highTasks =
+    tasks.filter(task=>task.priority==="high");
+
+  highTasks.slice(0,3).forEach((task,index)=>{
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      `priority-rank rank${index+1}`;
+
+    div.innerHTML = `
+
+      <div class="rank-number">
+        TOP ${index+1}
+      </div>
+
+      <div class="rank-title">
+        ${task.emoji} ${task.text}
+      </div>
+
+      <div class="rank-emoji">
+        ✨
+      </div>
+
+    `;
+
+    wrap.appendChild(div);
+
+  });
+
+}
+
+/* 업무 렌더 */
+
 function renderTasks(){
 
-  const workList =
-    document.getElementById("workList");
+  const taskList =
+    document.getElementById("taskList");
 
-  const homeList =
-    document.getElementById("homeList");
-
-  workList.innerHTML = "";
-  homeList.innerHTML = "";
-
-  const workTasks =
-    tasks.filter(t=>t.type==="work");
-
-  const homeTasks =
-    tasks.filter(t=>t.type==="home");
-
-  document.getElementById(
-    "workCount"
-  ).innerText = `${workTasks.length}개`;
-
-  document.getElementById(
-    "homeCount"
-  ).innerText = `${homeTasks.length}개`;
+  taskList.innerHTML="";
 
   tasks.forEach(task=>{
 
@@ -629,14 +1018,51 @@ function renderTasks(){
     card.className =
       `task-card ${task.done ? "done" : ""}`;
 
-    let subtasksHTML = "";
+    let badgeClass="";
+    let badgeText="";
+
+    if(task.priority==="high"){
+
+      badgeClass="priority-high";
+      badgeText="🔥 우선순위 높음";
+
+    }else if(task.priority==="medium"){
+
+      badgeClass="priority-medium";
+      badgeText="✨ 우선순위 보통";
+
+    }else{
+
+      badgeClass="priority-low";
+      badgeText="☁️ 우선순위 낮음";
+
+    }
+
+    let subtasksHTML="";
 
     task.subtasks.forEach(sub=>{
 
       subtasksHTML += `
-        <div class="subtask">
-          💫 ${sub.text}
+
+        <div class="subtask ${sub.done ? "done-subtask" : ""}">
+
+          <label class="subtask-row">
+
+            <input
+              type="checkbox"
+              class="subtask-checkbox"
+              ${sub.done ? "checked" : ""}
+              onchange="toggleSubtask(${task.id}, ${sub.id})"
+            />
+
+            <span>
+              💫 ${sub.text}
+            </span>
+
+          </label>
+
         </div>
+
       `;
 
     });
@@ -659,6 +1085,10 @@ function renderTasks(){
               ${task.emoji} ${task.text}
             </div>
 
+            <div class="priority-badge ${badgeClass}">
+              ${badgeText}
+            </div>
+
             <div class="subtask-list">
               ${subtasksHTML}
             </div>
@@ -672,7 +1102,8 @@ function renderTasks(){
                 placeholder="세부 내용 추가..."
               />
 
-              <button class="subtask-btn">
+              <button
+                class="subtask-btn">
                 +추가
               </button>
 
@@ -711,25 +1142,71 @@ function renderTasks(){
 
       });
 
-    const subInput =
-      card.querySelector(".subtask-input");
+    taskList.appendChild(card);
 
-    subInput.addEventListener(
-      "keypress",
-      function(e){
+  });
 
-        if(e.key==="Enter"){
-          addSubtask(task.id);
-        }
+  renderTopPriority();
 
+  updateProgress();
+
+}
+
+/* 요청 렌더 */
+
+function renderMemos(){
+
+  const area =
+    document.getElementById("memoArea");
+
+  area.innerHTML="";
+
+  memos.forEach(memo=>{
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      `memo-card ${memo.color} ${memo.done ? "memo-done" : ""}`;
+
+    card.innerHTML = `
+
+      <div class="memo-top">
+
+        <div class="memo-type">
+          ${memo.type}
+        </div>
+
+      </div>
+
+      <div class="memo-title">
+        ${memo.title}
+      </div>
+
+      <div class="memo-text">
+${memo.text}
+      </div>
+
+      <label class="memo-check">
+
+        <input
+          type="checkbox"
+          ${memo.done ? "checked" : ""}
+          onchange="toggleMemo(${memo.id})"
+        />
+
+        완료 처리
+
+      </label>
+
+      ${memo.done
+        ? '<div class="done-stamp">DONE ✨</div>'
+        : ''
       }
-    );
 
-    if(task.type==="work"){
-      workList.appendChild(card);
-    }else{
-      homeList.appendChild(card);
-    }
+    `;
+
+    area.appendChild(card);
 
   });
 
@@ -737,27 +1214,8 @@ function renderTasks(){
 
 }
 
-document
-.getElementById("workInput")
-.addEventListener("keypress",function(e){
-
-  if(e.key==="Enter"){
-    addTask("work");
-  }
-
-});
-
-document
-.getElementById("homeInput")
-.addEventListener("keypress",function(e){
-
-  if(e.key==="Enter"){
-    addTask("home");
-  }
-
-});
-
 renderTasks();
+renderMemos();
 
 </script>
 
