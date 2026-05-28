@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -527,18 +528,6 @@ textarea{
   border-bottom:1px solid #eee;
 }
 
-@media(max-width:1200px){
-
-  .container{
-    grid-template-columns:1fr;
-  }
-
-  .top3{
-    grid-template-columns:1fr;
-  }
-
-}
-
 </style>
 </head>
 
@@ -554,839 +543,733 @@ textarea{
 
 <div class="container">
 
-  <div class="panel">
+<div class="panel">
 
-    <div class="section-title">
+<div class="section-title">
 
-      <h2>
-        💼 오늘의 업무
-      </h2>
+<h2>
+💼 오늘의 업무
+</h2>
 
-      <button
-        class="history-btn"
-        onclick="openHistory()">
+<button
+class="history-btn"
+onclick="openHistory()">
 
-        📚 히스토리
+📚 히스토리
 
-      </button>
+</button>
 
-    </div>
+</div>
 
-    <div id="top3" class="top3"></div>
+<div id="top3" class="top3"></div>
 
-    <div class="input-wrap">
+<div class="input-wrap">
 
-      <input
-        id="taskInput"
-        class="main-input"
-        placeholder="오늘 해야할 업무 입력..."
-      >
+<input
+id="taskInput"
+class="main-input"
+placeholder="오늘 해야할 업무 입력..."
+>
 
-      <select id="priorityInput">
-        <option value="high">🔥 높음</option>
-        <option value="medium" selected>✨ 보통</option>
-        <option value="low">☁️ 낮음</option>
-      </select>
+<select id="priorityInput">
+<option value="high">🔥 높음</option>
+<option value="medium" selected>✨ 보통</option>
+<option value="low">☁️ 낮음</option>
+</select>
 
-      <button
-        class="add-btn"
-        onclick="addTask()">
+<button
+class="add-btn"
+onclick="addTask()">
 
-        추가
+추가
 
-      </button>
+</button>
 
-    </div>
+</div>
 
-    <div id="taskList"></div>
+<div id="taskList"></div>
 
-    <div class="complete-title">
-      ✅ 오늘 완료한 일
-    </div>
+<div class="complete-title">
+✅ 오늘 완료한 일
+</div>
 
-    <div id="doneTaskList"></div>
+<div id="doneTaskList"></div>
 
-  </div>
+</div>
 
-  <div>
+<div>
 
-    <div class="panel">
+<div class="panel">
 
-      <div class="section-title">
-        <h2>🌷 오늘의 다짐</h2>
-      </div>
+<div class="section-title">
+<h2>🌷 오늘의 다짐</h2>
+</div>
 
-      <textarea
-        rows="6"
-        placeholder="오늘의 다짐 적기..."
-      ></textarea>
+<textarea
+rows="6"
+placeholder="오늘의 다짐 적기..."
+></textarea>
 
-      <div class="progress-card">
+<div class="progress-card">
 
-        <div class="progress-top">
+<div class="progress-top">
 
-          <div>
-            오늘의 진행률
-          </div>
+<div>
+오늘의 진행률
+</div>
 
-          <div id="percent">
-            0%
-          </div>
+<div id="percent">
+0%
+</div>
 
-        </div>
+</div>
 
-        <div class="progress-bar">
+<div class="progress-bar">
 
-          <div
-            id="progressFill"
-            class="progress-fill">
-          </div>
+<div
+id="progressFill"
+class="progress-fill">
+</div>
 
-        </div>
+</div>
 
-      </div>
+</div>
 
-    </div>
+</div>
 
-    <br>
+<br>
 
-    <div class="panel">
+<div class="panel">
 
-      <div class="section-title">
-        <h2>💌 사업소 요청 리스트</h2>
-      </div>
+<div class="section-title">
+<h2>💌 사업소 요청 리스트</h2>
+</div>
 
-      <div class="input-wrap">
+<div class="input-wrap">
 
-        <select id="memoType">
-          <option value="카톡">💬 카톡</option>
-          <option value="메신저">🖥️ 메신저</option>
-          <option value="전화">☎️ 전화</option>
-        </select>
+<select id="memoType">
+<option value="카톡">💬 카톡</option>
+<option value="메신저">🖥️ 메신저</option>
+<option value="전화">☎️ 전화</option>
+</select>
 
-        <input
-          id="memoTitle"
-          class="main-input"
-          placeholder="사업소명 / 제목"
-        >
+<input
+id="memoTitle"
+class="main-input"
+placeholder="사업소명 / 제목"
+>
 
-      </div>
+</div>
 
-      <textarea
-        id="memoText"
-        rows="5"
-        placeholder="요청 내용 입력..."
-      ></textarea>
+<textarea
+id="memoText"
+rows="5"
+placeholder="요청 내용 입력..."
+></textarea>
 
-      <br><br>
+<br><br>
 
-      <button
-        class="add-btn"
-        onclick="addMemo()">
+<button
+class="add-btn"
+onclick="addMemo()">
 
-        포스트잇 추가
+포스트잇 추가
 
-      </button>
+</button>
 
-      <br><br>
+<br><br>
 
-      <div id="memoWrap"></div>
+<div id="memoWrap"></div>
 
-    </div>
+</div>
 
-  </div>
+</div>
 
 </div>
 
 <div class="modal" id="historyModal">
 
-  <div class="modal-content">
+<div class="modal-content">
 
-    <h2 style="margin-bottom:20px;">
-      📚 업무 히스토리
-    </h2>
+<h2 style="margin-bottom:20px;">
+📚 업무 히스토리
+</h2>
 
-    <div id="historyBody"></div>
+<div id="historyBody"></div>
 
-    <br>
+<br>
 
-    <button
-      class="add-btn"
-      onclick="closeHistory()">
+<button
+class="add-btn"
+onclick="closeHistory()">
 
-      닫기
+닫기
 
-    </button>
+</button>
 
-  </div>
+</div>
 
 </div>
 
 <script>
 
-const emojis = ["🌷","🎀","✨","💖","🍓"];
+const emojis=["🌷","🎀","✨","💖","🍓"];
 
-const memoColors = [
-  "memo-yellow",
-  "memo-pink",
-  "memo-blue"
+const memoColors=[
+"memo-yellow",
+"memo-pink",
+"memo-blue"
 ];
 
-let tasks =
-  JSON.parse(localStorage.getItem("tasks")) || [];
+let tasks=
+JSON.parse(localStorage.getItem("tasks"))||[];
 
-let memos =
-  JSON.parse(localStorage.getItem("memos")) || [];
+let memos=
+JSON.parse(localStorage.getItem("memos"))||[];
 
-let histories =
-  JSON.parse(localStorage.getItem("histories")) || [];
+let histories=
+JSON.parse(localStorage.getItem("histories"))||[];
 
-let draggedTaskId = null;
+let draggedTaskId=null;
 
 function saveData(){
 
-  localStorage.setItem(
-    "tasks",
-    JSON.stringify(tasks)
-  );
+localStorage.setItem(
+"tasks",
+JSON.stringify(tasks)
+);
 
-  localStorage.setItem(
-    "memos",
-    JSON.stringify(memos)
-  );
+localStorage.setItem(
+"memos",
+JSON.stringify(memos)
+);
 
-  localStorage.setItem(
-    "histories",
-    JSON.stringify(histories)
-  );
+localStorage.setItem(
+"histories",
+JSON.stringify(histories)
+);
 
 }
 
 function createId(){
 
-  return Date.now().toString(36)
-    + Math.random().toString(36).slice(2);
+return Date.now().toString(36)
++Math.random().toString(36).slice(2);
 
 }
 
 function addTask(){
 
-  const text =
-    document.getElementById("taskInput")
-    .value
-    .trim();
+const text=
+document.getElementById("taskInput")
+.value
+.trim();
 
-  const priority =
-    document.getElementById("priorityInput")
-    .value;
+const priority=
+document.getElementById("priorityInput")
+.value;
 
-  if(!text) return;
+if(!text)return;
 
-  tasks.push({
+tasks.push({
 
-    id:createId(),
-    text,
-    priority,
-    done:false,
-    details:[],
-    emoji:
-      emojis[
-        Math.floor(
-          Math.random()*emojis.length
-        )
-      ]
+id:createId(),
+text,
+priority,
+done:false,
+details:[],
+emoji:
+emojis[
+Math.floor(
+Math.random()*emojis.length
+)
+]
 
-  });
+});
 
-  histories.unshift({
+histories.unshift({
 
-    id:createId(),
+id:createId(),
 
-    date:new Date().toLocaleDateString(),
+date:new Date().toLocaleDateString(),
 
-    text
+text
 
-  });
+});
 
-  document.getElementById("taskInput").value="";
+document.getElementById("taskInput").value="";
 
-  renderAll();
+renderAll();
 
 }
 
 function addDetail(taskId){
 
-  const input =
-    document.getElementById(
-      `detail-input-${taskId}`
-    );
+const input=
+document.getElementById(
+`detail-input-${taskId}`
+);
 
-  const value =
-    input.value.trim();
+const value=input.value.trim();
 
-  if(!value) return;
+if(!value)return;
 
-  const task =
-    tasks.find(t=>t.id===taskId);
+const task=
+tasks.find(t=>t.id===taskId);
 
-  task.details.push({
+task.details.push({
 
-    id:createId(),
-    text:value,
-    done:false
+id:createId(),
+text:value,
+done:false
 
-  });
+});
 
-  histories.unshift({
+input.value="";
 
-    id:createId(),
-
-    date:new Date().toLocaleDateString(),
-
-    text:`[상세업무] ${value}`
-
-  });
-
-  input.value="";
-
-  renderAll();
-
-}
-
-function deleteHistory(id){
-
-  histories =
-    histories.filter(h=>h.id!==id);
-
-  renderHistory();
-
-  saveData();
-
-}
-
-function getPriorityText(priority){
-
-  if(priority==="high") return "🔥 높음";
-  if(priority==="medium") return "✨ 보통";
-
-  return "☁️ 낮음";
-
-}
-
-function renderTasks(){
-
-  const taskList =
-    document.getElementById("taskList");
-
-  const doneList =
-    document.getElementById("doneTaskList");
-
-  taskList.innerHTML="";
-  doneList.innerHTML="";
-
-  tasks.forEach(task=>{
-
-    const div =
-      document.createElement("div");
-
-    div.className =
-      `task ${task.done ? "done" : ""}`;
-
-    div.draggable = true;
-
-    div.dataset.id = task.id;
-
-    div.innerHTML = `
-
-      <div style="display:flex;gap:12px;">
-
-        <input
-          type="checkbox"
-          class="task-check"
-          ${task.done ? "checked" : ""}
-        >
-
-        <div style="flex:1;">
-
-          <div style="
-            display:flex;
-            justify-content:space-between;
-            gap:10px;
-          ">
-
-            <div style="flex:1;">
-
-              <div class="task-title">
-                ${task.emoji}
-                ${task.text}
-              </div>
-
-              ${
-                task.done
-                ?
-                `
-                <div class="done-badge">
-                  완료 ✨
-                </div>
-                `
-                :
-                ""
-              }
-
-            </div>
-
-            <button class="delete-btn">
-              삭제
-            </button>
-
-          </div>
-
-          <div style="
-            display:flex;
-            gap:10px;
-            align-items:center;
-            margin-top:12px;
-          ">
-
-            <div class="badge ${task.priority}">
-              ${getPriorityText(task.priority)}
-            </div>
-
-            <select class="priority-select">
-
-              <option value="high"
-                ${task.priority==="high" ? "selected" : ""}>
-                🔥 높음
-              </option>
-
-              <option value="medium"
-                ${task.priority==="medium" ? "selected" : ""}>
-                ✨ 보통
-              </option>
-
-              <option value="low"
-                ${task.priority==="low" ? "selected" : ""}>
-                ☁️ 낮음
-              </option>
-
-            </select>
-
-          </div>
-
-          <div style="margin-top:16px;">
-
-            ${task.details.map(detail=>`
-
-              <div class="detail ${detail.done ? "done" : ""}">
-
-                <label>
-
-                  <input
-                    type="checkbox"
-                    onchange="toggleDetail('${task.id}','${detail.id}')"
-                    ${detail.done ? "checked" : ""}
-                  >
-
-                  ✨ ${detail.text}
-
-                </label>
-
-              </div>
-
-            `).join("")}
-
-          </div>
-
-          ${
-            !task.done
-            ?
-            `
-            <div class="detail-input-wrap">
-
-              <input
-                id="detail-input-${task.id}"
-                placeholder="상세 업무 추가..."
-              >
-
-              <button
-                class="add-btn"
-                onclick="addDetail('${task.id}')">
-
-                추가
-
-              </button>
-
-            </div>
-            `
-            :
-            ""
-          }
-
-        </div>
-
-      </div>
-
-    `;
-
-    div.addEventListener("dragstart",()=>{
-
-      draggedTaskId = task.id;
-
-    });
-
-    div.addEventListener("dragover",(e)=>{
-
-      e.preventDefault();
-
-    });
-
-    div.addEventListener("drop",()=>{
-
-      if(draggedTaskId===task.id) return;
-
-      const draggedIndex =
-        tasks.findIndex(
-          t=>t.id===draggedTaskId
-        );
-
-      const targetIndex =
-        tasks.findIndex(
-          t=>t.id===task.id
-        );
-
-      const draggedItem =
-        tasks.splice(
-          draggedIndex,
-          1
-        )[0];
-
-      tasks.splice(
-        targetIndex,
-        0,
-        draggedItem
-      );
-
-      renderAll();
-
-    });
-
-    div
-    .querySelector(".task-check")
-    .addEventListener("change",()=>{
-
-      task.done=!task.done;
-
-      renderAll();
-
-    });
-
-    div
-    .querySelector(".delete-btn")
-    .addEventListener("click",()=>{
-
-      tasks =
-        tasks.filter(t=>t.id!==task.id);
-
-      renderAll();
-
-    });
-
-    div
-    .querySelector(".priority-select")
-    .addEventListener("change",(e)=>{
-
-      task.priority=e.target.value;
-
-      renderAll();
-
-    });
-
-    if(task.done){
-
-      doneList.appendChild(div);
-
-    }else{
-
-      taskList.appendChild(div);
-
-    }
-
-  });
+renderAll();
 
 }
 
 function toggleDetail(taskId,detailId){
 
-  const task =
-    tasks.find(t=>t.id===taskId);
+const task=
+tasks.find(t=>t.id===taskId);
 
-  const detail =
-    task.details.find(d=>d.id===detailId);
+const detail=
+task.details.find(d=>d.id===detailId);
 
-  detail.done=!detail.done;
+detail.done=!detail.done;
 
-  renderAll();
+renderAll();
+
+}
+
+function renderTasks(){
+
+const taskList=
+document.getElementById("taskList");
+
+const doneList=
+document.getElementById("doneTaskList");
+
+taskList.innerHTML="";
+doneList.innerHTML="";
+
+tasks.forEach(task=>{
+
+const div=
+document.createElement("div");
+
+div.className=
+`task ${task.done?"done":""}`;
+
+div.innerHTML=`
+
+<div style="display:flex;gap:12px;">
+
+<input
+type="checkbox"
+${task.done?"checked":""}
+class="task-check"
+>
+
+<div style="flex:1;">
+
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+">
+
+<div class="task-title">
+${task.emoji} ${task.text}
+</div>
+
+<button class="delete-btn">
+삭제
+</button>
+
+</div>
+
+${task.done?`
+<div class="done-badge">
+완료 ✨
+</div>
+`:""}
+
+<div class="badge ${task.priority}">
+${task.priority==="high"?"🔥 높음":task.priority==="medium"?"✨ 보통":"☁️ 낮음"}
+</div>
+
+<div style="margin-top:16px;">
+
+${task.details.map(detail=>`
+
+<div class="detail ${detail.done?"done":""}">
+
+<label>
+
+<input
+type="checkbox"
+${detail.done?"checked":""}
+onchange="
+toggleDetail(
+'${task.id}',
+'${detail.id}'
+)
+">
+
+✨ ${detail.text}
+
+</label>
+
+</div>
+
+`).join("")}
+
+</div>
+
+${
+!task.done
+?`
+
+<div class="detail-input-wrap">
+
+<input
+id="detail-input-${task.id}"
+placeholder="상세 업무 추가..."
+>
+
+<button
+class="add-btn"
+onclick="addDetail('${task.id}')">
+
+추가
+
+</button>
+
+</div>
+
+`
+:""
+}
+
+</div>
+
+</div>
+
+`;
+
+div
+.querySelector(".task-check")
+.addEventListener("change",()=>{
+
+task.done=!task.done;
+
+renderAll();
+
+});
+
+div
+.querySelector(".delete-btn")
+.addEventListener("click",()=>{
+
+tasks=
+tasks.filter(t=>t.id!==task.id);
+
+renderAll();
+
+});
+
+if(task.done){
+
+doneList.appendChild(div);
+
+}else{
+
+taskList.appendChild(div);
+
+}
+
+});
 
 }
 
 function renderTop3(){
 
-  const wrap =
-    document.getElementById("top3");
+const wrap=
+document.getElementById("top3");
 
-  wrap.innerHTML="";
+wrap.innerHTML="";
 
-  const active =
-    tasks
-    .filter(
-      t=>
-        !t.done &&
-        t.priority==="high"
-    )
-    .slice(0,3);
+const active=
+tasks
+.filter(
+t=>
+!t.done &&
+t.priority==="high"
+)
+.slice(0,3);
 
-  active.forEach((task,index)=>{
+active.forEach((task,index)=>{
 
-    let cls="top1";
+let cls="top1";
 
-    if(index===1) cls="top2";
-    if(index===2) cls="top3c";
+if(index===1)cls="top2";
+if(index===2)cls="top3c";
 
-    wrap.innerHTML += `
+wrap.innerHTML+=`
 
-      <div class="top-card ${cls}">
+<div class="top-card ${cls}">
 
-        <div class="top-rank">
-          TOP ${index+1}
-        </div>
+<div class="top-rank">
+TOP ${index+1}
+</div>
 
-        <div class="top-task">
-          ${task.emoji}
-          ${task.text}
-        </div>
+<div class="top-task">
+${task.emoji}
+${task.text}
+</div>
 
-      </div>
+</div>
 
-    `;
+`;
 
-  });
+});
 
 }
 
 function updateProgress(){
 
-  let total=0;
-  let done=0;
+let total=0;
+let done=0;
 
-  tasks.forEach(task=>{
+tasks.forEach(task=>{
 
-    total++;
+total++;
 
-    if(task.done) done++;
+if(task.done)done++;
 
-    task.details.forEach(detail=>{
+task.details.forEach(detail=>{
 
-      total++;
+total++;
 
-      if(detail.done) done++;
+if(detail.done)done++;
 
-    });
+});
 
-  });
+});
 
-  const percent =
-    total===0
-    ? 0
-    : Math.round((done/total)*100);
+const percent=
+total===0
+?0
+:Math.round((done/total)*100);
 
-  document.getElementById("percent")
-    .innerText = percent + "%";
+document.getElementById("percent")
+.innerText=percent+"%";
 
-  document.getElementById("progressFill")
-    .style.width = percent + "%";
+document.getElementById("progressFill")
+.style.width=percent+"%";
 
 }
 
 function addMemo(){
 
-  const type =
-    document.getElementById("memoType").value;
+const type=
+document.getElementById("memoType").value;
 
-  const title =
-    document.getElementById("memoTitle")
-    .value
-    .trim();
+const title=
+document.getElementById("memoTitle")
+.value
+.trim();
 
-  const text =
-    document.getElementById("memoText")
-    .value
-    .trim();
+const text=
+document.getElementById("memoText")
+.value
+.trim();
 
-  if(!title || !text) return;
+if(!title||!text)return;
 
-  memos.unshift({
+memos.unshift({
 
-    id:createId(),
-    type,
-    title,
-    text,
+id:createId(),
+type,
+title,
+text,
 
-    color:
-      memoColors[
-        Math.floor(
-          Math.random()*memoColors.length
-        )
-      ]
+color:
+memoColors[
+Math.floor(
+Math.random()*memoColors.length
+)
+]
 
-  });
+});
 
-  document.getElementById("memoTitle").value="";
-  document.getElementById("memoText").value="";
+document.getElementById("memoTitle").value="";
+document.getElementById("memoText").value="";
 
-  renderAll();
-
-}
-
-function updateMemo(id,title,text){
-
-  const memo =
-    memos.find(m=>m.id===id);
-
-  memo.title=title;
-  memo.text=text;
-
-  saveData();
+renderAll();
 
 }
 
 function renderMemos(){
 
-  const wrap =
-    document.getElementById("memoWrap");
+const wrap=
+document.getElementById("memoWrap");
 
-  wrap.innerHTML="";
+wrap.innerHTML="";
 
-  memos.forEach(m=>{
+memos.forEach(m=>{
 
-    wrap.innerHTML += `
+const memo=
+document.createElement("div");
 
-      <div class="memo ${m.color}">
+memo.className=
+`memo ${m.color}`;
 
-        <button
-          class="memo-delete"
-          onclick="deleteMemo('${m.id}')">
+memo.innerHTML=`
 
-          ×
+<button
+class="memo-delete">
 
-        </button>
+×
 
-        <div class="memo-type">
-          ${m.type}
-        </div>
+</button>
 
-        <input
-          class="memo-edit"
-          value="${m.title}"
-          onchange="
-            updateMemo(
-              '${m.id}',
-              this.value,
-              this.nextElementSibling.value
-            )
-          "
-        >
+<div class="memo-type">
+${m.type}
+</div>
 
-        <textarea
-          class="memo-edit"
-          onchange="
-            updateMemo(
-              '${m.id}',
-              this.previousElementSibling.value,
-              this.value
-            )
-          "
-        >${m.text}</textarea>
+<input
+class="memo-edit memo-title"
+value="${m.title}"
+>
 
-      </div>
+<textarea
+class="memo-edit memo-text"
+rows="5">${m.text}</textarea>
 
-    `;
+`;
 
-  });
+memo
+.querySelector(".memo-delete")
+.addEventListener("click",()=>{
+
+deleteMemo(m.id);
+
+});
+
+memo
+.querySelector(".memo-title")
+.addEventListener("change",(e)=>{
+
+m.title=e.target.value;
+
+saveData();
+
+});
+
+memo
+.querySelector(".memo-text")
+.addEventListener("change",(e)=>{
+
+m.text=e.target.value;
+
+saveData();
+
+});
+
+wrap.appendChild(memo);
+
+});
 
 }
 
 function deleteMemo(id){
 
-  memos =
-    memos.filter(m=>m.id!==id);
+memos=
+memos.filter(m=>m.id!==id);
 
-  renderAll();
+renderAll();
 
 }
 
 function openHistory(){
 
-  document.getElementById(
-    "historyModal"
-  ).style.display="flex";
+document.getElementById(
+"historyModal"
+).style.display="flex";
 
-  renderHistory();
+renderHistory();
 
 }
 
 function closeHistory(){
 
-  document.getElementById(
-    "historyModal"
-  ).style.display="none";
+document.getElementById(
+"historyModal"
+).style.display="none";
 
 }
 
 function renderHistory(){
 
-  const body =
-    document.getElementById("historyBody");
+const body=
+document.getElementById("historyBody");
 
-  body.innerHTML="";
+body.innerHTML="";
 
-  histories.forEach(h=>{
+histories.forEach(h=>{
 
-    body.innerHTML += `
+body.innerHTML+=`
 
-      <div class="history-item">
+<div class="history-item">
 
-        <div>
-          📅 ${h.date}
-          - ${h.text}
-        </div>
+<div>
+📅 ${h.date}
+- ${h.text}
+</div>
 
-        <button
-          class="delete-btn"
-          onclick="deleteHistory('${h.id}')">
+<button
+class="delete-btn"
+onclick="deleteHistory('${h.id}')">
 
-          삭제
+삭제
 
-        </button>
+</button>
 
-      </div>
+</div>
 
-    `;
+`;
 
-  });
+});
+
+}
+
+function deleteHistory(id){
+
+histories=
+histories.filter(h=>h.id!==id);
+
+renderHistory();
+
+saveData();
 
 }
 
 function renderAll(){
 
-  renderTasks();
+renderTasks();
 
-  renderTop3();
+renderTop3();
 
-  renderMemos();
+renderMemos();
 
-  updateProgress();
+updateProgress();
 
-  saveData();
+saveData();
 
 }
 
