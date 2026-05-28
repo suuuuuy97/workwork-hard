@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>슈냥 업무 대시보드</title>
 
@@ -27,7 +27,7 @@ background:
 linear-gradient(
 135deg,
 #eef4ff 0%,
-#f8fbff 40%,
+#f8fbff 45%,
 #ffffff 100%
 );
 
@@ -68,9 +68,9 @@ gap:24px;
 
 .panel{
 
-background:rgba(255,255,255,0.8);
+background:rgba(255,255,255,0.82);
 
-backdrop-filter:blur(18px);
+backdrop-filter:blur(20px);
 
 border-radius:28px;
 
@@ -78,6 +78,41 @@ padding:28px;
 
 box-shadow:
 0 8px 30px rgba(59,130,246,0.08);
+
+}
+
+.section-title{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:20px;
+
+}
+
+.history-btn{
+
+border:none;
+
+background:
+linear-gradient(
+135deg,
+#4f46e5,
+#6366f1
+);
+
+color:white;
+
+padding:12px 18px;
+
+border-radius:14px;
+
+cursor:pointer;
+
+font-weight:700;
 
 }
 
@@ -160,9 +195,9 @@ margin-bottom:16px;
 
 .task.done{
 
-opacity:0.75;
-
 background:#f8fafc;
+
+opacity:0.75;
 
 }
 
@@ -265,7 +300,7 @@ font-weight:700;
 
 .complete-title{
 
-margin-top:28px;
+margin-top:30px;
 
 margin-bottom:16px;
 
@@ -384,6 +419,54 @@ white-space:pre-wrap;
 
 }
 
+.modal{
+
+position:fixed;
+
+inset:0;
+
+background:rgba(0,0,0,0.45);
+
+display:none;
+
+justify-content:center;
+align-items:center;
+
+z-index:999;
+
+}
+
+.modal-content{
+
+width:90%;
+max-width:800px;
+
+background:white;
+
+padding:28px;
+
+border-radius:28px;
+
+max-height:80vh;
+
+overflow:auto;
+
+}
+
+.history-item{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:14px 0;
+
+border-bottom:1px solid #e5e7eb;
+
+}
+
 @media(max-width:1200px){
 
 .container{
@@ -409,9 +492,21 @@ grid-template-columns:1fr;
 
 <div class="panel">
 
-<h2 style="margin-bottom:20px;">
+<div class="section-title">
+
+<h2>
 💼 오늘의 업무
 </h2>
+
+<button
+class="history-btn"
+onclick="openHistory()">
+
+히스토리
+
+</button>
+
+</div>
 
 <div class="input-wrap">
 
@@ -484,7 +579,7 @@ class="progress-fill">
 
 <div class="panel">
 
-<h2 style="margin-bottom:20px;">
+<h2 style="margin-bottom:18px;">
 💌 요청 메모
 </h2>
 
@@ -540,6 +635,32 @@ onclick="addMemo()">
 
 </div>
 
+<div
+class="modal"
+id="historyModal">
+
+<div class="modal-content">
+
+<h2 style="margin-bottom:20px;">
+📚 업무 히스토리
+</h2>
+
+<div id="historyList"></div>
+
+<br>
+
+<button
+class="add-btn"
+onclick="closeHistory()">
+
+닫기
+
+</button>
+
+</div>
+
+</div>
+
 <script>
 
 let tasks =
@@ -547,6 +668,9 @@ JSON.parse(localStorage.getItem("tasks")) || [];
 
 let memos =
 JSON.parse(localStorage.getItem("memos")) || [];
+
+let histories =
+JSON.parse(localStorage.getItem("histories")) || [];
 
 function saveData(){
 
@@ -558,6 +682,11 @@ JSON.stringify(tasks)
 localStorage.setItem(
 "memos",
 JSON.stringify(memos)
+);
+
+localStorage.setItem(
+"histories",
+JSON.stringify(histories)
 );
 
 }
@@ -593,13 +722,32 @@ details:[]
 
 });
 
+histories.unshift({
+
+id:createId(),
+text,
+date:new Date().toLocaleDateString()
+
+});
+
 document.getElementById("taskInput").value="";
 
 saveData();
 
-renderTasks();
+renderAll();
 
-updateProgress();
+}
+
+function deleteTask(taskId){
+
+tasks =
+tasks.filter(
+t=>t.id!==taskId
+);
+
+saveData();
+
+renderAll();
 
 }
 
@@ -614,24 +762,7 @@ task.done = !task.done;
 
 saveData();
 
-renderTasks();
-
-updateProgress();
-
-}
-
-function deleteTask(taskId){
-
-tasks =
-tasks.filter(
-t=>t.id!==taskId
-);
-
-saveData();
-
-renderTasks();
-
-updateProgress();
+renderAll();
 
 }
 
@@ -662,9 +793,7 @@ done:false
 
 saveData();
 
-renderTasks();
-
-updateProgress();
+renderAll();
 
 }
 
@@ -684,9 +813,7 @@ detail.done = !detail.done;
 
 saveData();
 
-renderTasks();
-
-updateProgress();
+renderAll();
 
 }
 
@@ -709,38 +836,14 @@ document.createElement("div");
 div.className=
 `task ${task.done?"done":""}`;
 
-const detailsHTML =
-task.details.map(detail=>`
-
-<div class="
-detail
-${detail.done?"done":""}
-">
-
-<label>
-
-<input
-type="checkbox"
-${detail.done?"checked":""}
-data-detail-id="${detail.id}"
->
-
-${detail.text}
-
-</label>
-
-</div>
-
-`).join("");
-
 div.innerHTML=`
 
 <div style="display:flex;gap:12px;">
 
 <input
 type="checkbox"
-class="task-checkbox"
 ${task.done?"checked":""}
+class="task-check"
 >
 
 <div style="flex:1;">
@@ -774,7 +877,29 @@ ${task.priority==="high"
 :"☁️ 낮음"}
 </div>
 
-${detailsHTML}
+${task.details.map(detail=>`
+
+<div class="
+detail
+${detail.done?"done":""}
+">
+
+<label>
+
+<input
+type="checkbox"
+${detail.done?"checked":""}
+data-task="${task.id}"
+data-detail="${detail.id}"
+>
+
+${detail.text}
+
+</label>
+
+</div>
+
+`).join("")}
 
 ${
 !task.done
@@ -808,7 +933,7 @@ onclick="addDetail('${task.id}')">
 `;
 
 div
-.querySelector(".task-checkbox")
+.querySelector(".task-check")
 .addEventListener("change",()=>{
 
 toggleTask(task.id);
@@ -824,15 +949,15 @@ deleteTask(task.id);
 });
 
 const detailChecks =
-div.querySelectorAll("[data-detail-id]");
+div.querySelectorAll("[data-detail]");
 
 detailChecks.forEach(check=>{
 
 check.addEventListener("change",()=>{
 
 toggleDetail(
-task.id,
-check.dataset.detailId
+check.dataset.task,
+check.dataset.detail
 );
 
 });
@@ -992,11 +1117,85 @@ wrap.appendChild(div);
 
 }
 
+function openHistory(){
+
+document.getElementById(
+"historyModal"
+).style.display="flex";
+
+renderHistory();
+
+}
+
+function closeHistory(){
+
+document.getElementById(
+"historyModal"
+).style.display="none";
+
+}
+
+function renderHistory(){
+
+const wrap =
+document.getElementById("historyList");
+
+wrap.innerHTML="";
+
+histories.forEach(h=>{
+
+const div =
+document.createElement("div");
+
+div.className="history-item";
+
+div.innerHTML=`
+
+<div>
+📅 ${h.date}
+- ${h.text}
+</div>
+
+<button class="delete-btn">
+삭제
+</button>
+
+`;
+
+div
+.querySelector(".delete-btn")
+.addEventListener("click",()=>{
+
+histories =
+histories.filter(
+item=>item.id!==h.id
+);
+
+saveData();
+
+renderHistory();
+
+});
+
+wrap.appendChild(div);
+
+});
+
+}
+
+function renderAll(){
+
 renderTasks();
 
 renderMemos();
 
+renderHistory();
+
 updateProgress();
+
+}
+
+renderAll();
 
 </script>
 
