@@ -227,10 +227,6 @@ textarea{
   cursor:grab;
 }
 
-.task:active{
-  cursor:grabbing;
-}
-
 .task.done{
 
   background:#fff4fa;
@@ -462,6 +458,30 @@ textarea{
   font-weight:800;
 }
 
+.memo-type{
+
+  display:inline-block;
+
+  margin-bottom:12px;
+
+  background:white;
+
+  padding:6px 12px;
+
+  border-radius:999px;
+
+  font-size:12px;
+
+  font-weight:700;
+}
+
+.memo-edit{
+
+  margin-top:16px;
+
+  width:100%;
+}
+
 .modal{
 
   position:fixed;
@@ -633,15 +653,21 @@ textarea{
     <div class="panel">
 
       <div class="section-title">
-        <h2>💌 사업소 요청 리스트(카톡/메신저/전화)</h2>
+        <h2>💌 사업소 요청 리스트</h2>
       </div>
 
       <div class="input-wrap">
 
+        <select id="memoType">
+          <option value="카톡">💬 카톡</option>
+          <option value="메신저">🖥️ 메신저</option>
+          <option value="전화">☎️ 전화</option>
+        </select>
+
         <input
           id="memoTitle"
           class="main-input"
-          placeholder="방법/사업소명/담당자/내용"
+          placeholder="사업소명 / 제목"
         >
 
       </div>
@@ -649,7 +675,7 @@ textarea{
       <textarea
         id="memoText"
         rows="5"
-        placeholder="요청 내용 입력."
+        placeholder="요청 내용 입력..."
       ></textarea>
 
       <br><br>
@@ -706,11 +732,35 @@ const memoColors = [
   "memo-blue"
 ];
 
-let tasks = [];
-let memos = [];
-let histories = [];
+let tasks =
+  JSON.parse(localStorage.getItem("tasks")) || [];
+
+let memos =
+  JSON.parse(localStorage.getItem("memos")) || [];
+
+let histories =
+  JSON.parse(localStorage.getItem("histories")) || [];
 
 let draggedTaskId = null;
+
+function saveData(){
+
+  localStorage.setItem(
+    "tasks",
+    JSON.stringify(tasks)
+  );
+
+  localStorage.setItem(
+    "memos",
+    JSON.stringify(memos)
+  );
+
+  localStorage.setItem(
+    "histories",
+    JSON.stringify(histories)
+  );
+
+}
 
 function createId(){
 
@@ -809,6 +859,8 @@ function deleteHistory(id){
     histories.filter(h=>h.id!==id);
 
   renderHistory();
+
+  saveData();
 
 }
 
@@ -1157,6 +1209,9 @@ function updateProgress(){
 
 function addMemo(){
 
+  const type =
+    document.getElementById("memoType").value;
+
   const title =
     document.getElementById("memoTitle")
     .value
@@ -1172,6 +1227,7 @@ function addMemo(){
   memos.unshift({
 
     id:createId(),
+    type,
     title,
     text,
 
@@ -1187,7 +1243,19 @@ function addMemo(){
   document.getElementById("memoTitle").value="";
   document.getElementById("memoText").value="";
 
-  renderMemos();
+  renderAll();
+
+}
+
+function updateMemo(id,title,text){
+
+  const memo =
+    memos.find(m=>m.id===id);
+
+  memo.title=title;
+  memo.text=text;
+
+  saveData();
 
 }
 
@@ -1212,13 +1280,32 @@ function renderMemos(){
 
         </button>
 
-        <h3>
-          ${m.title}
-        </h3>
+        <div class="memo-type">
+          ${m.type}
+        </div>
 
-        <br>
+        <input
+          class="memo-edit"
+          value="${m.title}"
+          onchange="
+            updateMemo(
+              '${m.id}',
+              this.value,
+              this.nextElementSibling.value
+            )
+          "
+        >
 
-        <p>${m.text}</p>
+        <textarea
+          class="memo-edit"
+          onchange="
+            updateMemo(
+              '${m.id}',
+              this.previousElementSibling.value,
+              this.value
+            )
+          "
+        >${m.text}</textarea>
 
       </div>
 
@@ -1233,7 +1320,7 @@ function deleteMemo(id){
   memos =
     memos.filter(m=>m.id!==id);
 
-  renderMemos();
+  renderAll();
 
 }
 
@@ -1298,6 +1385,8 @@ function renderAll(){
   renderMemos();
 
   updateProgress();
+
+  saveData();
 
 }
 
