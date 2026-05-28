@@ -542,7 +542,7 @@ button{
 </h1>
 
 <div class="subtitle">
-오늘도 하나씩 해내는 중 🌷
+오늘도 뚠뚠, 하나씩 해내는 중 🌷
 </div>
 
 <div class="container">
@@ -572,7 +572,7 @@ button{
       <input
         id="taskInput"
         class="main-input"
-        placeholder="오늘 해야할 업무 입력."
+        placeholder="오늘 해야할 업무 입력..."
       >
 
       <select id="priorityInput">
@@ -626,7 +626,7 @@ button{
       <textarea
         id="mindInput"
         rows="7"
-        placeholder="오늘의 다짐 적기."
+        placeholder="오늘의 다짐 적기..."
       ></textarea>
 
       <div class="progress-card">
@@ -685,7 +685,7 @@ button{
         <input
           id="memoTitle"
           class="main-input"
-          placeholder="사업소명 / 내용"
+          placeholder="사업소명 / 제목"
         >
 
       </div>
@@ -693,7 +693,7 @@ button{
       <textarea
         id="memoText"
         rows="5"
-        placeholder="요청 내용 입력."
+        placeholder="요청 내용 입력..."
       ></textarea>
 
       <br><br>
@@ -797,6 +797,20 @@ function save(){
     "histories",
     JSON.stringify(histories)
   );
+
+}
+
+function getPriorityText(priority){
+
+  if(priority === "high"){
+    return "🔥 높음";
+  }
+
+  if(priority === "medium"){
+    return "✨ 보통";
+  }
+
+  return "☁️ 낮음";
 
 }
 
@@ -909,7 +923,6 @@ function renderTasks(){
     }
 
     div.innerHTML = `
-
       <div style="display:flex;gap:12px;">
 
         <input
@@ -934,10 +947,8 @@ function renderTasks(){
 
               ${
                 task.done
-                ?
-                '<span class="done-badge">완료 ✨</span>'
-                :
-                ''
+                ? '<span class="done-badge">완료 ✨</span>'
+                : ''
               }
 
             </div>
@@ -956,7 +967,7 @@ function renderTasks(){
           ">
 
             <div class="badge ${badgeClass}">
-              ${task.priority}
+              ${getPriorityText(task.priority)}
             </div>
 
             <select class="priority-select">
@@ -1013,7 +1024,6 @@ function renderTasks(){
         </div>
 
       </div>
-
     `;
 
     div
