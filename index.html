@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>슈냥 업무 대시보드 ✨</title>
+<title>슈냥 업무 대시보드</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,33 +24,37 @@ body{
 font-family:'Pretendard',sans-serif;
 
 background:
-linear-gradient(135deg,#fff6fb 0%,#f4f8ff 100%);
+linear-gradient(
+135deg,
+#f5f7fb 0%,
+#eef4ff 45%,
+#f8f9fc 100%
+);
 
 min-height:100vh;
 
 padding:40px;
 
-color:#2b2b2b;
+color:#1f2937;
 
 }
 
 h1{
 
-font-size:48px;
-
+font-size:42px;
 font-weight:800;
 
-margin-bottom:10px;
+margin-bottom:8px;
 
 }
 
 .subtitle{
 
-color:#777;
+color:#6b7280;
 
-margin-bottom:34px;
+margin-bottom:30px;
 
-font-size:16px;
+font-size:15px;
 
 }
 
@@ -61,24 +64,24 @@ display:grid;
 
 grid-template-columns:1.2fr 0.8fr;
 
-gap:28px;
+gap:24px;
 
 }
 
 .panel{
 
-background:rgba(255,255,255,0.8);
+background:rgba(255,255,255,0.75);
 
-border:1px solid rgba(255,255,255,0.5);
+border:1px solid rgba(255,255,255,0.6);
 
-backdrop-filter:blur(20px);
+backdrop-filter:blur(18px);
 
-border-radius:34px;
+border-radius:28px;
 
-padding:28px;
+padding:26px;
 
 box-shadow:
-0 10px 35px rgba(255,182,222,0.15);
+0 10px 30px rgba(15,23,42,0.06);
 
 }
 
@@ -96,8 +99,7 @@ margin-bottom:22px;
 
 .section-title h2{
 
-font-size:28px;
-
+font-size:26px;
 font-weight:800;
 
 }
@@ -106,8 +108,7 @@ font-weight:800;
 
 border:none;
 
-background:
-linear-gradient(135deg,#8f94ff,#b6b9ff);
+background:#111827;
 
 color:white;
 
@@ -119,9 +120,6 @@ cursor:pointer;
 
 font-weight:700;
 
-box-shadow:
-0 6px 18px rgba(143,148,255,0.25);
-
 }
 
 .top3{
@@ -132,57 +130,32 @@ grid-template-columns:1fr 1fr 1fr;
 
 gap:14px;
 
-margin-bottom:28px;
+margin-bottom:26px;
 
 }
 
 .top-card{
 
-border-radius:24px;
-
 padding:20px;
+
+border-radius:22px;
 
 color:white;
 
 min-height:120px;
 
-position:relative;
-
-overflow:hidden;
-
-box-shadow:
-0 10px 24px rgba(0,0,0,0.08);
-
-}
-
-.top-card::after{
-
-content:"";
-
-position:absolute;
-
-width:140px;
-height:140px;
-
-border-radius:50%;
-
-background:rgba(255,255,255,0.18);
-
-top:-40px;
-right:-30px;
-
 }
 
 .top1{
-background:linear-gradient(135deg,#ff77b7,#ffb6d9);
+background:linear-gradient(135deg,#111827,#374151);
 }
 
 .top2{
-background:linear-gradient(135deg,#9b8cff,#c4bbff);
+background:linear-gradient(135deg,#2563eb,#60a5fa);
 }
 
 .top3c{
-background:linear-gradient(135deg,#79d5ff,#b7ebff);
+background:linear-gradient(135deg,#0f766e,#5eead4);
 }
 
 .top-rank{
@@ -191,7 +164,7 @@ font-size:12px;
 
 opacity:0.8;
 
-margin-bottom:14px;
+margin-bottom:12px;
 
 }
 
@@ -199,13 +172,9 @@ margin-bottom:14px;
 
 font-size:16px;
 
-line-height:1.6;
+line-height:1.5;
 
 font-weight:700;
-
-position:relative;
-
-z-index:2;
 
 }
 
@@ -217,7 +186,7 @@ gap:12px;
 
 flex-wrap:wrap;
 
-margin-bottom:24px;
+margin-bottom:22px;
 
 }
 
@@ -229,17 +198,15 @@ border:none;
 
 outline:none;
 
-background:#f4f6fb;
+background:#f3f4f6;
 
-border-radius:18px;
+border-radius:16px;
 
-padding:16px;
-
-font-family:'Pretendard',sans-serif;
+padding:15px;
 
 font-size:14px;
 
-transition:0.2s;
+font-family:'Pretendard',sans-serif;
 
 }
 
@@ -250,7 +217,7 @@ textarea:focus{
 background:white;
 
 box-shadow:
-0 0 0 4px rgba(255,182,222,0.2);
+0 0 0 3px rgba(59,130,246,0.15);
 
 }
 
@@ -264,31 +231,19 @@ flex:1;
 
 border:none;
 
-background:
-linear-gradient(135deg,#ff7eb6,#ff9ac6);
+background:#111827;
 
 color:white;
 
 padding:0 24px;
 
-height:54px;
+height:52px;
 
-border-radius:18px;
+border-radius:16px;
 
 cursor:pointer;
 
 font-weight:700;
-
-box-shadow:
-0 6px 18px rgba(255,126,182,0.28);
-
-transition:0.2s;
-
-}
-
-.add-btn:hover{
-
-transform:translateY(-1px);
 
 }
 
@@ -296,30 +251,30 @@ transform:translateY(-1px);
 
 background:white;
 
-border-radius:26px;
+border-radius:22px;
 
-padding:22px;
+padding:20px;
 
-margin-bottom:18px;
+margin-bottom:16px;
 
-border:1px solid rgba(255,192,220,0.3);
+border:1px solid #eef2f7;
 
 box-shadow:
-0 8px 20px rgba(255,182,222,0.12);
+0 4px 14px rgba(15,23,42,0.04);
 
 }
 
 .task.done{
 
-background:#fff4fa;
+opacity:0.75;
 
-border:2px solid #ffc4df;
+background:#f9fafb;
 
 }
 
 .task-title{
 
-font-size:18px;
+font-size:17px;
 
 font-weight:700;
 
@@ -331,7 +286,7 @@ line-height:1.6;
 
 text-decoration:line-through;
 
-color:#777;
+color:#6b7280;
 
 }
 
@@ -341,13 +296,13 @@ display:inline-block;
 
 margin-top:10px;
 
-background:#ff5ca8;
+background:#111827;
 
 color:white;
 
-font-size:11px;
+padding:6px 10px;
 
-padding:6px 12px;
+font-size:11px;
 
 border-radius:999px;
 
@@ -359,7 +314,7 @@ display:inline-block;
 
 margin-top:12px;
 
-padding:8px 14px;
+padding:7px 12px;
 
 border-radius:999px;
 
@@ -370,29 +325,31 @@ font-weight:700;
 }
 
 .high{
-background:#ffe2ea;
-color:#ff4d8f;
+background:#fee2e2;
+color:#dc2626;
 }
 
 .medium{
-background:#fff2d9;
-color:#ff9800;
+background:#fef3c7;
+color:#d97706;
 }
 
 .low{
-background:#e4f5ff;
-color:#3f9ad6;
+background:#dbeafe;
+color:#2563eb;
 }
 
 .detail{
 
-background:#f6f7fb;
-
-border-radius:14px;
+background:#f8fafc;
 
 padding:12px;
 
+border-radius:14px;
+
 margin-top:10px;
+
+font-size:14px;
 
 }
 
@@ -410,7 +367,7 @@ display:flex;
 
 gap:10px;
 
-margin-top:16px;
+margin-top:14px;
 
 }
 
@@ -418,11 +375,9 @@ margin-top:16px;
 
 border:none;
 
-background:#fff0f6;
+background:#f3f4f6;
 
-color:#ff4d8f;
-
-padding:10px 14px;
+padding:9px 12px;
 
 border-radius:12px;
 
@@ -432,23 +387,13 @@ font-size:12px;
 
 font-weight:700;
 
-transition:0.2s;
-
-}
-
-.delete-btn:hover{
-
-background:#ffd9ea;
-
 }
 
 .complete-title{
 
-margin-top:34px;
+margin-top:30px;
 
-margin-bottom:18px;
-
-color:#ff5ca8;
+margin-bottom:16px;
 
 font-size:24px;
 
@@ -468,7 +413,7 @@ display:flex;
 
 justify-content:space-between;
 
-margin-bottom:12px;
+margin-bottom:10px;
 
 }
 
@@ -476,9 +421,9 @@ margin-bottom:12px;
 
 width:100%;
 
-height:18px;
+height:16px;
 
-background:#ececec;
+background:#e5e7eb;
 
 border-radius:999px;
 
@@ -495,12 +440,9 @@ width:0%;
 background:
 linear-gradient(
 90deg,
-#ff7eb6,
-#ffb199,
-#ffd66b
+#2563eb,
+#60a5fa
 );
-
-border-radius:999px;
 
 transition:0.3s;
 
@@ -510,27 +452,19 @@ transition:0.3s;
 
 padding:22px;
 
-border-radius:24px;
+border-radius:22px;
 
-margin-bottom:18px;
+margin-bottom:16px;
 
 position:relative;
 
+background:white;
+
+border:1px solid #eef2f7;
+
 box-shadow:
-0 8px 18px rgba(0,0,0,0.08);
+0 4px 14px rgba(15,23,42,0.05);
 
-}
-
-.memo-yellow{
-background:#fff1af;
-}
-
-.memo-pink{
-background:#ffd9e8;
-}
-
-.memo-blue{
-background:#daf1ff;
 }
 
 .memo-delete{
@@ -540,20 +474,18 @@ position:absolute;
 top:12px;
 right:12px;
 
-width:30px;
-height:30px;
+width:28px;
+height:28px;
 
 border:none;
 
 border-radius:50%;
 
-background:#ff5ca8;
+background:#111827;
 
 color:white;
 
 cursor:pointer;
-
-font-weight:800;
 
 }
 
@@ -561,9 +493,9 @@ font-weight:800;
 
 display:inline-block;
 
-margin-bottom:12px;
+background:#eef2ff;
 
-background:white;
+color:#3730a3;
 
 padding:6px 12px;
 
@@ -573,15 +505,15 @@ font-size:12px;
 
 font-weight:700;
 
+margin-bottom:12px;
+
 }
 
 .memo-edit{
 
-margin-top:12px;
-
 width:100%;
 
-background:rgba(255,255,255,0.6);
+margin-top:12px;
 
 }
 
@@ -591,7 +523,7 @@ position:fixed;
 
 inset:0;
 
-background:rgba(0,0,0,0.4);
+background:rgba(0,0,0,0.45);
 
 display:none;
 
@@ -613,9 +545,9 @@ overflow:auto;
 
 background:white;
 
-border-radius:30px;
+border-radius:28px;
 
-padding:30px;
+padding:28px;
 
 }
 
@@ -629,7 +561,7 @@ align-items:center;
 
 padding:14px 0;
 
-border-bottom:1px solid #eee;
+border-bottom:1px solid #e5e7eb;
 
 }
 
@@ -651,11 +583,11 @@ grid-template-columns:1fr;
 <body>
 
 <h1>
-슈냥의 슬기로운 회사생활 ✨
+슈냥 업무 대시보드 ✨
 </h1>
 
 <div class="subtitle">
-오늘도 차근차근 해내는 중 🌷
+오늘도 차근차근 정리중
 </div>
 
 <div class="container">
@@ -664,15 +596,13 @@ grid-template-columns:1fr;
 
 <div class="section-title">
 
-<h2>
-💼 오늘의 업무
-</h2>
+<h2>💼 오늘의 업무</h2>
 
 <button
 class="history-btn"
 onclick="openHistory()">
 
-📚 히스토리
+히스토리
 
 </button>
 
@@ -685,13 +615,23 @@ onclick="openHistory()">
 <input
 id="taskInput"
 class="main-input"
-placeholder="오늘 해야할 업무 입력..."
+placeholder="업무 입력..."
 >
 
 <select id="priorityInput">
-<option value="high">🔥 높음</option>
-<option value="medium" selected>✨ 보통</option>
-<option value="low">☁️ 낮음</option>
+
+<option value="high">
+🔥 높음
+</option>
+
+<option value="medium">
+✨ 보통
+</option>
+
+<option value="low">
+☁️ 낮음
+</option>
+
 </select>
 
 <button
@@ -707,7 +647,7 @@ onclick="addTask()">
 <div id="taskList"></div>
 
 <div class="complete-title">
-✅ 오늘 완료한 일
+✅ 완료한 업무
 </div>
 
 <div id="doneTaskList"></div>
@@ -719,25 +659,16 @@ onclick="addTask()">
 <div class="panel">
 
 <div class="section-title">
-<h2>🌷 오늘의 다짐</h2>
+<h2>📈 진행률</h2>
 </div>
-
-<textarea
-rows="6"
-placeholder="오늘의 다짐 적기..."
-></textarea>
 
 <div class="progress-card">
 
 <div class="progress-top">
 
-<div>
-오늘의 진행률
-</div>
+<div>오늘 진행률</div>
 
-<div id="percent">
-0%
-</div>
+<div id="percent">0%</div>
 
 </div>
 
@@ -759,21 +690,31 @@ class="progress-fill">
 <div class="panel">
 
 <div class="section-title">
-<h2>💌 사업소 요청 리스트</h2>
+<h2>💌 요청 메모</h2>
 </div>
 
 <div class="input-wrap">
 
 <select id="memoType">
-<option value="카톡">💬 카톡</option>
-<option value="메신저">🖥️ 메신저</option>
-<option value="전화">☎️ 전화</option>
+
+<option value="카톡">
+💬 카톡
+</option>
+
+<option value="메신저">
+🖥️ 메신저
+</option>
+
+<option value="전화">
+☎️ 전화
+</option>
+
 </select>
 
 <input
 id="memoTitle"
 class="main-input"
-placeholder="사업소명 / 제목"
+placeholder="제목 입력..."
 >
 
 </div>
@@ -781,7 +722,7 @@ placeholder="사업소명 / 제목"
 <textarea
 id="memoText"
 rows="5"
-placeholder="요청 내용 입력..."
+placeholder="내용 입력..."
 ></textarea>
 
 <br><br>
@@ -830,13 +771,7 @@ onclick="closeHistory()">
 
 <script>
 
-const emojis=["🌷","🎀","✨","💖","🍓"];
-
-const memoColors=[
-"memo-yellow",
-"memo-pink",
-"memo-blue"
-];
+const emojis=["✨","📌","💼","📝","📊"];
 
 let tasks=
 JSON.parse(localStorage.getItem("tasks"))||[];
@@ -886,7 +821,7 @@ document.getElementById("priorityInput")
 
 if(!text)return;
 
-tasks.push({
+tasks.unshift({
 
 id:createId(),
 text,
@@ -905,9 +840,7 @@ Math.random()*emojis.length
 histories.unshift({
 
 id:createId(),
-
 date:new Date().toLocaleDateString(),
-
 text
 
 });
@@ -983,8 +916,8 @@ div.innerHTML=`
 
 <input
 type="checkbox"
-${task.done?"checked":""}
 class="task-check"
+${task.done?"checked":""}
 >
 
 <div style="flex:1;">
@@ -993,6 +926,7 @@ class="task-check"
 display:flex;
 justify-content:space-between;
 align-items:center;
+gap:12px;
 ">
 
 <div class="task-title">
@@ -1007,15 +941,19 @@ ${task.emoji} ${task.text}
 
 ${task.done?`
 <div class="done-badge">
-완료 ✨
+완료됨
 </div>
 `:""}
 
 <div class="badge ${task.priority}">
-${task.priority==="high"?"🔥 높음":task.priority==="medium"?"✨ 보통":"☁️ 낮음"}
+${task.priority==="high"
+?"🔥 높음"
+:task.priority==="medium"
+?"✨ 보통"
+:"☁️ 낮음"}
 </div>
 
-<div style="margin-top:16px;">
+<div style="margin-top:14px;">
 
 ${task.details.map(detail=>`
 
@@ -1033,7 +971,7 @@ toggleDetail(
 )
 ">
 
-✨ ${detail.text}
+${detail.text}
 
 </label>
 
@@ -1089,7 +1027,9 @@ div
 .addEventListener("click",()=>{
 
 tasks=
-tasks.filter(t=>t.id!==task.id);
+tasks.filter(
+t=>t.id!==task.id
+);
 
 renderAll();
 
@@ -1141,7 +1081,6 @@ TOP ${index+1}
 </div>
 
 <div class="top-task">
-${task.emoji}
 ${task.text}
 </div>
 
@@ -1180,17 +1119,20 @@ total===0
 :Math.round((done/total)*100);
 
 document.getElementById("percent")
-.innerText=percent+"%";
+.innerText=
+percent+"%";
 
 document.getElementById("progressFill")
-.style.width=percent+"%";
+.style.width=
+percent+"%";
 
 }
 
 function addMemo(){
 
 const type=
-document.getElementById("memoType").value;
+document.getElementById("memoType")
+.value;
 
 const title=
 document.getElementById("memoTitle")
@@ -1202,21 +1144,14 @@ document.getElementById("memoText")
 .value
 .trim();
 
-if(!title||!text)return;
+if(!title || !text)return;
 
 memos.unshift({
 
 id:createId(),
 type,
 title,
-text,
-
-color:
-memoColors[
-Math.floor(
-Math.random()*memoColors.length
-)
-]
+text
 
 });
 
@@ -1236,19 +1171,15 @@ wrap.innerHTML="";
 
 memos.forEach(m=>{
 
-const memo=
+const div=
 document.createElement("div");
 
-memo.className=
-`memo ${m.color}`;
+div.className="memo";
 
-memo.innerHTML=`
+div.innerHTML=`
 
-<button
-class="memo-delete">
-
+<button class="memo-delete">
 ✕
-
 </button>
 
 <div class="memo-type">
@@ -1266,7 +1197,7 @@ rows="5">${m.text}</textarea>
 
 `;
 
-memo
+div
 .querySelector(".memo-delete")
 .addEventListener("click",()=>{
 
@@ -1275,13 +1206,11 @@ memos.filter(
 memo=>memo.id!==m.id
 );
 
-saveData();
-
-renderMemos();
+renderAll();
 
 });
 
-memo
+div
 .querySelector(".memo-title")
 .addEventListener("input",(e)=>{
 
@@ -1291,7 +1220,7 @@ saveData();
 
 });
 
-memo
+div
 .querySelector(".memo-text")
 .addEventListener("input",(e)=>{
 
@@ -1301,7 +1230,7 @@ saveData();
 
 });
 
-wrap.appendChild(memo);
+wrap.appendChild(div);
 
 });
 
@@ -1362,7 +1291,9 @@ onclick="deleteHistory('${h.id}')">
 function deleteHistory(id){
 
 histories=
-histories.filter(h=>h.id!==id);
+histories.filter(
+h=>h.id!==id
+);
 
 renderHistory();
 
