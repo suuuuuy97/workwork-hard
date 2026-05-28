@@ -787,9 +787,28 @@ function addDetail(taskId){
 
   });
 
+  histories.unshift({
+
+    id:createId(),
+
+    date:new Date().toLocaleDateString(),
+
+    text:`[상세업무] ${value}`
+
+  });
+
   input.value="";
 
   renderAll();
+
+}
+
+function deleteHistory(id){
+
+  histories =
+    histories.filter(h=>h.id!==id);
+
+  renderHistory();
 
 }
 
@@ -1066,7 +1085,13 @@ function renderTop3(){
   wrap.innerHTML="";
 
   const active =
-    tasks.filter(t=>!t.done).slice(0,3);
+    tasks
+    .filter(
+      t=>
+        !t.done &&
+        t.priority==="high"
+    )
+    .slice(0,3);
 
   active.forEach((task,index)=>{
 
@@ -1247,6 +1272,14 @@ function renderHistory(){
           📅 ${h.date}
           - ${h.text}
         </div>
+
+        <button
+          class="delete-btn"
+          onclick="deleteHistory('${h.id}')">
+
+          삭제
+
+        </button>
 
       </div>
 
