@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -43,16 +44,12 @@ h1{
 
   line-height:1.2;
 
-  margin-bottom:30px;
-
-  color:#2a2a2a;
+  margin-bottom:12px;
 }
 
 .subtitle{
 
   color:#888;
-
-  margin-top:-14px;
 
   margin-bottom:34px;
 
@@ -118,13 +115,6 @@ h1{
   cursor:pointer;
 
   font-weight:600;
-
-  transition:0.2s;
-}
-
-.history-btn:hover{
-
-  transform:translateY(-2px);
 }
 
 .top3{
@@ -236,13 +226,6 @@ button{
   border-radius:18px;
 
   font-weight:700;
-
-  transition:0.2s;
-}
-
-.add-btn:hover{
-
-  transform:translateY(-2px);
 }
 
 .task{
@@ -257,13 +240,6 @@ button{
 
   box-shadow:
     0 10px 20px rgba(0,0,0,0.05);
-
-  transition:0.25s;
-}
-
-.task:hover{
-
-  transform:translateY(-3px);
 }
 
 .task.done{
@@ -462,22 +438,6 @@ button{
   background:#daf1ff;
 }
 
-.memo h3{
-
-  margin-bottom:14px;
-
-  line-height:1.5;
-}
-
-.memo p{
-
-  white-space:pre-wrap;
-
-  line-height:1.7;
-
-  font-size:14px;
-}
-
 .memo-delete{
 
   position:absolute;
@@ -544,21 +504,6 @@ button{
   border-bottom:1px solid #eee;
 }
 
-.history-delete{
-
-  background:#ffe2ea;
-
-  color:#ff4d8f;
-
-  padding:10px 14px;
-
-  border-radius:14px;
-
-  font-size:12px;
-
-  font-weight:700;
-}
-
 @media(max-width:1200px){
 
   .container{
@@ -586,8 +531,6 @@ button{
 
 <div class="container">
 
-  <!-- LEFT -->
-
   <div class="panel">
 
     <div class="section-title">
@@ -613,7 +556,7 @@ button{
       <input
         id="taskInput"
         class="main-input"
-        placeholder="오늘 해야할 업무 입력."
+        placeholder="오늘 해야할 업무 입력..."
       >
 
       <select id="priorityInput">
@@ -652,8 +595,6 @@ button{
 
   </div>
 
-  <!-- RIGHT -->
-
   <div>
 
     <div class="panel">
@@ -669,7 +610,7 @@ button{
       <textarea
         id="mindInput"
         rows="7"
-        placeholder="오늘의 다짐."
+        placeholder="오늘의 다짐 적기..."
       ></textarea>
 
       <div class="progress-card">
@@ -736,7 +677,7 @@ button{
       <textarea
         id="memoText"
         rows="5"
-        placeholder="요청 내용 입력."
+        placeholder="요청 내용 입력..."
       ></textarea>
 
       <br><br>
@@ -759,35 +700,475 @@ button{
 
 </div>
 
-<!-- 히스토리 -->
-
-<div class="modal" id="historyModal">
-
-  <div class="modal-content">
-
-    <h2 style="margin-bottom:20px;">
-      📚 업무 히스토리
-    </h2>
-
-    <div id="historyBody"></div>
-
-    <br>
-
-    <button
-      class="add-btn"
-      onclick="closeHistory()">
-
-      닫기
-
-    </button>
-
-  </div>
-
-</div>
-
 <script>
 
-/* JS는 이전 버전 그대로 사용 가능 */
+const emojis = [
+  "🌷","🎀","✨","💖","🍓"
+];
+
+const memoColors = [
+  "memo-yellow",
+  "memo-pink",
+  "memo-blue"
+];
+
+let tasks =
+  JSON.parse(localStorage.getItem("tasks")) || [];
+
+let memos =
+  JSON.parse(localStorage.getItem("memos")) || [];
+
+document.getElementById("mindInput").value =
+  localStorage.getItem("mindText") || "";
+
+document
+.getElementById("mindInput")
+.addEventListener("input",()=>{
+
+  localStorage.setItem(
+    "mindText",
+    document.getElementById("mindInput").value
+  );
+
+});
+
+function createId(){
+
+  return Math.random().toString(36).substring(2,12);
+
+}
+
+function save(){
+
+  localStorage.setItem(
+    "tasks",
+    JSON.stringify(tasks)
+  );
+
+  localStorage.setItem(
+    "memos",
+    JSON.stringify(memos)
+  );
+
+}
+
+function addTask(){
+
+  const text =
+    document.getElementById("taskInput").value.trim();
+
+  const priority =
+    document.getElementById("priorityInput").value;
+
+  if(!text) return;
+
+  tasks.unshift({
+
+    id:createId(),
+    text,
+    priority,
+    done:false,
+    emoji:
+      emojis[
+        Math.floor(Math.random()*emojis.length)
+      ],
+    details:[]
+  });
+
+  document.getElementById("taskInput").value="";
+
+  save();
+
+  renderTasks();
+
+}
+
+function renderTasks(){
+
+  const taskList =
+    document.getElementById("taskList");
+
+  const doneList =
+    document.getElementById("doneTaskList");
+
+  taskList.innerHTML="";
+  doneList.innerHTML="";
+
+  const order = {
+    high:3,
+    medium:2,
+    low:1
+  };
+
+  const sorted =
+    [...tasks]
+    .sort((a,b)=>
+      order[b.priority]
+      -
+      order[a.priority]
+    );
+
+  sorted.forEach(task=>{
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      `task ${task.done ? "done" : ""}`;
+
+    let badgeClass="low";
+
+    if(task.priority==="high"){
+      badgeClass="high";
+    }
+
+    if(task.priority==="medium"){
+      badgeClass="medium";
+    }
+
+    div.innerHTML = `
+
+      <div style="display:flex;gap:12px;">
+
+        <input
+          type="checkbox"
+          class="task-check"
+          ${task.done ? "checked" : ""}
+        >
+
+        <div style="flex:1;">
+
+          <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:10px;
+          ">
+
+            <div class="task-title">
+
+              ${task.emoji}
+              ${task.text}
+
+              ${task.done ? `
+                <span class="done-badge">
+                  완료 ✨
+                </span>
+              ` : ""}
+
+            </div>
+
+            <button class="delete-btn">
+              삭제
+            </button>
+
+          </div>
+
+          <div class="badge ${badgeClass}">
+            ${task.priority}
+          </div>
+
+          <div class="detail-list"></div>
+
+          ${
+            !task.done
+            ?
+            `
+            <div class="detail-input-wrap">
+
+              <input
+                class="detail-input"
+                style="flex:1;"
+                placeholder="상세 업무 추가..."
+              >
+
+              <button class="add-btn detail-btn">
+                추가
+              </button>
+
+            </div>
+            `
+            :
+            ""
+          }
+
+        </div>
+
+      </div>
+
+    `;
+
+    div
+    .querySelector(".task-check")
+    .addEventListener("change",()=>{
+
+      task.done=!task.done;
+
+      save();
+
+      renderTasks();
+
+    });
+
+    div
+    .querySelector(".delete-btn")
+    .addEventListener("click",()=>{
+
+      tasks =
+        tasks.filter(t=>t.id!==task.id);
+
+      save();
+
+      renderTasks();
+
+    });
+
+    const detailList =
+      div.querySelector(".detail-list");
+
+    task.details.forEach(detail=>{
+
+      const detailDiv =
+        document.createElement("div");
+
+      detailDiv.className =
+        `detail ${detail.done ? "done" : ""}`;
+
+      detailDiv.innerHTML = `
+        <label>
+          <input
+            type="checkbox"
+            class="detail-check"
+            ${detail.done ? "checked" : ""}
+          >
+          ✨ ${detail.text}
+        </label>
+      `;
+
+      detailDiv
+      .querySelector(".detail-check")
+      .addEventListener("change",()=>{
+
+        detail.done=!detail.done;
+
+        save();
+
+        renderTasks();
+
+      });
+
+      detailList.appendChild(detailDiv);
+
+    });
+
+    if(!task.done){
+
+      const detailInput =
+        div.querySelector(".detail-input");
+
+      div
+      .querySelector(".detail-btn")
+      .addEventListener("click",()=>{
+
+        const value =
+          detailInput.value.trim();
+
+        if(!value) return;
+
+        task.details.push({
+
+          id:createId(),
+          text:value,
+          done:false
+
+        });
+
+        detailInput.value="";
+
+        save();
+
+        renderTasks();
+
+      });
+
+    }
+
+    if(task.done){
+
+      doneList.appendChild(div);
+
+    }else{
+
+      taskList.appendChild(div);
+
+    }
+
+  });
+
+  renderTop3();
+
+  updateProgress();
+
+}
+
+function renderTop3(){
+
+  const wrap =
+    document.getElementById("top3");
+
+  wrap.innerHTML="";
+
+  const order = {
+    high:3,
+    medium:2,
+    low:1
+  };
+
+  const top =
+    [...tasks]
+    .filter(t=>!t.done)
+    .sort((a,b)=>
+      order[b.priority]
+      -
+      order[a.priority]
+    )
+    .slice(0,3);
+
+  top.forEach((task,index)=>{
+
+    let cls="top1";
+
+    if(index===1) cls="top2";
+    if(index===2) cls="top3c";
+
+    wrap.innerHTML += `
+      <div class="top-card ${cls}">
+        <div class="top-rank">
+          TOP ${index+1}
+        </div>
+        <div class="top-task">
+          ${task.emoji}
+          ${task.text}
+        </div>
+      </div>
+    `;
+
+  });
+
+}
+
+function updateProgress(){
+
+  let total=0;
+  let done=0;
+
+  tasks.forEach(task=>{
+
+    total++;
+
+    if(task.done) done++;
+
+    task.details.forEach(detail=>{
+
+      total++;
+
+      if(detail.done) done++;
+
+    });
+
+  });
+
+  const percent =
+    total===0
+    ? 0
+    : Math.round((done/total)*100);
+
+  document.getElementById("percent")
+    .innerText = percent+"%";
+
+  document.getElementById("progressFill")
+    .style.width = percent+"%";
+
+}
+
+function addMemo(){
+
+  const type =
+    document.getElementById("memoType").value;
+
+  const title =
+    document.getElementById("memoTitle").value;
+
+  const text =
+    document.getElementById("memoText").value;
+
+  if(!title || !text) return;
+
+  memos.unshift({
+
+    id:createId(),
+    type,
+    title,
+    text,
+
+    color:
+      memoColors[
+        Math.floor(Math.random()*memoColors.length)
+      ]
+  });
+
+  document.getElementById("memoTitle").value="";
+  document.getElementById("memoText").value="";
+
+  save();
+
+  renderMemos();
+
+}
+
+function renderMemos(){
+
+  const wrap =
+    document.getElementById("memoWrap");
+
+  wrap.innerHTML="";
+
+  memos.forEach(m=>{
+
+    wrap.innerHTML += `
+      <div class="memo ${m.color}">
+        <button
+          class="memo-delete"
+          onclick="deleteMemo('${m.id}')">
+          ×
+        </button>
+
+        <h3>
+          ${m.type}
+          ${m.title}
+        </h3>
+
+        <p>${m.text}</p>
+      </div>
+    `;
+
+  });
+
+}
+
+function deleteMemo(id){
+
+  memos =
+    memos.filter(m=>m.id!==id);
+
+  save();
+
+  renderMemos();
+
+}
+
+renderTasks();
+renderMemos();
 
 </script>
 
