@@ -278,97 +278,55 @@ body{
   font-weight:700;
 }
 
-/* 히스토리 모달 */
+/* TOP3 */
 
-.history-modal{
+.top-priority-wrap{
 
-  position:fixed;
+  display:grid;
 
-  inset:0;
+  grid-template-columns:1fr 1fr 1fr;
 
-  background:
-    rgba(0,0,0,0.45);
+  gap:14px;
 
-  display:none;
-
-  align-items:center;
-  justify-content:center;
-
-  z-index:999;
+  margin-bottom:28px;
 }
 
-.history-content{
+.priority-rank{
 
-  width:90%;
-  max-width:950px;
-
-  max-height:85vh;
-
-  overflow:auto;
-
-  background:white;
-
-  border-radius:34px;
-
-  padding:28px;
-}
-
-.history-top{
-
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  margin-bottom:24px;
-}
-
-.history-title{
-
-  font-size:28px;
-  font-weight:700;
-}
-
-.close-history{
-
-  border:none;
-
-  background:#f5f5f5;
-
-  border-radius:14px;
-
-  padding:10px 14px;
-
-  cursor:pointer;
-}
-
-.history-date{
-
-  margin-bottom:24px;
-
-  background:#fafafa;
-
-  border-radius:24px;
+  border-radius:28px;
 
   padding:20px;
+
+  color:white;
 }
 
-.history-date-title{
-
-  font-size:18px;
-  font-weight:700;
-
-  margin-bottom:14px;
-
-  color:#ff7eb6;
+.rank1{
+  background:linear-gradient(135deg,#ff7eb6,#ffb199);
 }
 
-.history-item{
+.rank2{
+  background:linear-gradient(135deg,#a18cd1,#fbc2eb);
+}
+
+.rank3{
+  background:linear-gradient(135deg,#84fab0,#8fd3f4);
+}
+
+.rank-number{
+
+  font-size:13px;
+
+  opacity:0.8;
 
   margin-bottom:10px;
+}
 
-  font-size:14px;
+.rank-title{
 
-  line-height:1.7;
+  font-size:15px;
+  font-weight:700;
+
+  line-height:1.5;
 }
 
 /* 입력 */
@@ -433,57 +391,6 @@ body{
   cursor:pointer;
 
   font-weight:600;
-}
-
-/* TOP3 */
-
-.top-priority-wrap{
-
-  display:grid;
-
-  grid-template-columns:1fr 1fr 1fr;
-
-  gap:14px;
-
-  margin-bottom:28px;
-}
-
-.priority-rank{
-
-  border-radius:28px;
-
-  padding:20px;
-
-  color:white;
-}
-
-.rank1{
-  background:linear-gradient(135deg,#ff7eb6,#ffb199);
-}
-
-.rank2{
-  background:linear-gradient(135deg,#a18cd1,#fbc2eb);
-}
-
-.rank3{
-  background:linear-gradient(135deg,#84fab0,#8fd3f4);
-}
-
-.rank-number{
-
-  font-size:13px;
-
-  opacity:0.8;
-
-  margin-bottom:10px;
-}
-
-.rank-title{
-
-  font-size:15px;
-  font-weight:700;
-
-  line-height:1.5;
 }
 
 /* 업무 카드 */
@@ -826,16 +733,6 @@ body{
     grid-template-columns:1fr;
   }
 
-  .top-right{
-    width:100%;
-    flex-direction:column;
-  }
-
-  .mind-card,
-  .progress-card{
-    width:100%;
-  }
-
 }
 
 </style>
@@ -844,36 +741,6 @@ body{
 <body>
 
 <div class="container">
-
-  <!-- 히스토리 -->
-
-  <div
-    class="history-modal"
-    id="historyModal">
-
-    <div class="history-content">
-
-      <div class="history-top">
-
-        <div class="history-title">
-          📚 업무 히스토리
-        </div>
-
-        <button
-          class="close-history"
-          onclick="closeHistory()">
-
-          닫기
-
-        </button>
-
-      </div>
-
-      <div id="historyBody"></div>
-
-    </div>
-
-  </div>
 
   <!-- 상단 -->
 
@@ -893,8 +760,6 @@ body{
     </div>
 
     <div class="top-right">
-
-      <!-- 다짐 -->
 
       <div class="mind-card">
 
@@ -921,8 +786,6 @@ body{
         ></textarea>
 
       </div>
-
-      <!-- 진행률 -->
 
       <div class="progress-card">
 
@@ -971,22 +834,20 @@ body{
           💼 오늘의 업무
         </div>
 
-        <button
-          class="history-btn"
-          onclick="openHistory()">
-
+        <button class="history-btn">
           📚 히스토리 관리
-
         </button>
 
       </div>
+
+      <!-- TOP3 -->
 
       <div
         class="top-priority-wrap"
         id="topPriorityWrap">
       </div>
 
-      <!-- 업무 입력 -->
+      <!-- 입력 -->
 
       <div class="input-wrap">
 
@@ -1158,26 +1019,9 @@ let memos =
   JSON.parse(localStorage.getItem("memos"))
   || [];
 
-let histories =
-  JSON.parse(localStorage.getItem("histories"))
-  || [];
-
 document.getElementById("mindInput").value =
   localStorage.getItem("mindText")
   || "";
-
-/* 다짐 저장 */
-
-document
-.getElementById("mindInput")
-.addEventListener("input",function(){
-
-  localStorage.setItem(
-    "mindText",
-    this.value
-  );
-
-});
 
 /* 저장 */
 
@@ -1193,12 +1037,20 @@ function saveAll(){
     JSON.stringify(memos)
   );
 
+}
+
+/* 다짐 저장 */
+
+document
+.getElementById("mindInput")
+.addEventListener("input",function(){
+
   localStorage.setItem(
-    "histories",
-    JSON.stringify(histories)
+    "mindText",
+    this.value
   );
 
-}
+});
 
 /* 랜덤 */
 
@@ -1228,25 +1080,6 @@ function randomCompleteMessage(){
 
 }
 
-/* 히스토리 추가 */
-
-function addHistory(type,text){
-
-  const today =
-    new Date().toLocaleDateString();
-
-  histories.unshift({
-
-    date:today,
-    type,
-    text
-
-  });
-
-  saveAll();
-
-}
-
 /* 업무 추가 */
 
 function addTask(){
@@ -1269,11 +1102,6 @@ function addTask(){
     details:[]
 
   });
-
-  addHistory(
-    "업무 추가",
-    text
-  );
 
   document.getElementById("taskInput").value="";
 
@@ -1309,11 +1137,6 @@ function toggleTask(id){
 
         alert(
           randomCompleteMessage()
-        );
-
-        addHistory(
-          "업무 완료",
-          task.text
         );
 
       }
@@ -1367,11 +1190,6 @@ function addDetail(taskId,text){
 
       });
 
-      addHistory(
-        "상세업무 추가",
-        text
-      );
-
     }
 
     return task;
@@ -1399,11 +1217,6 @@ function toggleDetail(taskId,index){
 
         alert(
           randomCompleteMessage()
-        );
-
-        addHistory(
-          "상세업무 완료",
-          task.details[index].text
         );
 
       }
@@ -1444,11 +1257,6 @@ function addMemo(){
     color:randomMemoColor()
 
   });
-
-  addHistory(
-    "사업소 요청",
-    `${title} - ${text}`
-  );
 
   document.getElementById("memoTitle").value="";
   document.getElementById("memoText").value="";
@@ -1771,6 +1579,8 @@ function renderTasks(){
 
   });
 
+  /* 중요 */
+
   renderTopPriority();
 
   updateProgress();
@@ -1836,97 +1646,6 @@ function askAI(){
     하나씩 처리하는 게 좋아 보여!
 
   `;
-
-}
-
-/* 히스토리 */
-
-function openHistory(){
-
-  document.getElementById(
-    "historyModal"
-  ).style.display="flex";
-
-  renderHistory();
-
-}
-
-function closeHistory(){
-
-  document.getElementById(
-    "historyModal"
-  ).style.display="none";
-
-}
-
-function renderHistory(){
-
-  const body =
-    document.getElementById("historyBody");
-
-  body.innerHTML="";
-
-  if(histories.length===0){
-
-    body.innerHTML=`
-      <div class="history-item">
-        아직 저장된 히스토리가 없어요 ✨
-      </div>
-    `;
-
-    return;
-
-  }
-
-  const grouped = {};
-
-  histories.forEach(item=>{
-
-    if(!grouped[item.date]){
-
-      grouped[item.date]=[];
-
-    }
-
-    grouped[item.date].push(item);
-
-  });
-
-  Object.keys(grouped).forEach(date=>{
-
-    const section =
-      document.createElement("div");
-
-    section.className="history-date";
-
-    let html = `
-
-      <div class="history-date-title">
-        📅 ${date}
-      </div>
-
-    `;
-
-    grouped[date].forEach(item=>{
-
-      html += `
-
-        <div class="history-item">
-
-          ✨ [${item.type}]
-          ${item.text}
-
-        </div>
-
-      `;
-
-    });
-
-    section.innerHTML = html;
-
-    body.appendChild(section);
-
-  });
 
 }
 
