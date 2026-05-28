@@ -26,9 +26,9 @@ font-family:'Pretendard',sans-serif;
 background:
 linear-gradient(
 135deg,
-#edf4ff 0%,
-#f8fbff 35%,
-#f5f7ff 70%,
+#eef4ff 0%,
+#f7faff 35%,
+#f4f7ff 70%,
 #ffffff 100%
 );
 
@@ -42,7 +42,7 @@ color:#1e293b;
 
 h1{
 
-font-size:44px;
+font-size:42px;
 font-weight:800;
 
 margin-bottom:8px;
@@ -50,8 +50,6 @@ margin-bottom:8px;
 }
 
 .subtitle{
-
-font-size:15px;
 
 color:#64748b;
 
@@ -71,18 +69,18 @@ gap:24px;
 
 .panel{
 
-background:rgba(255,255,255,0.72);
+background:rgba(255,255,255,0.75);
 
-backdrop-filter:blur(18px);
+backdrop-filter:blur(20px);
 
-border:1px solid rgba(255,255,255,0.8);
+border:1px solid rgba(255,255,255,0.7);
 
 border-radius:28px;
 
 padding:28px;
 
 box-shadow:
-0 8px 32px rgba(59,130,246,0.08);
+0 8px 30px rgba(59,130,246,0.08);
 
 }
 
@@ -158,11 +156,11 @@ background:linear-gradient(135deg,#4f46e5,#818cf8);
 }
 
 .top2{
-background:linear-gradient(135deg,#0f766e,#2dd4bf);
+background:linear-gradient(135deg,#0891b2,#67e8f9);
 }
 
 .top3c{
-background:linear-gradient(135deg,#0284c7,#38bdf8);
+background:linear-gradient(135deg,#0f766e,#5eead4);
 }
 
 .top-rank{
@@ -217,17 +215,6 @@ font-family:'Pretendard',sans-serif;
 
 }
 
-input:focus,
-select:focus,
-textarea:focus{
-
-background:white;
-
-box-shadow:
-0 0 0 3px rgba(99,102,241,0.15);
-
-}
-
 .main-input{
 
 flex:1;
@@ -278,9 +265,9 @@ box-shadow:
 
 .task.done{
 
-opacity:0.75;
-
 background:#f8fafc;
+
+opacity:0.82;
 
 }
 
@@ -292,9 +279,11 @@ font-weight:700;
 
 line-height:1.6;
 
+transition:0.2s;
+
 }
 
-.task.done .task-title{
+.task-title.done{
 
 text-decoration:line-through;
 
@@ -521,6 +510,24 @@ margin-bottom:12px;
 
 }
 
+.memo-title{
+
+font-weight:700;
+
+margin-bottom:10px;
+
+}
+
+.memo-content{
+
+white-space:pre-wrap;
+
+line-height:1.6;
+
+color:#334155;
+
+}
+
 .memo-edit{
 
 width:100%;
@@ -648,7 +655,7 @@ placeholder="업무 입력..."
 
 <button
 class="add-btn"
-id="taskAddBtn">
+onclick="addTask()">
 
 추가
 
@@ -724,7 +731,7 @@ class="progress-fill">
 </select>
 
 <input
-id="memoTitle"
+id="memoTitleInput"
 class="main-input"
 placeholder="제목 입력..."
 >
@@ -732,7 +739,7 @@ placeholder="제목 입력..."
 </div>
 
 <textarea
-id="memoText"
+id="memoTextInput"
 rows="5"
 placeholder="내용 입력..."
 ></textarea>
@@ -741,7 +748,7 @@ placeholder="내용 입력..."
 
 <button
 class="add-btn"
-id="memoAddBtn">
+onclick="addMemo()">
 
 포스트잇 추가
 
@@ -785,14 +792,14 @@ onclick="closeHistory()">
 
 const emojis=["✨","📌","💼","📝","📊"];
 
-let tasks=
-JSON.parse(localStorage.getItem("tasks"))||[];
+let tasks =
+JSON.parse(localStorage.getItem("tasks")) || [];
 
-let memos=
-JSON.parse(localStorage.getItem("memos"))||[];
+let memos =
+JSON.parse(localStorage.getItem("memos")) || [];
 
-let histories=
-JSON.parse(localStorage.getItem("histories"))||[];
+let histories =
+JSON.parse(localStorage.getItem("histories")) || [];
 
 function saveData(){
 
@@ -816,30 +823,23 @@ JSON.stringify(histories)
 function createId(){
 
 return Date.now().toString(36)
-+Math.random().toString(36).slice(2);
++
+Math.random().toString(36).slice(2);
 
 }
 
-document
-.getElementById("taskAddBtn")
-.addEventListener("click",addTask);
-
-document
-.getElementById("memoAddBtn")
-.addEventListener("click",addMemo);
-
 function addTask(){
 
-const text=
+const text =
 document.getElementById("taskInput")
 .value
 .trim();
 
-const priority=
+const priority =
 document.getElementById("priorityInput")
 .value;
 
-if(!text)return;
+if(!text) return;
 
 tasks.unshift({
 
@@ -867,23 +867,28 @@ text
 
 document.getElementById("taskInput").value="";
 
+saveData();
+
 renderAll();
 
 }
 
 function addDetail(taskId){
 
-const input=
+const input =
 document.getElementById(
 `detail-input-${taskId}`
 );
 
-const value=input.value.trim();
+const value =
+input.value.trim();
 
-if(!value)return;
+if(!value) return;
 
-const task=
-tasks.find(t=>t.id===taskId);
+const task =
+tasks.find(
+t=>t.id===taskId
+);
 
 task.details.push({
 
@@ -893,19 +898,27 @@ done:false
 
 });
 
+saveData();
+
 renderAll();
 
 }
 
 function toggleDetail(taskId,detailId){
 
-const task=
-tasks.find(t=>t.id===taskId);
+const task =
+tasks.find(
+t=>t.id===taskId
+);
 
-const detail=
-task.details.find(d=>d.id===detailId);
+const detail =
+task.details.find(
+d=>d.id===detailId
+);
 
-detail.done=!detail.done;
+detail.done = !detail.done;
+
+saveData();
 
 renderAll();
 
@@ -913,10 +926,10 @@ renderAll();
 
 function renderTasks(){
 
-const taskList=
+const taskList =
 document.getElementById("taskList");
 
-const doneList=
+const doneList =
 document.getElementById("doneTaskList");
 
 taskList.innerHTML="";
@@ -924,7 +937,7 @@ doneList.innerHTML="";
 
 tasks.forEach(task=>{
 
-const div=
+const div =
 document.createElement("div");
 
 div.className=
@@ -936,8 +949,8 @@ div.innerHTML=`
 
 <input
 type="checkbox"
-class="task-check"
 ${task.done?"checked":""}
+class="task-check"
 >
 
 <div style="flex:1;">
@@ -949,8 +962,14 @@ align-items:center;
 gap:12px;
 ">
 
-<div class="task-title">
-${task.emoji} ${task.text}
+<div class="
+task-title
+${task.done?"done":""}
+">
+
+${task.emoji}
+${task.text}
+
 </div>
 
 <button class="delete-btn">
@@ -977,7 +996,10 @@ ${task.priority==="high"
 
 ${task.details.map(detail=>`
 
-<div class="detail ${detail.done?"done":""}">
+<div class="
+detail
+${detail.done?"done":""}
+">
 
 <label>
 
@@ -1036,7 +1058,9 @@ div
 .querySelector(".task-check")
 .addEventListener("change",()=>{
 
-task.done=!task.done;
+task.done = !task.done;
+
+saveData();
 
 renderAll();
 
@@ -1046,10 +1070,17 @@ div
 .querySelector(".delete-btn")
 .addEventListener("click",()=>{
 
-tasks=
+tasks =
 tasks.filter(
 t=>t.id!==task.id
 );
+
+histories =
+histories.filter(
+h=>h.text!==task.text
+);
+
+saveData();
 
 renderAll();
 
@@ -1071,12 +1102,12 @@ taskList.appendChild(div);
 
 function renderTop3(){
 
-const wrap=
+const wrap =
 document.getElementById("top3");
 
 wrap.innerHTML="";
 
-const active=
+const active =
 tasks
 .filter(
 t=>
@@ -1089,10 +1120,10 @@ active.forEach((task,index)=>{
 
 let cls="top1";
 
-if(index===1)cls="top2";
-if(index===2)cls="top3c";
+if(index===1) cls="top2";
+if(index===2) cls="top3c";
 
-wrap.innerHTML+=`
+wrap.innerHTML += `
 
 <div class="top-card ${cls}">
 
@@ -1114,8 +1145,8 @@ ${task.text}
 
 function updateProgress(){
 
-let total=0;
-let done=0;
+let total = 0;
+let done = 0;
 
 tasks.forEach(task=>{
 
@@ -1124,8 +1155,6 @@ total++;
 if(task.done){
 done++;
 }
-
-if(task.details){
 
 task.details.forEach(detail=>{
 
@@ -1137,42 +1166,42 @@ done++;
 
 });
 
-}
-
 });
 
-const percent=
+const percent =
 total===0
 ?0
-:Math.round((done/total)*100);
+:Math.round(
+(done/total)*100
+);
 
 document.getElementById("percent")
-.innerText=
+.innerText =
 percent+"%";
 
 document.getElementById("progressFill")
-.style.width=
+.style.width =
 percent+"%";
 
 }
 
 function addMemo(){
 
-const type=
+const type =
 document.getElementById("memoType")
 .value;
 
-const title=
-document.getElementById("memoTitle")
+const title =
+document.getElementById("memoTitleInput")
 .value
 .trim();
 
-const text=
-document.getElementById("memoText")
+const text =
+document.getElementById("memoTextInput")
 .value
 .trim();
 
-if(!title || !text)return;
+if(!title || !text) return;
 
 memos.unshift({
 
@@ -1183,8 +1212,10 @@ text
 
 });
 
-document.getElementById("memoTitle").value="";
-document.getElementById("memoText").value="";
+document.getElementById("memoTitleInput").value="";
+document.getElementById("memoTextInput").value="";
+
+saveData();
 
 renderAll();
 
@@ -1192,36 +1223,38 @@ renderAll();
 
 function renderMemos(){
 
-const wrap=
+const wrap =
 document.getElementById("memoWrap");
 
 wrap.innerHTML="";
 
 memos.forEach(m=>{
 
-const div=
+const div =
 document.createElement("div");
 
 div.className="memo";
 
 div.innerHTML=`
 
-<button class="memo-delete">
+<button
+class="memo-delete">
+
 ✕
+
 </button>
 
 <div class="memo-type">
 ${m.type}
 </div>
 
-<input
-class="memo-edit memo-title"
-value="${m.title}"
->
+<div class="memo-title">
+${m.title}
+</div>
 
-<textarea
-class="memo-edit memo-text"
-rows="5">${m.text}</textarea>
+<div class="memo-content">
+${m.text}
+</div>
 
 `;
 
@@ -1229,7 +1262,7 @@ div
 .querySelector(".memo-delete")
 .addEventListener("click",()=>{
 
-memos=
+memos =
 memos.filter(
 memo=>memo.id!==m.id
 );
@@ -1237,26 +1270,6 @@ memo=>memo.id!==m.id
 saveData();
 
 renderAll();
-
-});
-
-div
-.querySelector(".memo-title")
-.addEventListener("input",(e)=>{
-
-m.title=e.target.value;
-
-saveData();
-
-});
-
-div
-.querySelector(".memo-text")
-.addEventListener("input",(e)=>{
-
-m.text=e.target.value;
-
-saveData();
 
 });
 
@@ -1286,14 +1299,14 @@ document.getElementById(
 
 function renderHistory(){
 
-const body=
+const body =
 document.getElementById("historyBody");
 
 body.innerHTML="";
 
 histories.forEach(h=>{
 
-body.innerHTML+=`
+body.innerHTML += `
 
 <div class="history-item">
 
@@ -1320,7 +1333,7 @@ onclick="deleteHistory('${h.id}')">
 
 function deleteHistory(id){
 
-histories=
+histories =
 histories.filter(
 h=>h.id!==id
 );
