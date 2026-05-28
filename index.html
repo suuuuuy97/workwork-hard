@@ -27,7 +27,7 @@ background:
 linear-gradient(
 135deg,
 #eef4ff 0%,
-#f7faff 45%,
+#f8fbff 40%,
 #ffffff 100%
 );
 
@@ -68,7 +68,7 @@ gap:24px;
 
 .panel{
 
-background:rgba(255,255,255,0.78);
+background:rgba(255,255,255,0.8);
 
 backdrop-filter:blur(18px);
 
@@ -78,48 +78,6 @@ padding:28px;
 
 box-shadow:
 0 8px 30px rgba(59,130,246,0.08);
-
-}
-
-.section-title{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:22px;
-
-}
-
-.section-title h2{
-
-font-size:26px;
-font-weight:800;
-
-}
-
-.history-btn{
-
-border:none;
-
-background:
-linear-gradient(
-135deg,
-#4f46e5,
-#6366f1
-);
-
-color:white;
-
-padding:12px 18px;
-
-border-radius:14px;
-
-cursor:pointer;
-
-font-weight:700;
 
 }
 
@@ -174,9 +132,9 @@ linear-gradient(
 
 color:white;
 
-height:52px;
-
 padding:0 24px;
+
+height:52px;
 
 border-radius:16px;
 
@@ -197,9 +155,6 @@ border-radius:22px;
 padding:20px;
 
 margin-bottom:16px;
-
-box-shadow:
-0 4px 14px rgba(15,23,42,0.04);
 
 }
 
@@ -454,11 +409,9 @@ grid-template-columns:1fr;
 
 <div class="panel">
 
-<div class="section-title">
-
-<h2>💼 오늘의 업무</h2>
-
-</div>
+<h2 style="margin-bottom:20px;">
+💼 오늘의 업무
+</h2>
 
 <div class="input-wrap">
 
@@ -470,9 +423,17 @@ placeholder="업무 입력..."
 
 <select id="priorityInput">
 
-<option value="high">🔥 높음</option>
-<option value="medium">✨ 보통</option>
-<option value="low">☁️ 낮음</option>
+<option value="high">
+🔥 높음
+</option>
+
+<option value="medium">
+✨ 보통
+</option>
+
+<option value="low">
+☁️ 낮음
+</option>
 
 </select>
 
@@ -500,7 +461,7 @@ onclick="addTask()">
 
 <div class="panel">
 
-<h2 style="margin-bottom:14px;">
+<h2 style="margin-bottom:16px;">
 📈 진행률
 </h2>
 
@@ -523,7 +484,7 @@ class="progress-fill">
 
 <div class="panel">
 
-<h2 style="margin-bottom:18px;">
+<h2 style="margin-bottom:20px;">
 💌 요청 메모
 </h2>
 
@@ -531,9 +492,17 @@ class="progress-fill">
 
 <select id="memoType">
 
-<option value="카톡">💬 카톡</option>
-<option value="메신저">🖥️ 메신저</option>
-<option value="전화">☎️ 전화</option>
+<option value="카톡">
+💬 카톡
+</option>
+
+<option value="메신저">
+🖥️ 메신저
+</option>
+
+<option value="전화">
+☎️ 전화
+</option>
 
 </select>
 
@@ -612,7 +581,7 @@ const priority =
 document.getElementById("priorityInput")
 .value;
 
-if(!text) return;
+if(!text)return;
 
 tasks.unshift({
 
@@ -628,7 +597,41 @@ document.getElementById("taskInput").value="";
 
 saveData();
 
-renderAll();
+renderTasks();
+
+updateProgress();
+
+}
+
+function toggleTask(taskId){
+
+const task =
+tasks.find(
+t=>t.id===taskId
+);
+
+task.done = !task.done;
+
+saveData();
+
+renderTasks();
+
+updateProgress();
+
+}
+
+function deleteTask(taskId){
+
+tasks =
+tasks.filter(
+t=>t.id!==taskId
+);
+
+saveData();
+
+renderTasks();
+
+updateProgress();
 
 }
 
@@ -642,7 +645,7 @@ document.getElementById(
 const value =
 input.value.trim();
 
-if(!value) return;
+if(!value)return;
 
 const task =
 tasks.find(
@@ -659,22 +662,9 @@ done:false
 
 saveData();
 
-renderAll();
+renderTasks();
 
-}
-
-function toggleTask(taskId){
-
-const task =
-tasks.find(
-t=>t.id===taskId
-);
-
-task.done = !task.done;
-
-saveData();
-
-renderAll();
+updateProgress();
 
 }
 
@@ -694,20 +684,9 @@ detail.done = !detail.done;
 
 saveData();
 
-renderAll();
+renderTasks();
 
-}
-
-function deleteTask(taskId){
-
-tasks =
-tasks.filter(
-t=>t.id!==taskId
-);
-
-saveData();
-
-renderAll();
+updateProgress();
 
 }
 
@@ -730,12 +709,37 @@ document.createElement("div");
 div.className=
 `task ${task.done?"done":""}`;
 
+const detailsHTML =
+task.details.map(detail=>`
+
+<div class="
+detail
+${detail.done?"done":""}
+">
+
+<label>
+
+<input
+type="checkbox"
+${detail.done?"checked":""}
+data-detail-id="${detail.id}"
+>
+
+${detail.text}
+
+</label>
+
+</div>
+
+`).join("");
+
 div.innerHTML=`
 
 <div style="display:flex;gap:12px;">
 
 <input
 type="checkbox"
+class="task-checkbox"
 ${task.done?"checked":""}
 >
 
@@ -770,27 +774,7 @@ ${task.priority==="high"
 :"☁️ 낮음"}
 </div>
 
-${task.details.map(detail=>`
-
-<div class="
-detail
-${detail.done?"done":""}
-">
-
-<label>
-
-<input
-type="checkbox"
-${detail.done?"checked":""}
->
-
-${detail.text}
-
-</label>
-
-</div>
-
-`).join("")}
+${detailsHTML}
 
 ${
 !task.done
@@ -824,7 +808,7 @@ onclick="addDetail('${task.id}')">
 `;
 
 div
-.querySelector('input[type="checkbox"]')
+.querySelector(".task-checkbox")
 .addEventListener("change",()=>{
 
 toggleTask(task.id);
@@ -839,16 +823,16 @@ deleteTask(task.id);
 
 });
 
-const detailCheckboxes =
-div.querySelectorAll(".detail input");
+const detailChecks =
+div.querySelectorAll("[data-detail-id]");
 
-detailCheckboxes.forEach((checkbox,index)=>{
+detailChecks.forEach(check=>{
 
-checkbox.addEventListener("change",()=>{
+check.addEventListener("change",()=>{
 
 toggleDetail(
 task.id,
-task.details[index].id
+check.dataset.detailId
 );
 
 });
@@ -903,11 +887,11 @@ total===0
 
 document.getElementById("percent")
 .innerText =
-percent + "%";
+percent+"%";
 
 document.getElementById("progressFill")
 .style.width =
-percent + "%";
+percent+"%";
 
 }
 
@@ -927,7 +911,7 @@ document.getElementById("memoText")
 .value
 .trim();
 
-if(!title || !text) return;
+if(!title || !text)return;
 
 memos.unshift({
 
@@ -943,7 +927,7 @@ document.getElementById("memoText").value="";
 
 saveData();
 
-renderAll();
+renderMemos();
 
 }
 
@@ -956,7 +940,7 @@ m=>m.id!==id
 
 saveData();
 
-renderAll();
+renderMemos();
 
 }
 
@@ -1008,17 +992,11 @@ wrap.appendChild(div);
 
 }
 
-function renderAll(){
-
 renderTasks();
 
 renderMemos();
 
 updateProgress();
-
-}
-
-renderAll();
 
 </script>
 
