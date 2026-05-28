@@ -197,7 +197,7 @@ margin-bottom:16px;
 
 background:#f8fafc;
 
-opacity:0.75;
+opacity:0.78;
 
 }
 
@@ -307,6 +307,20 @@ margin-bottom:16px;
 font-size:24px;
 
 font-weight:800;
+
+}
+
+.progress-top{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:10px;
+
+font-weight:700;
 
 }
 
@@ -560,8 +574,16 @@ onclick="addTask()">
 📈 진행률
 </h2>
 
+<div class="progress-top">
+
+<div>
+오늘 진행률
+</div>
+
 <div id="percent">
 0%
+</div>
+
 </div>
 
 <div class="progress-bar">
@@ -572,6 +594,22 @@ class="progress-fill">
 </div>
 
 </div>
+
+</div>
+
+<br>
+
+<div class="panel">
+
+<h2 style="margin-bottom:18px;">
+🌷 오늘의 다짐
+</h2>
+
+<textarea
+id="mindText"
+rows="7"
+placeholder="오늘의 목표 / 다짐 / 메모 입력..."
+></textarea>
 
 </div>
 
@@ -1011,12 +1049,12 @@ total===0
 );
 
 document.getElementById("percent")
-.innerText =
-percent+"%";
+.textContent =
+percent + "%";
 
 document.getElementById("progressFill")
 .style.width =
-percent+"%";
+percent + "%";
 
 }
 
@@ -1052,7 +1090,7 @@ document.getElementById("memoText").value="";
 
 saveData();
 
-renderMemos();
+renderAll();
 
 }
 
@@ -1065,7 +1103,7 @@ m=>m.id!==id
 
 saveData();
 
-renderMemos();
+renderAll();
 
 }
 
@@ -1183,6 +1221,26 @@ wrap.appendChild(div);
 
 }
 
+function initMindText(){
+
+const mindText =
+document.getElementById("mindText");
+
+mindText.value =
+localStorage.getItem("mindText")
+|| "";
+
+mindText.addEventListener("input",()=>{
+
+localStorage.setItem(
+"mindText",
+mindText.value
+);
+
+});
+
+}
+
 function renderAll(){
 
 renderTasks();
@@ -1194,6 +1252,8 @@ renderHistory();
 updateProgress();
 
 }
+
+initMindText();
 
 renderAll();
 
