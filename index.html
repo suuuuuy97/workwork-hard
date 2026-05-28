@@ -528,8 +528,6 @@ textarea{
 
 <div class="container">
 
-  <!-- LEFT -->
-
   <div class="panel">
 
     <div class="section-title">
@@ -559,19 +557,9 @@ textarea{
       >
 
       <select id="priorityInput">
-
-        <option value="high">
-          🔥 높음
-        </option>
-
-        <option value="medium">
-          ✨ 보통
-        </option>
-
-        <option value="low">
-          ☁️ 낮음
-        </option>
-
+        <option value="high">🔥 높음</option>
+        <option value="medium">✨ 보통</option>
+        <option value="low">☁️ 낮음</option>
       </select>
 
       <button
@@ -593,8 +581,6 @@ textarea{
     <div id="doneTaskList"></div>
 
   </div>
-
-  <!-- RIGHT -->
 
   <div>
 
@@ -701,8 +687,6 @@ textarea{
 
 </div>
 
-<!-- 히스토리 -->
-
 <div class="modal" id="historyModal">
 
   <div class="modal-content">
@@ -729,9 +713,7 @@ textarea{
 
 <script>
 
-const emojis = [
-  "🌷","🎀","✨","💖","🍓"
-];
+const emojis = ["🌷","🎀","✨","💖","🍓"];
 
 const memoColors = [
   "memo-yellow",
@@ -764,7 +746,8 @@ document
 
 function createId(){
 
-  return Math.random().toString(36).substring(2,12);
+  return Date.now().toString(36)
+    + Math.random().toString(36).slice(2);
 
 }
 
@@ -812,15 +795,18 @@ function addTask(){
   const priority =
     document
     .getElementById("priorityInput")
-    .value;
+    .value || "low";
 
   if(!text) return;
 
   tasks.unshift({
 
     id:createId(),
+
     text,
+
     priority,
+
     done:false,
 
     emoji:
@@ -874,9 +860,6 @@ function renderTasks(){
   const doneList =
     document.getElementById("doneTaskList");
 
-  taskList.innerHTML="";
-  doneList.innerHTML="";
-
   const order = {
     high:3,
     medium:2,
@@ -891,25 +874,42 @@ function renderTasks(){
       (order[a.priority] || 0)
     );
 
-  sorted.forEach(task=>{
+  const activeTasks =
+    sorted.filter(task=>!task.done);
 
-    const div =
-      document.createElement("div");
+  const doneTasks =
+    sorted.filter(task=>task.done);
 
-    div.className =
-      `task ${task.done ? "done" : ""}`;
+  taskList.innerHTML =
+    activeTasks.map(task=>
+      createTaskHTML(task)
+    ).join("");
 
-    let badgeClass="low";
+  doneList.innerHTML =
+    doneTasks.map(task=>
+      createTaskHTML(task)
+    ).join("");
 
-    if(task.priority==="high"){
-      badgeClass="high";
-    }
+  bindTaskEvents();
 
-    if(task.priority==="medium"){
-      badgeClass="medium";
-    }
+}
 
-    div.innerHTML = `
+function createTaskHTML(task){
+
+  let badgeClass = "low";
+
+  if(task.priority==="high"){
+    badgeClass="high";
+  }
+
+  if(task.priority==="medium"){
+    badgeClass="medium";
+  }
+
+  return `
+
+    <div class="task ${task.done ? "done" : ""}" data-id="${task.id}">
+
       <div style="display:flex;gap:12px;">
 
         <input
@@ -959,24 +959,18 @@ function renderTasks(){
 
             <select class="priority-select">
 
-              <option
-                value="high"
-                ${task.priority==="high" ? "selected" : ""}
-              >
+              <option value="high"
+                ${task.priority==="high" ? "selected" : ""}>
                 🔥 높음
               </option>
 
-              <option
-                value="medium"
-                ${task.priority==="medium" ? "selected" : ""}
-              >
+              <option value="medium"
+                ${task.priority==="medium" ? "selected" : ""}>
                 ✨ 보통
               </option>
 
-              <option
-                value="low"
-                ${task.priority==="low" ? "selected" : ""}
-              >
+              <option value="low"
+                ${task.priority==="low" ? "selected" : ""}>
                 ☁️ 낮음
               </option>
 
@@ -984,7 +978,30 @@ function renderTasks(){
 
           </div>
 
-          <div class="detail-list"></div>
+          <div class="detail-list">
+
+            ${task.details.map(detail=>`
+
+              <div class="detail ${detail.done ? "done" : ""}">
+
+                <label>
+
+                  <input
+                    type="checkbox"
+                    class="detail-check"
+                    data-detail="${detail.id}"
+                    ${detail.done ? "checked" : ""}
+                  >
+
+                  ✨ ${detail.text}
+
+                </label>
+
+              </div>
+
+            `).join("")}
+
+          </div>
 
           ${
             !task.done
@@ -994,7 +1011,6 @@ function renderTasks(){
 
               <input
                 class="detail-input"
-                style="flex:1;"
                 placeholder="상세 업무 추가..."
               >
 
@@ -1011,9 +1027,28 @@ function renderTasks(){
         </div>
 
       </div>
-    `;
 
-    div
+    </div>
+
+  `;
+
+}
+
+function bindTaskEvents(){
+
+  document
+  .querySelectorAll(".task")
+  .forEach(taskEl=>{
+
+    const id =
+      taskEl.dataset.id;
+
+    const task =
+      tasks.find(t=>t.id===id);
+
+    if(!task) return;
+
+    taskEl
     .querySelector(".task-check")
     .addEventListener("change",()=>{
 
@@ -1025,12 +1060,12 @@ function renderTasks(){
 
     });
 
-    div
+    taskEl
     .querySelector(".delete-btn")
     .addEventListener("click",()=>{
 
       tasks =
-        tasks.filter(t=>t.id!==task.id);
+        tasks.filter(t=>t.id!==id);
 
       save();
 
@@ -1038,10 +1073,9 @@ function renderTasks(){
 
     });
 
-    const prioritySelect =
-      div.querySelector(".priority-select");
-
-    prioritySelect.addEventListener("change",(e)=>{
+    taskEl
+    .querySelector(".priority-select")
+    .addEventListener("change",(e)=>{
 
       task.priority = e.target.value;
 
@@ -1051,62 +1085,27 @@ function renderTasks(){
 
     });
 
-    const detailList =
-      div.querySelector(".detail-list");
+    const detailBtn =
+      taskEl.querySelector(".detail-btn");
 
-    task.details.forEach(detail=>{
+    if(detailBtn){
 
-      const detailDiv =
-        document.createElement("div");
+      detailBtn.addEventListener("click",()=>{
 
-      detailDiv.className =
-        `detail ${detail.done ? "done" : ""}`;
-
-      detailDiv.innerHTML = `
-        <label>
-          <input
-            type="checkbox"
-            class="detail-check"
-            ${detail.done ? "checked" : ""}
-          >
-          ✨ ${detail.text}
-        </label>
-      `;
-
-      detailDiv
-      .querySelector(".detail-check")
-      .addEventListener("change",()=>{
-
-        detail.done=!detail.done;
-
-        save();
-
-        renderAll();
-
-      });
-
-      detailList.appendChild(detailDiv);
-
-    });
-
-    if(!task.done){
-
-      const detailInput =
-        div.querySelector(".detail-input");
-
-      div
-      .querySelector(".detail-btn")
-      .addEventListener("click",()=>{
+        const input =
+          taskEl.querySelector(".detail-input");
 
         const value =
-          detailInput.value.trim();
+          input.value.trim();
 
         if(!value) return;
 
         task.details.push({
 
           id:createId(),
+
           text:value,
+
           done:false
 
         });
@@ -1123,23 +1122,13 @@ function renderTasks(){
 
         });
 
-        detailInput.value="";
+        input.value="";
 
         save();
 
         renderAll();
 
       });
-
-    }
-
-    if(task.done){
-
-      doneList.appendChild(div);
-
-    }else{
-
-      taskList.appendChild(div);
 
     }
 
@@ -1151,8 +1140,6 @@ function renderTop3(){
 
   const wrap =
     document.getElementById("top3");
-
-  wrap.innerHTML="";
 
   const order = {
     high:3,
@@ -1170,26 +1157,29 @@ function renderTop3(){
     )
     .slice(0,3);
 
-  top.forEach((task,index)=>{
+  wrap.innerHTML =
+    top.map((task,index)=>`
 
-    let cls="top1";
+      <div class="top-card ${
+        index===0
+        ? "top1"
+        : index===1
+        ? "top2"
+        : "top3c"
+      }">
 
-    if(index===1) cls="top2";
-    if(index===2) cls="top3c";
-
-    wrap.innerHTML += `
-      <div class="top-card ${cls}">
         <div class="top-rank">
           TOP ${index+1}
         </div>
+
         <div class="top-task">
           ${task.emoji}
           ${task.text}
         </div>
-      </div>
-    `;
 
-  });
+      </div>
+
+    `).join("");
 
 }
 
@@ -1233,18 +1223,21 @@ function addMemo(){
     document.getElementById("memoType").value;
 
   const title =
-    document.getElementById("memoTitle").value;
+    document.getElementById("memoTitle").value.trim();
 
   const text =
-    document.getElementById("memoText").value;
+    document.getElementById("memoText").value.trim();
 
   if(!title || !text) return;
 
   memos.unshift({
 
     id:createId(),
+
     type,
+
     title,
+
     text,
 
     color:
@@ -1270,11 +1263,9 @@ function renderMemos(){
   const wrap =
     document.getElementById("memoWrap");
 
-  wrap.innerHTML="";
+  wrap.innerHTML =
+    memos.map(m=>`
 
-  memos.forEach(m=>{
-
-    wrap.innerHTML += `
       <div class="memo ${m.color}">
 
         <button
@@ -1290,12 +1281,13 @@ function renderMemos(){
           ${m.title}
         </h3>
 
+        <br>
+
         <p>${m.text}</p>
 
       </div>
-    `;
 
-  });
+    `).join("");
 
 }
 
@@ -1344,8 +1336,6 @@ function renderHistory(){
   const body =
     document.getElementById("historyBody");
 
-  body.innerHTML="";
-
   const grouped = {};
 
   histories.forEach(h=>{
@@ -1360,9 +1350,9 @@ function renderHistory(){
 
   });
 
-  Object.keys(grouped).forEach(date=>{
-
-    body.innerHTML += `
+  body.innerHTML =
+    Object.keys(grouped)
+    .map(date=>`
 
       <h3 style="
         margin-top:20px;
@@ -1371,11 +1361,7 @@ function renderHistory(){
         📅 ${date}
       </h3>
 
-    `;
-
-    grouped[date].forEach(h=>{
-
-      body.innerHTML += `
+      ${grouped[date].map(h=>`
 
         <div class="history-item">
 
@@ -1394,11 +1380,9 @@ function renderHistory(){
 
         </div>
 
-      `;
+      `).join("")}
 
-    });
-
-  });
+    `).join("");
 
 }
 
