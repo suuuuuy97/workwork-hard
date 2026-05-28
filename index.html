@@ -542,12 +542,10 @@ button{
 </h1>
 
 <div class="subtitle">
-오늘도 뚠뚠, 하나씩 해내는 중 🌷
+오늘도 하나씩 해내는 중 🌷
 </div>
 
 <div class="container">
-
-  <!-- LEFT -->
 
   <div class="panel">
 
@@ -574,7 +572,7 @@ button{
       <input
         id="taskInput"
         class="main-input"
-        placeholder="오늘 해야할 업무 입력..."
+        placeholder="오늘 해야할 업무 입력."
       >
 
       <select id="priorityInput">
@@ -613,8 +611,6 @@ button{
 
   </div>
 
-  <!-- RIGHT -->
-
   <div>
 
     <div class="panel">
@@ -630,7 +626,7 @@ button{
       <textarea
         id="mindInput"
         rows="7"
-        placeholder="오늘의 다짐 적기..."
+        placeholder="오늘의 다짐 적기."
       ></textarea>
 
       <div class="progress-card">
@@ -689,7 +685,7 @@ button{
         <input
           id="memoTitle"
           class="main-input"
-          placeholder="사업소명 / 제목"
+          placeholder="사업소명 / 내용"
         >
 
       </div>
@@ -697,7 +693,7 @@ button{
       <textarea
         id="memoText"
         rows="5"
-        placeholder="요청 내용 입력..."
+        placeholder="요청 내용 입력."
       ></textarea>
 
       <br><br>
@@ -719,8 +715,6 @@ button{
   </div>
 
 </div>
-
-<!-- 히스토리 -->
 
 <div class="modal" id="historyModal">
 
@@ -809,10 +803,15 @@ function save(){
 function addTask(){
 
   const text =
-    document.getElementById("taskInput").value.trim();
+    document
+    .getElementById("taskInput")
+    .value
+    .trim();
 
   const priority =
-    document.getElementById("priorityInput").value;
+    document
+    .getElementById("priorityInput")
+    .value;
 
   if(!text) return;
 
@@ -822,18 +821,26 @@ function addTask(){
     text,
     priority,
     done:false,
+
     emoji:
       emojis[
-        Math.floor(Math.random()*emojis.length)
+        Math.floor(
+          Math.random()*emojis.length
+        )
       ],
+
     details:[]
+
   });
 
   histories.unshift({
 
     id:createId(),
+
     date:new Date().toLocaleDateString(),
+
     type:"업무",
+
     text
 
   });
@@ -845,6 +852,18 @@ function addTask(){
   renderTasks();
 
 }
+
+document
+.getElementById("taskInput")
+.addEventListener("keypress",(e)=>{
+
+  if(e.key==="Enter"){
+
+    addTask();
+
+  }
+
+});
 
 function renderTasks(){
 
@@ -913,11 +932,13 @@ function renderTasks(){
               ${task.emoji}
               ${task.text}
 
-              ${task.done ? `
-                <span class="done-badge">
-                  완료 ✨
-                </span>
-              ` : ""}
+              ${
+                task.done
+                ?
+                '<span class="done-badge">완료 ✨</span>'
+                :
+                ''
+              }
 
             </div>
 
@@ -1020,8 +1041,6 @@ function renderTasks(){
 
     });
 
-    /* 우선순위 변경 */
-
     const prioritySelect =
       div.querySelector(".priority-select");
 
@@ -1098,8 +1117,11 @@ function renderTasks(){
         histories.unshift({
 
           id:createId(),
+
           date:new Date().toLocaleDateString(),
+
           type:"상세업무",
+
           text:value
 
         });
@@ -1234,8 +1256,11 @@ function addMemo(){
 
     color:
       memoColors[
-        Math.floor(Math.random()*memoColors.length)
+        Math.floor(
+          Math.random()*memoColors.length
+        )
       ]
+
   });
 
   document.getElementById("memoTitle").value="";
@@ -1258,10 +1283,13 @@ function renderMemos(){
 
     wrap.innerHTML += `
       <div class="memo ${m.color}">
+
         <button
           class="memo-delete"
           onclick="deleteMemo('${m.id}')">
+
           ×
+
         </button>
 
         <h3>
@@ -1270,6 +1298,7 @@ function renderMemos(){
         </h3>
 
         <p>${m.text}</p>
+
       </div>
     `;
 
@@ -1287,8 +1316,6 @@ function deleteMemo(id){
   renderMemos();
 
 }
-
-/* 히스토리 */
 
 function openHistory(){
 
@@ -1348,9 +1375,7 @@ function renderHistory(){
         margin-top:20px;
         color:#ff5ca8;
       ">
-
         📅 ${date}
-
       </h3>
 
     `;
@@ -1362,16 +1387,13 @@ function renderHistory(){
         <div class="history-item">
 
           <div>
-
             ✨ ${h.type}
             - ${h.text}
-
           </div>
 
           <button
             class="delete-btn"
-            onclick="deleteHistory('${h.id}')"
-          >
+            onclick="deleteHistory('${h.id}')">
 
             삭제
 
