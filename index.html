@@ -764,6 +764,35 @@ function addTask(){
 
 }
 
+function addDetail(taskId){
+
+  const input =
+    document.getElementById(
+      `detail-input-${taskId}`
+    );
+
+  const value =
+    input.value.trim();
+
+  if(!value) return;
+
+  const task =
+    tasks.find(t=>t.id===taskId);
+
+  task.details.push({
+
+    id:createId(),
+    text:value,
+    done:false
+
+  });
+
+  input.value="";
+
+  renderAll();
+
+}
+
 function getPriorityText(priority){
 
   if(priority==="high") return "🔥 높음";
@@ -873,6 +902,55 @@ function renderTasks(){
 
           </div>
 
+          <div style="margin-top:16px;">
+
+            ${task.details.map(detail=>`
+
+              <div class="detail ${detail.done ? "done" : ""}">
+
+                <label>
+
+                  <input
+                    type="checkbox"
+                    onchange="toggleDetail('${task.id}','${detail.id}')"
+                    ${detail.done ? "checked" : ""}
+                  >
+
+                  ✨ ${detail.text}
+
+                </label>
+
+              </div>
+
+            `).join("")}
+
+          </div>
+
+          ${
+            !task.done
+            ?
+            `
+            <div class="detail-input-wrap">
+
+              <input
+                id="detail-input-${task.id}"
+                placeholder="상세 업무 추가..."
+              >
+
+              <button
+                class="add-btn"
+                onclick="addDetail('${task.id}')">
+
+                추가
+
+              </button>
+
+            </div>
+            `
+            :
+            ""
+          }
+
         </div>
 
       </div>
@@ -966,6 +1044,20 @@ function renderTasks(){
 
 }
 
+function toggleDetail(taskId,detailId){
+
+  const task =
+    tasks.find(t=>t.id===taskId);
+
+  const detail =
+    task.details.find(d=>d.id===detailId);
+
+  detail.done=!detail.done;
+
+  renderAll();
+
+}
+
 function renderTop3(){
 
   const wrap =
@@ -1006,10 +1098,24 @@ function renderTop3(){
 
 function updateProgress(){
 
-  let total=tasks.length;
+  let total=0;
+  let done=0;
 
-  let done =
-    tasks.filter(t=>t.done).length;
+  tasks.forEach(task=>{
+
+    total++;
+
+    if(task.done) done++;
+
+    task.details.forEach(detail=>{
+
+      total++;
+
+      if(detail.done) done++;
+
+    });
+
+  });
 
   const percent =
     total===0
@@ -1168,4 +1274,4 @@ renderAll();
 
 </body>
 </html>
-
+```
