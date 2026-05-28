@@ -34,7 +34,7 @@ body{
 }
 
 .container{
-  max-width:1800px;
+  max-width:1850px;
   margin:auto;
 }
 
@@ -55,7 +55,7 @@ body{
 
 .title-box h1{
 
-  font-size:44px;
+  font-size:48px;
   line-height:1.35;
 }
 
@@ -67,8 +67,6 @@ body{
 
   font-size:15px;
 }
-
-/* 오른쪽 */
 
 .top-right{
 
@@ -83,7 +81,7 @@ body{
 
 .mind-card{
 
-  width:360px;
+  width:420px;
 
   background:
     linear-gradient(
@@ -91,8 +89,6 @@ body{
       rgba(255,255,255,0.92),
       rgba(255,245,250,0.92)
     );
-
-  backdrop-filter:blur(14px);
 
   border-radius:34px;
 
@@ -103,8 +99,6 @@ body{
 
   border:
     2px dashed #ffd7ea;
-
-  position:relative;
 }
 
 .mind-title{
@@ -114,14 +108,37 @@ body{
 
   color:#ff7eb6;
 
-  margin-bottom:16px;
+  margin-bottom:18px;
 }
 
-.mind-textarea{
+.quote-box{
+
+  background:white;
+
+  border-radius:24px;
+
+  padding:18px;
+
+  line-height:1.8;
+
+  font-size:14px;
+
+  color:#555;
+
+  margin-bottom:16px;
+
+  box-shadow:
+    0 6px 18px rgba(0,0,0,0.04);
+}
+
+.quote-highlight{
+  color:#ff7eb6;
+  font-weight:700;
+}
+
+.mind-input{
 
   width:100%;
-
-  min-height:130px;
 
   border:none;
   outline:none;
@@ -135,11 +152,11 @@ body{
   background:
     rgba(255,255,255,0.75);
 
+  min-height:110px;
+
   font-size:14px;
 
   line-height:1.8;
-
-  color:#444;
 
   font-family:'Pretendard',sans-serif;
 }
@@ -148,12 +165,10 @@ body{
 
 .progress-card{
 
-  width:340px;
+  width:320px;
 
   background:
-    rgba(255,255,255,0.82);
-
-  backdrop-filter:blur(14px);
+    rgba(255,255,255,0.85);
 
   border-radius:32px;
 
@@ -173,7 +188,7 @@ body{
 
 .progress-percent{
 
-  font-size:32px;
+  font-size:34px;
   font-weight:700;
 }
 
@@ -208,7 +223,7 @@ body{
 
   display:grid;
 
-  grid-template-columns:1.1fr 0.9fr;
+  grid-template-columns:1.15fr 0.85fr;
 
   gap:24px;
 }
@@ -218,25 +233,145 @@ body{
   background:
     rgba(255,255,255,0.82);
 
-  backdrop-filter:blur(14px);
-
   border-radius:38px;
 
   padding:28px;
 
   box-shadow:
     0 14px 38px rgba(0,0,0,0.05);
+
+  position:relative;
+}
+
+.board-header{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:24px;
 }
 
 .board-title{
 
   font-size:28px;
   font-weight:700;
+}
+
+/* 히스토리 버튼 */
+
+.history-btn{
+
+  border:none;
+
+  background:#1f1f1f;
+
+  color:white;
+
+  padding:10px 16px;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
+  font-size:12px;
+  font-weight:700;
+}
+
+/* 히스토리 모달 */
+
+.history-modal{
+
+  position:fixed;
+
+  inset:0;
+
+  background:
+    rgba(0,0,0,0.45);
+
+  display:none;
+
+  align-items:center;
+  justify-content:center;
+
+  z-index:999;
+}
+
+.history-content{
+
+  width:90%;
+  max-width:950px;
+
+  max-height:85vh;
+
+  overflow:auto;
+
+  background:white;
+
+  border-radius:34px;
+
+  padding:28px;
+}
+
+.history-top{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 
   margin-bottom:24px;
 }
 
-/* 업무 입력 */
+.history-title{
+
+  font-size:28px;
+  font-weight:700;
+}
+
+.close-history{
+
+  border:none;
+
+  background:#f5f5f5;
+
+  border-radius:14px;
+
+  padding:10px 14px;
+
+  cursor:pointer;
+}
+
+.history-date{
+
+  margin-bottom:24px;
+
+  background:#fafafa;
+
+  border-radius:24px;
+
+  padding:20px;
+}
+
+.history-date-title{
+
+  font-size:18px;
+  font-weight:700;
+
+  margin-bottom:14px;
+
+  color:#ff7eb6;
+}
+
+.history-item{
+
+  margin-bottom:10px;
+
+  font-size:14px;
+
+  line-height:1.7;
+}
+
+/* 입력 */
 
 .input-wrap{
 
@@ -252,7 +387,8 @@ body{
 .priority-select,
 .memo-input,
 .memo-select,
-.memo-textarea{
+.memo-textarea,
+.ai-input{
 
   border:none;
   outline:none;
@@ -281,7 +417,8 @@ body{
 }
 
 .add-btn,
-.memo-btn{
+.memo-btn,
+.ai-btn{
 
   border:none;
 
@@ -321,18 +458,15 @@ body{
 }
 
 .rank1{
-  background:
-    linear-gradient(135deg,#ff7eb6,#ffb199);
+  background:linear-gradient(135deg,#ff7eb6,#ffb199);
 }
 
 .rank2{
-  background:
-    linear-gradient(135deg,#a18cd1,#fbc2eb);
+  background:linear-gradient(135deg,#a18cd1,#fbc2eb);
 }
 
 .rank3{
-  background:
-    linear-gradient(135deg,#84fab0,#8fd3f4);
+  background:linear-gradient(135deg,#84fab0,#8fd3f4);
 }
 
 .rank-number{
@@ -368,7 +502,7 @@ body{
 
   border-radius:28px;
 
-  padding:18px;
+  padding:20px;
 
   box-shadow:
     0 10px 24px rgba(0,0,0,0.05);
@@ -400,7 +534,7 @@ body{
   font-size:16px;
   font-weight:700;
 
-  line-height:1.5;
+  line-height:1.6;
 }
 
 .done .task-title{
@@ -412,7 +546,7 @@ body{
 
 .priority-badge{
 
-  margin-top:10px;
+  margin-top:12px;
 
   display:inline-flex;
 
@@ -437,6 +571,110 @@ body{
 .priority-low{
   background:#e3f4ff;
   color:#4aa3df;
+}
+
+.priority-edit{
+
+  margin-top:14px;
+}
+
+.priority-edit select{
+
+  border:none;
+  outline:none;
+
+  background:#f4f4f4;
+
+  border-radius:14px;
+
+  padding:10px 12px;
+
+  font-size:12px;
+}
+
+/* 상세업무 */
+
+.detail-list{
+
+  margin-top:18px;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:10px;
+}
+
+.detail-item{
+
+  background:#fafafa;
+
+  border-radius:18px;
+
+  padding:12px 14px;
+}
+
+.detail-row{
+
+  display:flex;
+  align-items:center;
+
+  gap:10px;
+}
+
+.detail-check{
+  accent-color:#ff9fcf;
+}
+
+.detail-text{
+
+  font-size:14px;
+
+  color:#555;
+}
+
+.detail-done{
+
+  text-decoration:line-through;
+
+  opacity:0.5;
+}
+
+.detail-input-wrap{
+
+  display:flex;
+
+  gap:10px;
+
+  margin-top:16px;
+}
+
+.detail-input{
+
+  flex:1;
+
+  border:none;
+  outline:none;
+
+  background:#f5f5f5;
+
+  border-radius:16px;
+
+  padding:14px;
+}
+
+.detail-btn{
+
+  border:none;
+
+  background:#ffd8ea;
+
+  border-radius:16px;
+
+  padding:0 18px;
+
+  cursor:pointer;
+
+  font-weight:700;
 }
 
 /* 포스트잇 */
@@ -524,6 +762,60 @@ body{
   white-space:pre-wrap;
 }
 
+/* AI */
+
+.ai-box{
+
+  margin-top:28px;
+
+  background:#fffafc;
+
+  border-radius:28px;
+
+  padding:20px;
+
+  border:
+    2px dashed #ffd7ea;
+}
+
+.ai-title{
+
+  font-size:18px;
+  font-weight:700;
+
+  margin-bottom:14px;
+
+  color:#ff7eb6;
+}
+
+.ai-input-wrap{
+
+  display:flex;
+
+  gap:10px;
+}
+
+.ai-input{
+  flex:1;
+}
+
+.ai-answer{
+
+  margin-top:14px;
+
+  background:white;
+
+  border-radius:18px;
+
+  padding:16px;
+
+  font-size:14px;
+
+  line-height:1.7;
+
+  color:#555;
+}
+
 @media(max-width:1400px){
 
   .dashboard{
@@ -553,6 +845,36 @@ body{
 
 <div class="container">
 
+  <!-- 히스토리 -->
+
+  <div
+    class="history-modal"
+    id="historyModal">
+
+    <div class="history-content">
+
+      <div class="history-top">
+
+        <div class="history-title">
+          📚 업무 히스토리
+        </div>
+
+        <button
+          class="close-history"
+          onclick="closeHistory()">
+
+          닫기
+
+        </button>
+
+      </div>
+
+      <div id="historyBody"></div>
+
+    </div>
+
+  </div>
+
   <!-- 상단 -->
 
   <div class="top-area">
@@ -580,10 +902,22 @@ body{
           🌷 오늘의 다짐
         </div>
 
+        <div class="quote-box">
+
+          <span class="quote-highlight">
+            “완벽하려고 멈추는 것보다,
+          </span>
+
+          <br/>
+
+          일단 끝내는 사람이 결국 앞으로 간다.”
+
+        </div>
+
         <textarea
           id="mindInput"
-          class="mind-textarea"
-          placeholder="오늘 하루 어떤 마음으로 일할까? ✨"
+          class="mind-input"
+          placeholder="오늘 나의 다짐 적기 ✨"
         ></textarea>
 
       </div>
@@ -631,11 +965,21 @@ body{
 
     <div class="board">
 
-      <div class="board-title">
-        💼 오늘의 업무
-      </div>
+      <div class="board-header">
 
-      <!-- TOP3 -->
+        <div class="board-title">
+          💼 오늘의 업무
+        </div>
+
+        <button
+          class="history-btn"
+          onclick="openHistory()">
+
+          📚 히스토리 관리
+
+        </button>
+
+      </div>
 
       <div
         class="top-priority-wrap"
@@ -740,6 +1084,43 @@ body{
         id="memoArea">
       </div>
 
+      <!-- AI -->
+
+      <div class="ai-box">
+
+        <div class="ai-title">
+          🤖 AI 빠른 질의
+        </div>
+
+        <div class="ai-input-wrap">
+
+          <input
+            type="text"
+            id="aiInput"
+            class="ai-input"
+            placeholder="AI에게 빠르게 물어보기..."
+          />
+
+          <button
+            class="ai-btn"
+            onclick="askAI()">
+
+            질문
+
+          </button>
+
+        </div>
+
+        <div
+          class="ai-answer"
+          id="aiAnswer">
+
+          오늘도 차근차근 처리해보자 ✨
+
+        </div>
+
+      </div>
+
     </div>
 
   </div>
@@ -759,12 +1140,26 @@ const memoColors = [
   "memo-blue"
 ];
 
+const completeMessages = [
+
+  "오늘도 하나 해냈다 ✨",
+  "고생했어! 진짜 잘하고 있어 🌷",
+  "조금씩 끝내는 사람이 결국 이긴다 💖",
+  "슈냥 오늘도 성장 완료 🎀",
+  "수고했다! 이제 다음 업무 가보자 ☁️"
+
+];
+
 let tasks =
   JSON.parse(localStorage.getItem("tasks"))
   || [];
 
 let memos =
   JSON.parse(localStorage.getItem("memos"))
+  || [];
+
+let histories =
+  JSON.parse(localStorage.getItem("histories"))
   || [];
 
 document.getElementById("mindInput").value =
@@ -798,6 +1193,11 @@ function saveAll(){
     JSON.stringify(memos)
   );
 
+  localStorage.setItem(
+    "histories",
+    JSON.stringify(histories)
+  );
+
 }
 
 /* 랜덤 */
@@ -818,6 +1218,35 @@ function randomMemoColor(){
 
 }
 
+function randomCompleteMessage(){
+
+  return completeMessages[
+    Math.floor(
+      Math.random()*completeMessages.length
+    )
+  ];
+
+}
+
+/* 히스토리 추가 */
+
+function addHistory(type,text){
+
+  const today =
+    new Date().toLocaleDateString();
+
+  histories.unshift({
+
+    date:today,
+    type,
+    text
+
+  });
+
+  saveAll();
+
+}
+
 /* 업무 추가 */
 
 function addTask(){
@@ -830,15 +1259,21 @@ function addTask(){
 
   if(!text) return;
 
-  tasks.push({
+  tasks.unshift({
 
     id:Date.now(),
     text,
     priority,
     done:false,
-    emoji:randomEmoji()
+    emoji:randomEmoji(),
+    details:[]
 
   });
+
+  addHistory(
+    "업무 추가",
+    text
+  );
 
   document.getElementById("taskInput").value="";
 
@@ -848,7 +1283,7 @@ function addTask(){
 
 }
 
-/* 엔터 추가 */
+/* 엔터 */
 
 document
 .getElementById("taskInput")
@@ -860,14 +1295,119 @@ document
 
 });
 
-/* 완료 */
+/* 업무 완료 */
 
 function toggleTask(id){
 
   tasks = tasks.map(task=>{
 
     if(task.id===id){
+
       task.done=!task.done;
+
+      if(task.done){
+
+        alert(
+          randomCompleteMessage()
+        );
+
+        addHistory(
+          "업무 완료",
+          task.text
+        );
+
+      }
+
+    }
+
+    return task;
+
+  });
+
+  saveAll();
+
+  renderTasks();
+
+}
+
+/* 우선순위 */
+
+function changePriority(id,value){
+
+  tasks = tasks.map(task=>{
+
+    if(task.id===id){
+      task.priority=value;
+    }
+
+    return task;
+
+  });
+
+  saveAll();
+
+  renderTasks();
+
+}
+
+/* 상세업무 */
+
+function addDetail(taskId,text){
+
+  if(!text.trim()) return;
+
+  tasks = tasks.map(task=>{
+
+    if(task.id===taskId){
+
+      task.details.push({
+
+        text,
+        done:false
+
+      });
+
+      addHistory(
+        "상세업무 추가",
+        text
+      );
+
+    }
+
+    return task;
+
+  });
+
+  saveAll();
+
+  renderTasks();
+
+}
+
+/* 상세 완료 */
+
+function toggleDetail(taskId,index){
+
+  tasks = tasks.map(task=>{
+
+    if(task.id===taskId){
+
+      task.details[index].done =
+        !task.details[index].done;
+
+      if(task.details[index].done){
+
+        alert(
+          randomCompleteMessage()
+        );
+
+        addHistory(
+          "상세업무 완료",
+          task.details[index].text
+        );
+
+      }
+
     }
 
     return task;
@@ -905,6 +1445,11 @@ function addMemo(){
 
   });
 
+  addHistory(
+    "사업소 요청",
+    `${title} - ${text}`
+  );
+
   document.getElementById("memoTitle").value="";
   document.getElementById("memoText").value="";
 
@@ -918,10 +1463,28 @@ function addMemo(){
 
 function updateProgress(){
 
-  let total = tasks.length;
+  let total = 0;
+  let done = 0;
 
-  let done =
-    tasks.filter(task=>task.done).length;
+  tasks.forEach(task=>{
+
+    total++;
+
+    if(task.done){
+      done++;
+    }
+
+    task.details.forEach(detail=>{
+
+      total++;
+
+      if(detail.done){
+        done++;
+      }
+
+    });
+
+  });
 
   const percent =
     total===0
@@ -947,10 +1510,11 @@ function renderTopPriority(){
 
   wrap.innerHTML="";
 
-  const highTasks =
-    tasks.filter(task=>task.priority==="high");
+  const sorted = [...tasks]
+    .filter(task=>task.priority==="high")
+    .slice(0,3);
 
-  highTasks.slice(0,3).forEach((task,index)=>{
+  sorted.forEach((task,index)=>{
 
     const div =
       document.createElement("div");
@@ -1016,6 +1580,40 @@ function renderTasks(){
 
     }
 
+    let detailHTML = "";
+
+    task.details.forEach((detail,index)=>{
+
+      detailHTML += `
+
+        <div class="detail-item">
+
+          <label class="detail-row">
+
+            <input
+              type="checkbox"
+              class="detail-check"
+              data-index="${index}"
+              ${detail.done ? "checked" : ""}
+            />
+
+            <span class="
+              detail-text
+              ${detail.done ? "detail-done" : ""}
+            ">
+
+              ✨ ${detail.text}
+
+            </span>
+
+          </label>
+
+        </div>
+
+      `;
+
+    });
+
     card.innerHTML = `
 
       <div class="task-main">
@@ -1041,11 +1639,67 @@ function renderTasks(){
 
           </div>
 
+          <div class="priority-edit">
+
+            <select class="priority-select-edit">
+
+              <option
+                value="high"
+                ${task.priority==="high" ? "selected" : ""}>
+
+                🔥 높음
+
+              </option>
+
+              <option
+                value="medium"
+                ${task.priority==="medium" ? "selected" : ""}>
+
+                ✨ 보통
+
+              </option>
+
+              <option
+                value="low"
+                ${task.priority==="low" ? "selected" : ""}>
+
+                ☁️ 낮음
+
+              </option>
+
+            </select>
+
+          </div>
+
+          <div class="detail-list">
+
+            ${detailHTML}
+
+          </div>
+
+          <div class="detail-input-wrap">
+
+            <input
+              type="text"
+              class="detail-input"
+              placeholder="상세 업무 추가..."
+            />
+
+            <button class="detail-btn">
+
+              + 추가
+
+            </button>
+
+          </div>
+
         </div>
 
       </div>
 
     `;
+
+    /* 업무 완료 */
 
     card.querySelector(".task-checkbox")
       .addEventListener("change",()=>{
@@ -1053,6 +1707,65 @@ function renderTasks(){
         toggleTask(task.id);
 
       });
+
+    /* 우선순위 */
+
+    card.querySelector(".priority-select-edit")
+      .addEventListener("change",(e)=>{
+
+        changePriority(
+          task.id,
+          e.target.value
+        );
+
+      });
+
+    /* 상세 추가 */
+
+    const detailInput =
+      card.querySelector(".detail-input");
+
+    const detailBtn =
+      card.querySelector(".detail-btn");
+
+    detailBtn.addEventListener("click",()=>{
+
+      addDetail(
+        task.id,
+        detailInput.value
+      );
+
+    });
+
+    detailInput.addEventListener("keypress",(e)=>{
+
+      if(e.key==="Enter"){
+
+        addDetail(
+          task.id,
+          detailInput.value
+        );
+
+      }
+
+    });
+
+    /* 상세 완료 */
+
+    card
+    .querySelectorAll(".detail-check")
+    .forEach(check=>{
+
+      check.addEventListener("change",()=>{
+
+        toggleDetail(
+          task.id,
+          check.dataset.index
+        );
+
+      });
+
+    });
 
     taskList.appendChild(card);
 
@@ -1099,6 +1812,119 @@ ${memo.text}
     `;
 
     area.appendChild(card);
+
+  });
+
+}
+
+/* AI */
+
+function askAI(){
+
+  const input =
+    document.getElementById("aiInput").value;
+
+  const answer =
+    document.getElementById("aiAnswer");
+
+  if(!input.trim()) return;
+
+  answer.innerHTML = `
+
+    ✨ "${input}" 관련해서는
+    우선순위를 나누고
+    하나씩 처리하는 게 좋아 보여!
+
+  `;
+
+}
+
+/* 히스토리 */
+
+function openHistory(){
+
+  document.getElementById(
+    "historyModal"
+  ).style.display="flex";
+
+  renderHistory();
+
+}
+
+function closeHistory(){
+
+  document.getElementById(
+    "historyModal"
+  ).style.display="none";
+
+}
+
+function renderHistory(){
+
+  const body =
+    document.getElementById("historyBody");
+
+  body.innerHTML="";
+
+  if(histories.length===0){
+
+    body.innerHTML=`
+      <div class="history-item">
+        아직 저장된 히스토리가 없어요 ✨
+      </div>
+    `;
+
+    return;
+
+  }
+
+  const grouped = {};
+
+  histories.forEach(item=>{
+
+    if(!grouped[item.date]){
+
+      grouped[item.date]=[];
+
+    }
+
+    grouped[item.date].push(item);
+
+  });
+
+  Object.keys(grouped).forEach(date=>{
+
+    const section =
+      document.createElement("div");
+
+    section.className="history-date";
+
+    let html = `
+
+      <div class="history-date-title">
+        📅 ${date}
+      </div>
+
+    `;
+
+    grouped[date].forEach(item=>{
+
+      html += `
+
+        <div class="history-item">
+
+          ✨ [${item.type}]
+          ${item.text}
+
+        </div>
+
+      `;
+
+    });
+
+    section.innerHTML = html;
+
+    body.appendChild(section);
 
   });
 
