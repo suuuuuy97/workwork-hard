@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -33,26 +34,7 @@ linear-gradient(
 
 padding:40px;
 
-min-height:100vh;
-
 color:#1e293b;
-
-}
-
-h1{
-
-font-size:42px;
-font-weight:800;
-
-margin-bottom:8px;
-
-}
-
-.subtitle{
-
-color:#64748b;
-
-margin-bottom:28px;
 
 }
 
@@ -68,51 +50,30 @@ gap:24px;
 
 .panel{
 
-background:rgba(255,255,255,0.82);
-
-backdrop-filter:blur(20px);
+background:white;
 
 border-radius:28px;
 
 padding:28px;
 
 box-shadow:
-0 8px 30px rgba(59,130,246,0.08);
+0 10px 30px rgba(59,130,246,0.08);
 
 }
 
-.section-title{
+h1{
 
-display:flex;
+font-size:42px;
 
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:20px;
+margin-bottom:8px;
 
 }
 
-.history-btn{
+.subtitle{
 
-border:none;
+color:#64748b;
 
-background:
-linear-gradient(
-135deg,
-#4f46e5,
-#6366f1
-);
-
-color:white;
-
-padding:12px 18px;
-
-border-radius:14px;
-
-cursor:pointer;
-
-font-weight:700;
+margin-bottom:28px;
 
 }
 
@@ -122,9 +83,9 @@ display:flex;
 
 gap:12px;
 
-flex-wrap:wrap;
-
 margin-bottom:18px;
+
+flex-wrap:wrap;
 
 }
 
@@ -141,8 +102,6 @@ background:#f1f5f9;
 padding:15px;
 
 border-radius:16px;
-
-font-size:14px;
 
 font-family:'Pretendard',sans-serif;
 
@@ -181,7 +140,7 @@ font-weight:700;
 
 .task{
 
-background:white;
+background:#fff;
 
 border:1px solid #e2e8f0;
 
@@ -195,9 +154,9 @@ margin-bottom:16px;
 
 .task.done{
 
-background:#f8fafc;
+opacity:0.7;
 
-opacity:0.78;
+background:#f8fafc;
 
 }
 
@@ -206,8 +165,6 @@ opacity:0.78;
 font-size:17px;
 
 font-weight:700;
-
-line-height:1.6;
 
 }
 
@@ -225,7 +182,7 @@ display:inline-block;
 
 margin-top:12px;
 
-padding:7px 12px;
+padding:6px 12px;
 
 border-radius:999px;
 
@@ -248,80 +205,6 @@ color:#d97706;
 .low{
 background:#dbeafe;
 color:#2563eb;
-}
-
-.detail{
-
-background:#f8fafc;
-
-padding:12px;
-
-border-radius:14px;
-
-margin-top:10px;
-
-}
-
-.detail.done{
-
-text-decoration:line-through;
-
-opacity:0.6;
-
-}
-
-.detail-input-wrap{
-
-display:flex;
-
-gap:10px;
-
-margin-top:14px;
-
-}
-
-.delete-btn{
-
-border:none;
-
-background:#e2e8f0;
-
-padding:8px 12px;
-
-border-radius:12px;
-
-cursor:pointer;
-
-font-size:12px;
-
-font-weight:700;
-
-}
-
-.complete-title{
-
-margin-top:30px;
-
-margin-bottom:16px;
-
-font-size:24px;
-
-font-weight:800;
-
-}
-
-.progress-top{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:10px;
-
-font-weight:700;
-
 }
 
 .progress-bar{
@@ -361,13 +244,13 @@ transition:0.3s;
 
 background:white;
 
-border:1px solid #e2e8f0;
-
 border-radius:22px;
 
 padding:20px;
 
 margin-bottom:16px;
+
+border:1px solid #e2e8f0;
 
 position:relative;
 
@@ -401,23 +284,19 @@ display:inline-block;
 
 background:#eef2ff;
 
-color:#4338ca;
-
 padding:6px 12px;
 
 border-radius:999px;
 
 font-size:12px;
 
-font-weight:700;
-
 margin-bottom:12px;
+
+font-weight:700;
 
 }
 
 .memo-title{
-
-font-size:16px;
 
 font-weight:700;
 
@@ -427,57 +306,19 @@ margin-bottom:10px;
 
 .memo-content{
 
-line-height:1.6;
-
 white-space:pre-wrap;
 
-}
-
-.modal{
-
-position:fixed;
-
-inset:0;
-
-background:rgba(0,0,0,0.45);
-
-display:none;
-
-justify-content:center;
-align-items:center;
-
-z-index:999;
+line-height:1.6;
 
 }
 
-.modal-content{
+.complete-title{
 
-width:90%;
-max-width:800px;
+margin:28px 0 16px;
 
-background:white;
+font-size:24px;
 
-padding:28px;
-
-border-radius:28px;
-
-max-height:80vh;
-
-overflow:auto;
-
-}
-
-.history-item{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:14px 0;
-
-border-bottom:1px solid #e5e7eb;
+font-weight:800;
 
 }
 
@@ -506,21 +347,9 @@ grid-template-columns:1fr;
 
 <div class="panel">
 
-<div class="section-title">
-
-<h2>
+<h2 style="margin-bottom:20px;">
 💼 오늘의 업무
 </h2>
-
-<button
-class="history-btn"
-onclick="openHistory()">
-
-히스토리
-
-</button>
-
-</div>
 
 <div class="input-wrap">
 
@@ -532,23 +361,15 @@ placeholder="업무 입력..."
 
 <select id="priorityInput">
 
-<option value="high">
-🔥 높음
-</option>
-
-<option value="medium">
-✨ 보통
-</option>
-
-<option value="low">
-☁️ 낮음
-</option>
+<option value="high">🔥 높음</option>
+<option value="medium">✨ 보통</option>
+<option value="low">☁️ 낮음</option>
 
 </select>
 
 <button
 class="add-btn"
-onclick="addTask()">
+id="taskBtn">
 
 추가
 
@@ -570,19 +391,18 @@ onclick="addTask()">
 
 <div class="panel">
 
-<h2 style="margin-bottom:16px;">
+<h2>
 📈 진행률
 </h2>
 
-<div class="progress-top">
+<div
+id="percent"
+style="
+margin-top:12px;
+font-weight:700;
+">
 
-<div>
-오늘 진행률
-</div>
-
-<div id="percent">
 0%
-</div>
 
 </div>
 
@@ -607,8 +427,8 @@ class="progress-fill">
 
 <textarea
 id="mindText"
-rows="7"
-placeholder="오늘의 목표 / 다짐 / 메모 입력..."
+rows="6"
+placeholder="오늘의 목표 / 다짐 입력..."
 ></textarea>
 
 </div>
@@ -625,17 +445,9 @@ placeholder="오늘의 목표 / 다짐 / 메모 입력..."
 
 <select id="memoType">
 
-<option value="카톡">
-💬 카톡
-</option>
-
-<option value="메신저">
-🖥️ 메신저
-</option>
-
-<option value="전화">
-☎️ 전화
-</option>
+<option value="카톡">💬 카톡</option>
+<option value="메신저">🖥️ 메신저</option>
+<option value="전화">☎️ 전화</option>
 
 </select>
 
@@ -657,7 +469,7 @@ placeholder="내용 입력..."
 
 <button
 class="add-btn"
-onclick="addMemo()">
+id="memoBtn">
 
 포스트잇 추가
 
@@ -673,58 +485,32 @@ onclick="addMemo()">
 
 </div>
 
-<div
-class="modal"
-id="historyModal">
-
-<div class="modal-content">
-
-<h2 style="margin-bottom:20px;">
-📚 업무 히스토리
-</h2>
-
-<div id="historyList"></div>
-
-<br>
-
-<button
-class="add-btn"
-onclick="closeHistory()">
-
-닫기
-
-</button>
-
-</div>
-
-</div>
-
 <script>
 
-let tasks =
-JSON.parse(localStorage.getItem("tasks")) || [];
+const state = {
 
-let memos =
-JSON.parse(localStorage.getItem("memos")) || [];
+tasks:
+JSON.parse(
+localStorage.getItem("tasks")
+) || [],
 
-let histories =
-JSON.parse(localStorage.getItem("histories")) || [];
+memos:
+JSON.parse(
+localStorage.getItem("memos")
+) || []
 
-function saveData(){
+};
+
+function save(){
 
 localStorage.setItem(
 "tasks",
-JSON.stringify(tasks)
+JSON.stringify(state.tasks)
 );
 
 localStorage.setItem(
 "memos",
-JSON.stringify(memos)
-);
-
-localStorage.setItem(
-"histories",
-JSON.stringify(histories)
+JSON.stringify(state.memos)
 );
 
 }
@@ -734,124 +520,6 @@ function createId(){
 return Date.now().toString(36)
 +
 Math.random().toString(36).slice(2);
-
-}
-
-function addTask(){
-
-const text =
-document.getElementById("taskInput")
-.value
-.trim();
-
-const priority =
-document.getElementById("priorityInput")
-.value;
-
-if(!text)return;
-
-tasks.unshift({
-
-id:createId(),
-text,
-priority,
-done:false,
-details:[]
-
-});
-
-histories.unshift({
-
-id:createId(),
-text,
-date:new Date().toLocaleDateString()
-
-});
-
-document.getElementById("taskInput").value="";
-
-saveData();
-
-renderAll();
-
-}
-
-function deleteTask(taskId){
-
-tasks =
-tasks.filter(
-t=>t.id!==taskId
-);
-
-saveData();
-
-renderAll();
-
-}
-
-function toggleTask(taskId){
-
-const task =
-tasks.find(
-t=>t.id===taskId
-);
-
-task.done = !task.done;
-
-saveData();
-
-renderAll();
-
-}
-
-function addDetail(taskId){
-
-const input =
-document.getElementById(
-`detail-input-${taskId}`
-);
-
-const value =
-input.value.trim();
-
-if(!value)return;
-
-const task =
-tasks.find(
-t=>t.id===taskId
-);
-
-task.details.push({
-
-id:createId(),
-text:value,
-done:false
-
-});
-
-saveData();
-
-renderAll();
-
-}
-
-function toggleDetail(taskId,detailId){
-
-const task =
-tasks.find(
-t=>t.id===taskId
-);
-
-const detail =
-task.details.find(
-d=>d.id===detailId
-);
-
-detail.done = !detail.done;
-
-saveData();
-
-renderAll();
 
 }
 
@@ -866,7 +534,7 @@ document.getElementById("doneTaskList");
 taskList.innerHTML="";
 doneList.innerHTML="";
 
-tasks.forEach(task=>{
+state.tasks.forEach(task=>{
 
 const div =
 document.createElement("div");
@@ -874,13 +542,14 @@ document.createElement("div");
 div.className=
 `task ${task.done?"done":""}`;
 
-div.innerHTML=`
+div.innerHTML = `
 
 <div style="display:flex;gap:12px;">
 
 <input
 type="checkbox"
 ${task.done?"checked":""}
+data-id="${task.id}"
 class="task-check"
 >
 
@@ -901,106 +570,25 @@ ${task.text}
 
 </div>
 
-<button class="delete-btn">
-삭제
+<button
+class="memo-delete"
+data-delete="${task.id}">
+
+✕
+
 </button>
 
 </div>
 
 <div class="badge ${task.priority}">
-${task.priority==="high"
-?"🔥 높음"
-:task.priority==="medium"
-?"✨ 보통"
-:"☁️ 낮음"}
+${task.priority}
 </div>
-
-${task.details.map(detail=>`
-
-<div class="
-detail
-${detail.done?"done":""}
-">
-
-<label>
-
-<input
-type="checkbox"
-${detail.done?"checked":""}
-data-task="${task.id}"
-data-detail="${detail.id}"
->
-
-${detail.text}
-
-</label>
-
-</div>
-
-`).join("")}
-
-${
-!task.done
-?`
-
-<div class="detail-input-wrap">
-
-<input
-id="detail-input-${task.id}"
-placeholder="상세 업무 추가..."
->
-
-<button
-class="add-btn"
-onclick="addDetail('${task.id}')">
-
-추가
-
-</button>
-
-</div>
-
-`
-:""
-}
 
 </div>
 
 </div>
 
 `;
-
-div
-.querySelector(".task-check")
-.addEventListener("change",()=>{
-
-toggleTask(task.id);
-
-});
-
-div
-.querySelector(".delete-btn")
-.addEventListener("click",()=>{
-
-deleteTask(task.id);
-
-});
-
-const detailChecks =
-div.querySelectorAll("[data-detail]");
-
-detailChecks.forEach(check=>{
-
-check.addEventListener("change",()=>{
-
-toggleDetail(
-check.dataset.task,
-check.dataset.detail
-);
-
-});
-
-});
 
 if(task.done){
 
@@ -1016,30 +604,59 @@ taskList.appendChild(div);
 
 }
 
+function renderMemos(){
+
+const wrap =
+document.getElementById("memoWrap");
+
+wrap.innerHTML="";
+
+state.memos.forEach(memo=>{
+
+const div =
+document.createElement("div");
+
+div.className="memo";
+
+div.innerHTML=`
+
+<button
+class="memo-delete"
+data-memo-delete="${memo.id}">
+
+✕
+
+</button>
+
+<div class="memo-type">
+${memo.type}
+</div>
+
+<div class="memo-title">
+${memo.title}
+</div>
+
+<div class="memo-content">
+${memo.text}
+</div>
+
+`;
+
+wrap.appendChild(div);
+
+});
+
+}
+
 function updateProgress(){
 
-let total = 0;
-let done = 0;
+let total =
+state.tasks.length;
 
-tasks.forEach(task=>{
-
-total++;
-
-if(task.done){
-done++;
-}
-
-task.details.forEach(detail=>{
-
-total++;
-
-if(detail.done){
-done++;
-}
-
-});
-
-});
+let done =
+state.tasks.filter(
+t=>t.done
+).length;
 
 const percent =
 total===0
@@ -1058,7 +675,51 @@ percent + "%";
 
 }
 
-function addMemo(){
+function renderAll(){
+
+renderTasks();
+
+renderMemos();
+
+updateProgress();
+
+save();
+
+}
+
+document
+.getElementById("taskBtn")
+.addEventListener("click",()=>{
+
+const text =
+document.getElementById("taskInput")
+.value
+.trim();
+
+const priority =
+document.getElementById("priorityInput")
+.value;
+
+if(!text)return;
+
+state.tasks.unshift({
+
+id:createId(),
+text,
+priority,
+done:false
+
+});
+
+document.getElementById("taskInput").value="";
+
+renderAll();
+
+});
+
+document
+.getElementById("memoBtn")
+.addEventListener("click",()=>{
 
 const type =
 document.getElementById("memoType")
@@ -1076,7 +737,7 @@ document.getElementById("memoText")
 
 if(!title || !text)return;
 
-memos.unshift({
+state.memos.unshift({
 
 id:createId(),
 type,
@@ -1088,140 +749,66 @@ text
 document.getElementById("memoTitle").value="";
 document.getElementById("memoText").value="";
 
-saveData();
+renderMemos();
+
+save();
+
+});
+
+document.addEventListener("change",(e)=>{
+
+if(
+e.target.classList.contains(
+"task-check"
+)
+){
+
+const id =
+e.target.dataset.id;
+
+const task =
+state.tasks.find(
+t=>t.id===id
+);
+
+task.done =
+e.target.checked;
 
 renderAll();
 
 }
 
-function deleteMemo(id){
+});
 
-memos =
-memos.filter(
-m=>m.id!==id
+document.addEventListener("click",(e)=>{
+
+if(e.target.dataset.delete){
+
+state.tasks =
+state.tasks.filter(
+t=>
+t.id!==e.target.dataset.delete
 );
-
-saveData();
 
 renderAll();
 
 }
 
-function renderMemos(){
+if(e.target.dataset.memoDelete){
 
-const wrap =
-document.getElementById("memoWrap");
-
-wrap.innerHTML="";
-
-memos.forEach(m=>{
-
-const div =
-document.createElement("div");
-
-div.className="memo";
-
-div.innerHTML=`
-
-<button class="memo-delete">
-✕
-</button>
-
-<div class="memo-type">
-${m.type}
-</div>
-
-<div class="memo-title">
-${m.title}
-</div>
-
-<div class="memo-content">
-${m.text}
-</div>
-
-`;
-
-div
-.querySelector(".memo-delete")
-.addEventListener("click",()=>{
-
-deleteMemo(m.id);
-
-});
-
-wrap.appendChild(div);
-
-});
-
-}
-
-function openHistory(){
-
-document.getElementById(
-"historyModal"
-).style.display="flex";
-
-renderHistory();
-
-}
-
-function closeHistory(){
-
-document.getElementById(
-"historyModal"
-).style.display="none";
-
-}
-
-function renderHistory(){
-
-const wrap =
-document.getElementById("historyList");
-
-wrap.innerHTML="";
-
-histories.forEach(h=>{
-
-const div =
-document.createElement("div");
-
-div.className="history-item";
-
-div.innerHTML=`
-
-<div>
-📅 ${h.date}
-- ${h.text}
-</div>
-
-<button class="delete-btn">
-삭제
-</button>
-
-`;
-
-div
-.querySelector(".delete-btn")
-.addEventListener("click",()=>{
-
-histories =
-histories.filter(
-item=>item.id!==h.id
+state.memos =
+state.memos.filter(
+m=>
+m.id!==e.target.dataset.memoDelete
 );
 
-saveData();
+renderMemos();
 
-renderHistory();
-
-});
-
-wrap.appendChild(div);
-
-});
+save();
 
 }
 
-function initMindText(){
+});
 
 const mindText =
 document.getElementById("mindText");
@@ -1238,22 +825,6 @@ mindText.value
 );
 
 });
-
-}
-
-function renderAll(){
-
-renderTasks();
-
-renderMemos();
-
-renderHistory();
-
-updateProgress();
-
-}
-
-initMindText();
 
 renderAll();
 
