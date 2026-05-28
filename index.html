@@ -356,7 +356,13 @@ button{
 }
 
 .task.done{
-  opacity:0.55;
+
+  opacity:0.5;
+}
+
+.task.done .task-title{
+
+  text-decoration:line-through;
 }
 
 .task-title{
@@ -365,10 +371,6 @@ button{
   font-weight:700;
 
   margin-bottom:12px;
-}
-
-.task.done .task-title{
-  text-decoration:line-through;
 }
 
 .badge{
@@ -873,6 +875,8 @@ function renderTasks(){
 
   list.innerHTML="";
 
+  /* 완료된건 아래로 */
+
   const sorted =
     [...tasks]
     .sort((a,b)=>a.done - b.done);
@@ -982,6 +986,8 @@ function renderTasks(){
     .querySelector(".priority-change")
     .value = task.priority;
 
+    /* 완료 체크 */
+
     div
     .querySelector(".task-check")
     .addEventListener("change",()=>{
@@ -993,6 +999,8 @@ function renderTasks(){
       renderTasks();
 
     });
+
+    /* 삭제 */
 
     div
     .querySelector(".delete-btn")
@@ -1012,6 +1020,8 @@ function renderTasks(){
 
     });
 
+    /* 우선순위 변경 */
+
     div
     .querySelector(".priority-change")
     .addEventListener("change",(e)=>{
@@ -1024,6 +1034,8 @@ function renderTasks(){
       renderTasks();
 
     });
+
+    /* 상세업무 */
 
     const detailList =
       div.querySelector(".detail-list");
@@ -1071,6 +1083,8 @@ function renderTasks(){
       detailList.appendChild(detailDiv);
 
     });
+
+    /* 상세업무 추가 */
 
     const detailInput =
       div.querySelector(".detail-input");
