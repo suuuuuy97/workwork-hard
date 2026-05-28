@@ -358,7 +358,7 @@ button{
 
 .task.done{
 
-  opacity:0.55;
+  opacity:0.5;
 }
 
 .task.done .task-title{
@@ -477,6 +477,8 @@ button{
 
   box-shadow:
     0 8px 20px rgba(0,0,0,0.08);
+
+  position:relative;
 }
 
 .memo-yellow{
@@ -506,6 +508,29 @@ button{
   line-height:1.7;
 
   font-size:14px;
+}
+
+.memo-delete{
+
+  position:absolute;
+
+  top:14px;
+  right:14px;
+
+  background:white;
+
+  color:#ff4a4a;
+
+  border:none;
+
+  width:28px;
+  height:28px;
+
+  border-radius:50%;
+
+  cursor:pointer;
+
+  font-weight:700;
 }
 
 .modal{
@@ -649,6 +674,7 @@ button{
 
         <textarea
           class="mind-input"
+          id="mindInput"
           placeholder="오늘의 다짐 적기 ✨"
         ></textarea>
 
@@ -821,6 +847,26 @@ let memos =
 let histories =
   JSON.parse(localStorage.getItem("histories")) || [];
 
+document.getElementById("mindInput").value =
+  localStorage.getItem("mindText") || "";
+
+document
+.getElementById("mindInput")
+.addEventListener("input",()=>{
+
+  localStorage.setItem(
+    "mindText",
+    document.getElementById("mindInput").value
+  );
+
+});
+
+function createId(){
+
+  return Math.random().toString(36).substring(2,12);
+
+}
+
 function save(){
 
   localStorage.setItem(
@@ -850,25 +896,29 @@ function addTask(){
 
   if(!text) return;
 
-  tasks.push({
+  const task = {
 
-    id:Date.now(),
+    id:createId(),
     text,
     priority,
     done:false,
+
     emoji:
       emojis[
         Math.floor(
           Math.random()*emojis.length
         )
       ],
+
     details:[]
 
-  });
+  };
+
+  tasks.unshift(task);
 
   histories.unshift({
 
-    id:Date.now(),
+    id:createId(),
     date:new Date().toLocaleDateString(),
     type:"업무추가",
     text
@@ -885,7 +935,7 @@ function addTask(){
 
 document
 .getElementById("taskInput")
-.addEventListener("keypress",e=>{
+.addEventListener("keypress",(e)=>{
 
   if(e.key==="Enter"){
     addTask();
@@ -906,8 +956,6 @@ function renderTasks(){
     low:1
   };
 
-  /* 우선순위 높은 순 + 완료는 아래 */
-
   const sorted =
     [...tasks]
     .sort((a,b)=>{
@@ -918,7 +966,9 @@ function renderTasks(){
 
       }
 
-      return order[b.priority] - order[a.priority];
+      return order[b.priority]
+      -
+      order[a.priority];
 
     });
 
@@ -978,18 +1028,24 @@ function renderTasks(){
           </div>
 
           <div class="badge ${badgeClass}">
-
             ${task.priority}
-
           </div>
 
           <br><br>
 
           <select class="priority-change">
 
-            <option value="high">🔥 높음</option>
-            <option value="medium">✨ 보통</option>
-            <option value="low">☁️ 낮음</option>
+            <option value="high">
+              🔥 높음
+            </option>
+
+            <option value="medium">
+              ✨ 보통
+            </option>
+
+            <option value="low">
+              ☁️ 낮음
+            </option>
 
           </select>
 
@@ -1019,8 +1075,6 @@ function renderTasks(){
     .querySelector(".priority-change")
     .value = task.priority;
 
-    /* 완료 */
-
     div
     .querySelector(".task-check")
     .addEventListener("change",()=>{
@@ -1032,8 +1086,6 @@ function renderTasks(){
       renderTasks();
 
     });
-
-    /* 삭제 */
 
     div
     .querySelector(".delete-btn")
@@ -1053,8 +1105,6 @@ function renderTasks(){
 
     });
 
-    /* 우선순위 */
-
     div
     .querySelector(".priority-change")
     .addEventListener("change",(e)=>{
@@ -1068,12 +1118,10 @@ function renderTasks(){
 
     });
 
-    /* 상세업무 */
-
     const detailList =
       div.querySelector(".detail-list");
 
-    task.details.forEach((detail,index)=>{
+    task.details.forEach(detail=>{
 
       const detailDiv =
         document.createElement("div");
@@ -1117,8 +1165,6 @@ function renderTasks(){
 
     });
 
-    /* 상세업무 추가 */
-
     const detailInput =
       div.querySelector(".detail-input");
 
@@ -1134,6 +1180,7 @@ function renderTasks(){
 
       task.details.push({
 
+        id:createId(),
         text:value,
         done:false
 
@@ -1141,9 +1188,9 @@ function renderTasks(){
 
       histories.unshift({
 
-        id:Date.now(),
+        id:createId(),
         date:new Date().toLocaleDateString(),
-        type:"상세업무추가",
+        type:"상세업무",
         text:value
 
       });
@@ -1190,11 +1237,9 @@ function renderTop3(){
   wrap.innerHTML="";
 
   const order = {
-
     high:3,
     medium:2,
     low:1
-
   };
 
   const top =
@@ -1318,21 +1363,35 @@ function addMemo(){
 
   if(!title || !text) return;
 
-  const color =
-    memoColors[
-      Math.floor(
-        Math.random()*memoColors.length
-      )
-    ];
-
   memos.unshift({
 
+    id:createId(),
     type,
     title,
     text,
-    color
+
+    color:
+      memoColors[
+        Math.floor(
+          Math.random()*memoColors.length
+        )
+      ]
 
   });
+
+  document.getElementById("memoTitle").value="";
+  document.getElementById("memoText").value="";
+
+  save();
+
+  renderMemos();
+
+}
+
+function deleteMemo(id){
+
+  memos =
+    memos.filter(m=>m.id!==id);
 
   save();
 
@@ -1355,6 +1414,13 @@ function renderMemos(){
         memo
         ${m.color}
       ">
+
+        <button
+          class="memo-delete"
+          onclick="deleteMemo('${m.id}')"
+        >
+          ×
+        </button>
 
         <div class="memo-title">
 
@@ -1430,7 +1496,7 @@ function renderHistory(){
 
         <button
           class="history-delete"
-          onclick="deleteHistory(${h.id})"
+          onclick="deleteHistory('${h.id}')"
         >
 
           삭제
