@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -434,6 +433,25 @@ button{
   gap:10px;
 
   margin-top:16px;
+}
+
+.delete-btn{
+
+  background:#ffe3e3;
+
+  color:#ff4a4a;
+
+  border:none;
+
+  border-radius:14px;
+
+  padding:10px 14px;
+
+  cursor:pointer;
+
+  font-size:12px;
+
+  font-weight:700;
 }
 
 .memo-wrap{
@@ -882,6 +900,7 @@ function renderTasks(){
       <div style="
         display:flex;
         gap:12px;
+        align-items:flex-start;
       ">
 
         <input
@@ -892,10 +911,24 @@ function renderTasks(){
 
         <div style="flex:1;">
 
-          <div class="task-title">
+          <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:10px;
+            flex-wrap:wrap;
+          ">
 
-            ${task.emoji}
-            ${task.text}
+            <div class="task-title">
+
+              ${task.emoji}
+              ${task.text}
+
+            </div>
+
+            <button class="delete-btn">
+              삭제
+            </button>
 
           </div>
 
@@ -905,11 +938,49 @@ function renderTasks(){
 
           </div>
 
+          <br><br>
+
+          <select class="priority-change">
+
+            <option value="high">
+              🔥 높음
+            </option>
+
+            <option value="medium">
+              ✨ 보통
+            </option>
+
+            <option value="low">
+              ☁️ 낮음
+            </option>
+
+          </select>
+
+          <div class="detail-list"></div>
+
+          <div class="detail-input-wrap">
+
+            <input
+              type="text"
+              class="detail-input"
+              placeholder="상세 업무 추가..."
+            >
+
+            <button class="detail-btn">
+              추가
+            </button>
+
+          </div>
+
         </div>
 
       </div>
 
     `;
+
+    div
+    .querySelector(".priority-change")
+    .value = task.priority;
 
     div
     .querySelector(".task-check")
@@ -922,6 +993,128 @@ function renderTasks(){
       renderTasks();
 
     });
+
+    div
+    .querySelector(".delete-btn")
+    .addEventListener("click",()=>{
+
+      const ok =
+        confirm("업무를 삭제할까요?");
+
+      if(!ok) return;
+
+      tasks =
+        tasks.filter(t=>t.id!==task.id);
+
+      save();
+
+      renderTasks();
+
+    });
+
+    div
+    .querySelector(".priority-change")
+    .addEventListener("change",(e)=>{
+
+      task.priority =
+        e.target.value;
+
+      save();
+
+      renderTasks();
+
+    });
+
+    const detailList =
+      div.querySelector(".detail-list");
+
+    task.details.forEach((detail,index)=>{
+
+      const detailDiv =
+        document.createElement("div");
+
+      detailDiv.className =
+        `detail ${detail.done ? "done" : ""}`;
+
+      detailDiv.innerHTML = `
+
+        <label style="
+          display:flex;
+          gap:10px;
+          align-items:center;
+        ">
+
+          <input
+            type="checkbox"
+            class="detail-check"
+            ${detail.done ? "checked" : ""}
+          >
+
+          ✨ ${detail.text}
+
+        </label>
+
+      `;
+
+      detailDiv
+      .querySelector(".detail-check")
+      .addEventListener("change",()=>{
+
+        detail.done=!detail.done;
+
+        save();
+
+        renderTasks();
+
+      });
+
+      detailList.appendChild(detailDiv);
+
+    });
+
+    const detailInput =
+      div.querySelector(".detail-input");
+
+    const detailBtn =
+      div.querySelector(".detail-btn");
+
+    function addDetail(){
+
+      const value =
+        detailInput.value.trim();
+
+      if(!value) return;
+
+      task.details.push({
+
+        text:value,
+        done:false
+
+      });
+
+      detailInput.value="";
+
+      save();
+
+      renderTasks();
+
+    }
+
+    detailBtn.addEventListener(
+      "click",
+      addDetail
+    );
+
+    detailInput.addEventListener(
+      "keypress",
+      (e)=>{
+
+        if(e.key==="Enter"){
+          addDetail();
+        }
+
+      }
+    );
 
     list.appendChild(div);
 
@@ -1024,10 +1217,24 @@ function renderTop3(){
 
 function updateProgress(){
 
-  const total = tasks.length;
+  let total=0;
+  let done=0;
 
-  const done =
-    tasks.filter(t=>t.done).length;
+  tasks.forEach(task=>{
+
+    total++;
+
+    if(task.done) done++;
+
+    task.details.forEach(detail=>{
+
+      total++;
+
+      if(detail.done) done++;
+
+    });
+
+  });
 
   const percent =
     total===0
@@ -1165,4 +1372,3 @@ renderMemos();
 
 </body>
 </html>
-```
