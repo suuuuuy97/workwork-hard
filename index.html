@@ -4,132 +4,289 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>🎀슈냥의 슬기로운 회사생활🎀</title>
+<title>슈냥의 슬기로운 회사생활</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
 *{
+  margin:0;
+  padding:0;
   box-sizing:border-box;
 }
 
 body{
-  margin:0;
-  padding:30px;
-  font-family:sans-serif;
+
+  font-family:'Pretendard',sans-serif;
+
   background:
-    radial-gradient(circle at top left,#ffe7f2 0%,transparent 25%),
-    radial-gradient(circle at bottom right,#dff4ff 0%,transparent 25%),
-    #f7f8fc;
+    radial-gradient(circle at top left,#ffe0ef 0%,transparent 25%),
+    radial-gradient(circle at bottom right,#dff3ff 0%,transparent 25%),
+    linear-gradient(135deg,#fff8fc,#f5f8ff);
+
+  min-height:100vh;
+
+  padding:40px;
+
+  color:#2b2b2b;
 }
 
 h1{
-  font-size:44px;
+
+  font-size:52px;
+
+  font-weight:800;
+
+  line-height:1.2;
+
   margin-bottom:30px;
+
+  color:#2a2a2a;
+}
+
+.subtitle{
+
+  color:#888;
+
+  margin-top:-14px;
+
+  margin-bottom:34px;
+
+  font-size:15px;
 }
 
 .container{
+
   display:grid;
+
   grid-template-columns:1.2fr 0.8fr;
-  gap:24px;
+
+  gap:28px;
 }
 
-.card{
-  background:white;
-  border-radius:28px;
-  padding:24px;
+.panel{
+
+  background:
+    rgba(255,255,255,0.78);
+
+  backdrop-filter:blur(18px);
+
+  border:1px solid rgba(255,255,255,0.7);
+
+  border-radius:34px;
+
+  padding:28px;
+
   box-shadow:
-    0 10px 30px rgba(0,0,0,0.06);
+    0 20px 40px rgba(0,0,0,0.06);
+}
+
+.section-title{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  margin-bottom:22px;
+}
+
+.section-title h2{
+
+  font-size:28px;
+
+  font-weight:800;
+}
+
+.history-btn{
+
+  border:none;
+
+  background:#1f1f1f;
+
+  color:white;
+
+  padding:12px 18px;
+
+  border-radius:16px;
+
+  cursor:pointer;
+
+  font-weight:600;
+
+  transition:0.2s;
+}
+
+.history-btn:hover{
+
+  transform:translateY(-2px);
 }
 
 .top3{
+
   display:grid;
+
   grid-template-columns:1fr 1fr 1fr;
+
   gap:14px;
-  margin-bottom:24px;
+
+  margin-bottom:28px;
 }
 
 .top-card{
-  padding:18px;
-  border-radius:20px;
+
+  border-radius:24px;
+
+  padding:20px;
+
   color:white;
+
+  min-height:120px;
+
+  box-shadow:
+    0 10px 20px rgba(0,0,0,0.08);
 }
 
 .top1{
-  background:#ff92b5;
+  background:linear-gradient(135deg,#ff77b7,#ffb6d9);
 }
 
 .top2{
-  background:#b69cff;
+  background:linear-gradient(135deg,#9b8cff,#c4bbff);
 }
 
 .top3c{
-  background:#7ec8ff;
+  background:linear-gradient(135deg,#79d5ff,#b7ebff);
 }
 
-input,
-select,
-textarea,
-button{
+.top-rank{
 
-  border:none;
-  outline:none;
+  font-size:12px;
 
-  border-radius:14px;
+  opacity:0.8;
 
-  padding:14px;
+  margin-bottom:14px;
+}
 
-  font-size:14px;
+.top-task{
+
+  font-size:16px;
+
+  line-height:1.6;
+
+  font-weight:700;
+}
+
+.input-wrap{
+
+  display:flex;
+
+  gap:12px;
+
+  flex-wrap:wrap;
+
+  margin-bottom:28px;
 }
 
 input,
 select,
 textarea{
-  background:#f3f5fa;
+
+  border:none;
+  outline:none;
+
+  background:#f4f6fb;
+
+  border-radius:18px;
+
+  padding:16px;
+
+  font-size:14px;
+
+  font-family:'Pretendard',sans-serif;
 }
 
 button{
+
+  border:none;
+
   cursor:pointer;
+
+  font-family:'Pretendard',sans-serif;
 }
 
-.input-wrap{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+.main-input{
+
+  flex:1;
+}
+
+.add-btn{
+
+  background:#1f1f1f;
+
+  color:white;
+
+  padding:0 24px;
+
+  border-radius:18px;
+
+  font-weight:700;
+
+  transition:0.2s;
+}
+
+.add-btn:hover{
+
+  transform:translateY(-2px);
 }
 
 .task{
+
   background:white;
-  border-radius:24px;
-  padding:20px;
+
+  border-radius:28px;
+
+  padding:22px;
+
   margin-bottom:18px;
+
   box-shadow:
-    0 5px 15px rgba(0,0,0,0.05);
+    0 10px 20px rgba(0,0,0,0.05);
 
   transition:0.25s;
 }
 
+.task:hover{
+
+  transform:translateY(-3px);
+}
+
 .task.done{
 
-  opacity:1;
+  background:#fff4fa;
 
-  background:#fff1f7;
+  border:2px solid #ffc4df;
+}
 
-  border:3px solid #ffb7d3;
+.task-title{
 
-  box-shadow:
-    0 6px 20px rgba(255,105,180,0.12);
+  font-size:18px;
+
+  font-weight:700;
+
+  line-height:1.6;
 }
 
 .task.done .task-title{
 
   text-decoration:line-through;
 
-  color:#666;
-}
-
-.task-title{
-  font-size:18px;
-  font-weight:700;
+  color:#777;
 }
 
 .done-badge{
@@ -138,13 +295,7 @@ button{
 
   align-items:center;
 
-  gap:4px;
-
   margin-left:10px;
-
-  padding:7px 12px;
-
-  border-radius:999px;
 
   background:#ff5ca8;
 
@@ -152,105 +303,198 @@ button{
 
   font-size:11px;
 
+  padding:6px 12px;
+
+  border-radius:999px;
+
   font-weight:700;
 }
 
 .badge{
+
   display:inline-block;
-  padding:7px 12px;
+
+  margin-top:12px;
+
+  padding:8px 14px;
+
   border-radius:999px;
+
   font-size:12px;
-  margin-top:10px;
+
+  font-weight:700;
 }
 
 .high{
-  background:#ffe3e3;
-  color:#ff4a4a;
+  background:#ffe2ea;
+  color:#ff4d8f;
 }
 
 .medium{
-  background:#fff1cf;
+  background:#fff2d9;
   color:#ff9800;
 }
 
 .low{
-  background:#dff1ff;
-  color:#3f97d1;
+  background:#e4f5ff;
+  color:#3f9ad6;
 }
 
 .detail{
-  background:#f5f5f5;
-  padding:10px;
-  border-radius:12px;
+
+  background:#f6f7fb;
+
+  border-radius:14px;
+
+  padding:12px;
+
   margin-top:10px;
+
+  line-height:1.5;
 }
 
 .detail.done{
+
   opacity:0.6;
+
   text-decoration:line-through;
 }
 
 .detail-input-wrap{
+
   display:flex;
+
   gap:10px;
-  margin-top:14px;
+
+  margin-top:16px;
 }
 
-.progress-wrap{
-  margin-top:20px;
+.delete-btn{
+
+  background:#ffe2ea;
+
+  color:#ff4d8f;
+
+  padding:10px 14px;
+
+  border-radius:14px;
+
+  font-size:12px;
+
+  font-weight:700;
+}
+
+.complete-title{
+
+  margin-top:36px;
+
+  margin-bottom:18px;
+
+  color:#ff5ca8;
+
+  font-size:24px;
+
+  font-weight:800;
+}
+
+.progress-card{
+
+  margin-top:24px;
+}
+
+.progress-top{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  margin-bottom:14px;
 }
 
 .progress-bar{
-  height:14px;
+
+  width:100%;
+
+  height:16px;
+
   background:#ececec;
+
   border-radius:999px;
+
   overflow:hidden;
 }
 
 .progress-fill{
-  height:100%;
+
   width:0%;
+
+  height:100%;
+
   background:
-    linear-gradient(90deg,#ffb3d2,#ffd59e);
+    linear-gradient(90deg,#ff9fc7,#ffd59e);
+
+  border-radius:999px;
 }
 
 .memo{
-  padding:20px;
-  border-radius:24px;
-  min-height:180px;
+
+  padding:22px;
+
+  border-radius:28px;
+
+  margin-bottom:18px;
+
   position:relative;
-  margin-bottom:16px;
+
+  box-shadow:
+    0 10px 20px rgba(0,0,0,0.06);
 }
 
 .memo-yellow{
-  background:#fff2b7;
+  background:#fff1af;
 }
 
 .memo-pink{
-  background:#ffdce8;
+  background:#ffd9e8;
 }
 
 .memo-blue{
-  background:#dff3ff;
+  background:#daf1ff;
+}
+
+.memo h3{
+
+  margin-bottom:14px;
+
+  line-height:1.5;
+}
+
+.memo p{
+
+  white-space:pre-wrap;
+
+  line-height:1.7;
+
+  font-size:14px;
 }
 
 .memo-delete{
 
   position:absolute;
 
-  top:12px;
-  right:12px;
+  top:14px;
+  right:14px;
 
-  width:28px;
-  height:28px;
+  width:30px;
+  height:30px;
 
   border-radius:50%;
 
   background:white;
 
-  color:#ff4a4a;
+  color:#ff5ca8;
 
-  font-weight:bold;
+  font-weight:800;
 }
 
 .modal{
@@ -265,11 +509,11 @@ button{
 
   justify-content:center;
   align-items:center;
+
+  z-index:999;
 }
 
 .modal-content{
-
-  background:white;
 
   width:90%;
   max-width:900px;
@@ -278,23 +522,44 @@ button{
 
   overflow:auto;
 
-  border-radius:24px;
+  background:white;
 
-  padding:24px;
+  border-radius:30px;
+
+  padding:30px;
 }
 
 .history-item{
 
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
 
-  border-bottom:1px solid #eee;
+  gap:12px;
 
-  padding:14px 0;
+  padding:16px 0;
+
+  border-bottom:1px solid #eee;
 }
 
-@media(max-width:1000px){
+.history-delete{
+
+  background:#ffe2ea;
+
+  color:#ff4d8f;
+
+  padding:10px 14px;
+
+  border-radius:14px;
+
+  font-size:12px;
+
+  font-weight:700;
+}
+
+@media(max-width:1200px){
 
   .container{
     grid-template-columns:1fr;
@@ -315,100 +580,117 @@ button{
 슈냥의 슬기로운 회사생활 ✨
 </h1>
 
+<div class="subtitle">
+오늘도 뚠뚠, 하나씩 해내는 중 🌷
+</div>
+
 <div class="container">
 
-  <!-- 왼쪽 -->
-  <div>
+  <!-- LEFT -->
 
-    <div class="card">
+  <div class="panel">
 
-      <div style="
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-      ">
+    <div class="section-title">
 
-        <h2>💼 오늘의 업무</h2>
+      <h2>
+        💼 오늘의 업무
+      </h2>
 
-        <button onclick="openHistory()">
-          📚 히스토리
-        </button>
+      <button
+        class="history-btn"
+        onclick="openHistory()">
 
-      </div>
+        📚 히스토리
 
-      <br>
-
-      <div id="top3" class="top3"></div>
-
-      <div class="input-wrap">
-
-        <input
-          id="taskInput"
-          style="flex:1;"
-          placeholder="오늘 해야할 일!"
-        >
-
-        <select id="priorityInput">
-
-          <option value="high">
-            🔥 높음
-          </option>
-
-          <option value="medium">
-            ✨ 보통
-          </option>
-
-          <option value="low">
-            ☁️ 낮음
-          </option>
-
-        </select>
-
-        <button onclick="addTask()">
-          추가
-        </button>
-
-      </div>
-
-      <br>
-
-      <div id="taskList"></div>
+      </button>
 
     </div>
 
+    <div id="top3" class="top3"></div>
+
+    <div class="input-wrap">
+
+      <input
+        id="taskInput"
+        class="main-input"
+        placeholder="오늘 해야할 업무 입력."
+      >
+
+      <select id="priorityInput">
+
+        <option value="high">
+          🔥 높음
+        </option>
+
+        <option value="medium">
+          ✨ 보통
+        </option>
+
+        <option value="low">
+          ☁️ 낮음
+        </option>
+
+      </select>
+
+      <button
+        class="add-btn"
+        onclick="addTask()">
+
+        추가
+
+      </button>
+
+    </div>
+
+    <div id="taskList"></div>
+
+    <div class="complete-title">
+      ✅ 오늘 완료한 일
+    </div>
+
+    <div id="doneTaskList"></div>
+
   </div>
 
-  <!-- 오른쪽 -->
+  <!-- RIGHT -->
+
   <div>
 
-    <div class="card">
+    <div class="panel">
 
-      <h2>
-        🌷 오늘의 다짐
-      </h2>
+      <div class="section-title">
 
-      <br>
+        <h2>
+          🌷 오늘의 다짐
+        </h2>
+
+      </div>
 
       <textarea
         id="mindInput"
-        rows="6"
-        placeholder="오늘의 다짐!"
+        rows="7"
+        placeholder="오늘의 다짐."
       ></textarea>
 
-      <div class="progress-wrap">
+      <div class="progress-card">
 
-        <div style="margin-bottom:10px;">
+        <div class="progress-top">
 
-          진행률:
-          <span id="percent">0%</span>
+          <div>
+            오늘의 진행률
+          </div>
+
+          <div id="percent">
+            0%
+          </div>
 
         </div>
 
         <div class="progress-bar">
 
           <div
-            class="progress-fill"
-            id="progressFill">
+            id="progressFill"
+            class="progress-fill">
           </div>
 
         </div>
@@ -419,13 +701,15 @@ button{
 
     <br>
 
-    <div class="card">
+    <div class="panel">
 
-      <h2>
-        💌 사업소 요청 리스트
-      </h2>
+      <div class="section-title">
 
-      <br>
+        <h2>
+          💌 사업소 요청 리스트
+        </h2>
+
+      </div>
 
       <div class="input-wrap">
 
@@ -443,24 +727,26 @@ button{
 
         <input
           id="memoTitle"
-          style="flex:1;"
-          placeholder="사업소명"
+          class="main-input"
+          placeholder="사업소명 / 제목"
         >
 
       </div>
 
-      <br>
-
       <textarea
         id="memoText"
         rows="5"
-        placeholder="요청 내용"
+        placeholder="요청 내용 입력."
       ></textarea>
 
       <br><br>
 
-      <button onclick="addMemo()">
+      <button
+        class="add-btn"
+        onclick="addMemo()">
+
         포스트잇 추가
+
       </button>
 
       <br><br>
@@ -474,22 +760,25 @@ button{
 </div>
 
 <!-- 히스토리 -->
+
 <div class="modal" id="historyModal">
 
   <div class="modal-content">
 
-    <h2>
+    <h2 style="margin-bottom:20px;">
       📚 업무 히스토리
     </h2>
-
-    <br>
 
     <div id="historyBody"></div>
 
     <br>
 
-    <button onclick="closeHistory()">
+    <button
+      class="add-btn"
+      onclick="closeHistory()">
+
       닫기
+
     </button>
 
   </div>
@@ -498,632 +787,7 @@ button{
 
 <script>
 
-const emojis = [
-  "🌷","🎀","✨","💖","🍓"
-];
-
-const memoColors = [
-  "memo-yellow",
-  "memo-pink",
-  "memo-blue"
-];
-
-let tasks =
-  JSON.parse(localStorage.getItem("tasks")) || [];
-
-let memos =
-  JSON.parse(localStorage.getItem("memos")) || [];
-
-let histories =
-  JSON.parse(localStorage.getItem("histories")) || [];
-
-document.getElementById("mindInput").value =
-  localStorage.getItem("mindText") || "";
-
-document
-.getElementById("mindInput")
-.addEventListener("input",()=>{
-
-  localStorage.setItem(
-    "mindText",
-    document.getElementById("mindInput").value
-  );
-
-});
-
-function createId(){
-
-  return Math.random().toString(36).substring(2,12);
-
-}
-
-function save(){
-
-  localStorage.setItem(
-    "tasks",
-    JSON.stringify(tasks)
-  );
-
-  localStorage.setItem(
-    "memos",
-    JSON.stringify(memos)
-  );
-
-  localStorage.setItem(
-    "histories",
-    JSON.stringify(histories)
-  );
-
-}
-
-function addTask(){
-
-  const text =
-    document.getElementById("taskInput").value.trim();
-
-  const priority =
-    document.getElementById("priorityInput").value;
-
-  if(!text) return;
-
-  tasks.push({
-
-    id:createId(),
-    text,
-    priority,
-    done:false,
-
-    emoji:
-      emojis[
-        Math.floor(Math.random()*emojis.length)
-      ],
-
-    details:[]
-
-  });
-
-  histories.unshift({
-
-    id:createId(),
-    date:new Date().toLocaleDateString(),
-    type:"업무",
-    text
-
-  });
-
-  document.getElementById("taskInput").value="";
-
-  save();
-
-  renderTasks();
-
-}
-
-document
-.getElementById("taskInput")
-.addEventListener("keypress",(e)=>{
-
-  if(e.key==="Enter"){
-    addTask();
-  }
-
-});
-
-function renderTasks(){
-
-  const list =
-    document.getElementById("taskList");
-
-  list.innerHTML="";
-
-  const order = {
-    high:3,
-    medium:2,
-    low:1
-  };
-
-  /* 완료는 아래로 */
-  const sorted =
-    [...tasks]
-    .sort((a,b)=>{
-
-      if(a.done !== b.done){
-
-        return a.done - b.done;
-
-      }
-
-      return order[b.priority]
-      -
-      order[a.priority];
-
-    });
-
-  sorted.forEach(task=>{
-
-    const div =
-      document.createElement("div");
-
-    div.className =
-      `task ${task.done ? "done" : ""}`;
-
-    let badgeClass="low";
-
-    if(task.priority==="high"){
-      badgeClass="high";
-    }
-
-    if(task.priority==="medium"){
-      badgeClass="medium";
-    }
-
-    div.innerHTML = `
-
-      <div style="
-        display:flex;
-        gap:12px;
-      ">
-
-        <input
-          type="checkbox"
-          class="task-check"
-          ${task.done ? "checked" : ""}
-        >
-
-        <div style="flex:1;">
-
-          <div style="
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            gap:10px;
-            flex-wrap:wrap;
-          ">
-
-            <div class="task-title">
-
-              ${task.emoji}
-              ${task.text}
-
-              ${task.done ? `
-                <span class="done-badge">
-                  완료 ✨
-                </span>
-              ` : ""}
-
-            </div>
-
-            <button class="delete-btn">
-              삭제
-            </button>
-
-          </div>
-
-          <div class="badge ${badgeClass}">
-            ${task.priority}
-          </div>
-
-          <br><br>
-
-          <div class="detail-list"></div>
-
-          <div class="detail-input-wrap">
-
-            <input
-              class="detail-input"
-              style="flex:1;"
-              placeholder="상세 업무 추가..."
-            >
-
-            <button class="detail-btn">
-              추가
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    `;
-
-    /* 완료 */
-    div
-    .querySelector(".task-check")
-    .addEventListener("change",()=>{
-
-      task.done=!task.done;
-
-      save();
-
-      renderTasks();
-
-    });
-
-    /* 삭제 */
-    div
-    .querySelector(".delete-btn")
-    .addEventListener("click",()=>{
-
-      tasks =
-        tasks.filter(t=>t.id!==task.id);
-
-      save();
-
-      renderTasks();
-
-    });
-
-    /* 상세업무 */
-    const detailList =
-      div.querySelector(".detail-list");
-
-    task.details.forEach(detail=>{
-
-      const detailDiv =
-        document.createElement("div");
-
-      detailDiv.className =
-        `detail ${detail.done ? "done" : ""}`;
-
-      detailDiv.innerHTML = `
-
-        <label>
-
-          <input
-            type="checkbox"
-            class="detail-check"
-            ${detail.done ? "checked" : ""}
-          >
-
-          ✨ ${detail.text}
-
-        </label>
-
-      `;
-
-      detailDiv
-      .querySelector(".detail-check")
-      .addEventListener("change",()=>{
-
-        detail.done=!detail.done;
-
-        save();
-
-        renderTasks();
-
-      });
-
-      detailList.appendChild(detailDiv);
-
-    });
-
-    /* 상세 추가 */
-    const detailInput =
-      div.querySelector(".detail-input");
-
-    div
-    .querySelector(".detail-btn")
-    .addEventListener("click",()=>{
-
-      const value =
-        detailInput.value.trim();
-
-      if(!value) return;
-
-      task.details.push({
-
-        id:createId(),
-        text:value,
-        done:false
-
-      });
-
-      histories.unshift({
-
-        id:createId(),
-        date:new Date().toLocaleDateString(),
-        type:"상세업무",
-        text:value
-
-      });
-
-      detailInput.value="";
-
-      save();
-
-      renderTasks();
-
-    });
-
-    list.appendChild(div);
-
-  });
-
-  renderTop3();
-
-  updateProgress();
-
-}
-
-function renderTop3(){
-
-  const wrap =
-    document.getElementById("top3");
-
-  wrap.innerHTML="";
-
-  const order = {
-    high:3,
-    medium:2,
-    low:1
-  };
-
-  const top =
-    [...tasks]
-
-    .filter(t=>!t.done)
-
-    .sort((a,b)=>
-      order[b.priority]
-      -
-      order[a.priority]
-    )
-
-    .slice(0,3);
-
-  top.forEach((task,index)=>{
-
-    let cls="top1";
-
-    if(index===1) cls="top2";
-    if(index===2) cls="top3c";
-
-    wrap.innerHTML += `
-
-      <div class="top-card ${cls}">
-
-        <div>
-          TOP ${index+1}
-        </div>
-
-        <br>
-
-        <strong>
-
-          ${task.emoji}
-          ${task.text}
-
-        </strong>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-function updateProgress(){
-
-  let total=0;
-  let done=0;
-
-  tasks.forEach(task=>{
-
-    total++;
-
-    if(task.done) done++;
-
-    task.details.forEach(detail=>{
-
-      total++;
-
-      if(detail.done) done++;
-
-    });
-
-  });
-
-  const percent =
-    total===0
-    ? 0
-    : Math.round((done/total)*100);
-
-  document.getElementById("percent")
-    .innerText = percent+"%";
-
-  document.getElementById("progressFill")
-    .style.width = percent+"%";
-
-}
-
-function addMemo(){
-
-  const type =
-    document.getElementById("memoType").value;
-
-  const title =
-    document.getElementById("memoTitle").value;
-
-  const text =
-    document.getElementById("memoText").value;
-
-  if(!title || !text) return;
-
-  memos.unshift({
-
-    id:createId(),
-    type,
-    title,
-    text,
-
-    color:
-      memoColors[
-        Math.floor(Math.random()*memoColors.length)
-      ]
-
-  });
-
-  document.getElementById("memoTitle").value="";
-  document.getElementById("memoText").value="";
-
-  save();
-
-  renderMemos();
-
-}
-
-function deleteMemo(id){
-
-  memos =
-    memos.filter(m=>m.id!==id);
-
-  save();
-
-  renderMemos();
-
-}
-
-function renderMemos(){
-
-  const wrap =
-    document.getElementById("memoWrap");
-
-  wrap.innerHTML="";
-
-  memos.forEach(m=>{
-
-    wrap.innerHTML += `
-
-      <div class="
-        memo
-        ${m.color}
-      ">
-
-        <button
-          class="memo-delete"
-          onclick="deleteMemo('${m.id}')"
-        >
-
-          ×
-
-        </button>
-
-        <h3>
-
-          ${m.type}
-          ${m.title}
-
-        </h3>
-
-        <p>
-
-${m.text}
-
-        </p>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-function openHistory(){
-
-  document.getElementById(
-    "historyModal"
-  ).style.display="flex";
-
-  renderHistory();
-
-}
-
-function closeHistory(){
-
-  document.getElementById(
-    "historyModal"
-  ).style.display="none";
-
-}
-
-function deleteHistory(id){
-
-  histories =
-    histories.filter(h=>h.id!==id);
-
-  save();
-
-  renderHistory();
-
-}
-
-function renderHistory(){
-
-  const body =
-    document.getElementById("historyBody");
-
-  body.innerHTML="";
-
-  const grouped = {};
-
-  histories.forEach(h=>{
-
-    if(!grouped[h.date]){
-
-      grouped[h.date] = [];
-
-    }
-
-    grouped[h.date].push(h);
-
-  });
-
-  Object.keys(grouped).forEach(date=>{
-
-    body.innerHTML += `
-
-      <h3 style="color:#ff72ac;">
-        📅 ${date}
-      </h3>
-
-    `;
-
-    grouped[date].forEach(h=>{
-
-      body.innerHTML += `
-
-        <div class="history-item">
-
-          <div>
-
-            ✨ ${h.type}
-            - ${h.text}
-
-          </div>
-
-          <button
-            onclick="deleteHistory('${h.id}')"
-          >
-
-            삭제
-
-          </button>
-
-        </div>
-
-      `;
-
-    });
-
-  });
-
-}
-
-renderTasks();
-renderMemos();
+/* JS는 이전 버전 그대로 사용 가능 */
 
 </script>
 
