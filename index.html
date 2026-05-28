@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>슈냥 업무 대시보드</title>
+<title>슈냥 업무 대시보드 ✨</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +33,26 @@ linear-gradient(
 
 padding:40px;
 
+min-height:100vh;
+
 color:#1e293b;
+
+}
+
+h1{
+
+font-size:42px;
+font-weight:800;
+
+margin-bottom:8px;
+
+}
+
+.subtitle{
+
+color:#64748b;
+
+margin-bottom:30px;
 
 }
 
@@ -50,7 +68,9 @@ gap:24px;
 
 .panel{
 
-background:white;
+background:rgba(255,255,255,0.82);
+
+backdrop-filter:blur(20px);
 
 border-radius:28px;
 
@@ -61,19 +81,38 @@ box-shadow:
 
 }
 
-h1{
+.section-title{
 
-font-size:42px;
+display:flex;
 
-margin-bottom:8px;
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:20px;
 
 }
 
-.subtitle{
+.history-btn{
 
-color:#64748b;
+border:none;
 
-margin-bottom:28px;
+background:
+linear-gradient(
+135deg,
+#4f46e5,
+#6366f1
+);
+
+color:white;
+
+padding:12px 18px;
+
+border-radius:14px;
+
+cursor:pointer;
+
+font-weight:700;
 
 }
 
@@ -83,9 +122,9 @@ display:flex;
 
 gap:12px;
 
-margin-bottom:18px;
-
 flex-wrap:wrap;
+
+margin-bottom:18px;
 
 }
 
@@ -102,6 +141,8 @@ background:#f1f5f9;
 padding:15px;
 
 border-radius:16px;
+
+font-size:14px;
 
 font-family:'Pretendard',sans-serif;
 
@@ -140,7 +181,7 @@ font-weight:700;
 
 .task{
 
-background:#fff;
+background:white;
 
 border:1px solid #e2e8f0;
 
@@ -154,9 +195,9 @@ margin-bottom:16px;
 
 .task.done{
 
-opacity:0.7;
-
 background:#f8fafc;
+
+opacity:0.78;
 
 }
 
@@ -165,6 +206,8 @@ background:#f8fafc;
 font-size:17px;
 
 font-weight:700;
+
+line-height:1.6;
 
 }
 
@@ -182,7 +225,7 @@ display:inline-block;
 
 margin-top:12px;
 
-padding:6px 12px;
+padding:7px 12px;
 
 border-radius:999px;
 
@@ -205,6 +248,80 @@ color:#d97706;
 .low{
 background:#dbeafe;
 color:#2563eb;
+}
+
+.detail{
+
+background:#f8fafc;
+
+padding:12px;
+
+border-radius:14px;
+
+margin-top:10px;
+
+}
+
+.detail.done{
+
+text-decoration:line-through;
+
+opacity:0.6;
+
+}
+
+.detail-input-wrap{
+
+display:flex;
+
+gap:10px;
+
+margin-top:14px;
+
+}
+
+.delete-btn{
+
+border:none;
+
+background:#e2e8f0;
+
+padding:8px 12px;
+
+border-radius:12px;
+
+cursor:pointer;
+
+font-size:12px;
+
+font-weight:700;
+
+}
+
+.complete-title{
+
+margin-top:30px;
+
+margin-bottom:16px;
+
+font-size:24px;
+
+font-weight:800;
+
+}
+
+.progress-top{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:10px;
+
+font-weight:700;
+
 }
 
 .progress-bar{
@@ -244,13 +361,13 @@ transition:0.3s;
 
 background:white;
 
+border:1px solid #e2e8f0;
+
 border-radius:22px;
 
 padding:20px;
 
 margin-bottom:16px;
-
-border:1px solid #e2e8f0;
 
 position:relative;
 
@@ -284,19 +401,23 @@ display:inline-block;
 
 background:#eef2ff;
 
+color:#4338ca;
+
 padding:6px 12px;
 
 border-radius:999px;
 
 font-size:12px;
 
-margin-bottom:12px;
-
 font-weight:700;
+
+margin-bottom:12px;
 
 }
 
 .memo-title{
+
+font-size:16px;
 
 font-weight:700;
 
@@ -306,19 +427,57 @@ margin-bottom:10px;
 
 .memo-content{
 
-white-space:pre-wrap;
-
 line-height:1.6;
+
+white-space:pre-wrap;
 
 }
 
-.complete-title{
+.modal{
 
-margin:28px 0 16px;
+position:fixed;
 
-font-size:24px;
+inset:0;
 
-font-weight:800;
+background:rgba(0,0,0,0.45);
+
+display:none;
+
+justify-content:center;
+align-items:center;
+
+z-index:999;
+
+}
+
+.modal-content{
+
+width:90%;
+max-width:800px;
+
+background:white;
+
+padding:28px;
+
+border-radius:28px;
+
+max-height:80vh;
+
+overflow:auto;
+
+}
+
+.history-item{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:14px 0;
+
+border-bottom:1px solid #e5e7eb;
 
 }
 
@@ -347,9 +506,21 @@ grid-template-columns:1fr;
 
 <div class="panel">
 
-<h2 style="margin-bottom:20px;">
+<div class="section-title">
+
+<h2>
 💼 오늘의 업무
 </h2>
+
+<button
+class="history-btn"
+onclick="openHistory()">
+
+히스토리
+
+</button>
+
+</div>
 
 <div class="input-wrap">
 
@@ -361,15 +532,23 @@ placeholder="업무 입력..."
 
 <select id="priorityInput">
 
-<option value="high">🔥 높음</option>
-<option value="medium">✨ 보통</option>
-<option value="low">☁️ 낮음</option>
+<option value="high">
+🔥 높음
+</option>
+
+<option value="medium">
+✨ 보통
+</option>
+
+<option value="low">
+☁️ 낮음
+</option>
 
 </select>
 
 <button
 class="add-btn"
-id="taskBtn">
+onclick="addTask()">
 
 추가
 
@@ -391,18 +570,19 @@ id="taskBtn">
 
 <div class="panel">
 
-<h2>
+<h2 style="margin-bottom:16px;">
 📈 진행률
 </h2>
 
-<div
-id="percent"
-style="
-margin-top:12px;
-font-weight:700;
-">
+<div class="progress-top">
 
+<div>
+오늘 진행률
+</div>
+
+<div id="percent">
 0%
+</div>
 
 </div>
 
@@ -427,8 +607,8 @@ class="progress-fill">
 
 <textarea
 id="mindText"
-rows="6"
-placeholder="오늘의 목표 / 다짐 입력..."
+rows="7"
+placeholder="오늘의 목표 / 다짐 / 메모 입력..."
 ></textarea>
 
 </div>
@@ -445,9 +625,17 @@ placeholder="오늘의 목표 / 다짐 입력..."
 
 <select id="memoType">
 
-<option value="카톡">💬 카톡</option>
-<option value="메신저">🖥️ 메신저</option>
-<option value="전화">☎️ 전화</option>
+<option value="카톡">
+💬 카톡
+</option>
+
+<option value="메신저">
+🖥️ 메신저
+</option>
+
+<option value="전화">
+☎️ 전화
+</option>
 
 </select>
 
@@ -469,7 +657,7 @@ placeholder="내용 입력..."
 
 <button
 class="add-btn"
-id="memoBtn">
+onclick="addMemo()">
 
 포스트잇 추가
 
@@ -485,23 +673,48 @@ id="memoBtn">
 
 </div>
 
+<div
+class="modal"
+id="historyModal">
+
+<div class="modal-content">
+
+<h2 style="margin-bottom:20px;">
+📚 업무 히스토리
+</h2>
+
+<div id="historyList"></div>
+
+<br>
+
+<button
+class="add-btn"
+onclick="closeHistory()">
+
+닫기
+
+</button>
+
+</div>
+
+</div>
+
 <script>
 
 const state = {
 
 tasks:
-JSON.parse(
-localStorage.getItem("tasks")
-) || [],
+JSON.parse(localStorage.getItem("tasks")) || [],
 
 memos:
-JSON.parse(
-localStorage.getItem("memos")
-) || []
+JSON.parse(localStorage.getItem("memos")) || [],
+
+histories:
+JSON.parse(localStorage.getItem("histories")) || []
 
 };
 
-function save(){
+function saveData(){
 
 localStorage.setItem(
 "tasks",
@@ -513,6 +726,11 @@ localStorage.setItem(
 JSON.stringify(state.memos)
 );
 
+localStorage.setItem(
+"histories",
+JSON.stringify(state.histories)
+);
+
 }
 
 function createId(){
@@ -520,6 +738,105 @@ function createId(){
 return Date.now().toString(36)
 +
 Math.random().toString(36).slice(2);
+
+}
+
+function addTask(){
+
+const text =
+document.getElementById("taskInput")
+.value
+.trim();
+
+const priority =
+document.getElementById("priorityInput")
+.value;
+
+if(!text)return;
+
+state.tasks.unshift({
+
+id:createId(),
+text,
+priority,
+done:false,
+details:[]
+
+});
+
+state.histories.unshift({
+
+id:createId(),
+text,
+date:new Date().toLocaleDateString()
+
+});
+
+document.getElementById("taskInput").value="";
+
+renderAll();
+
+}
+
+function addDetail(taskId){
+
+const input =
+document.getElementById(
+`detail-input-${taskId}`
+);
+
+const value =
+input.value.trim();
+
+if(!value)return;
+
+const task =
+state.tasks.find(
+t=>t.id===taskId
+);
+
+task.details.push({
+
+id:createId(),
+text:value,
+done:false
+
+});
+
+renderAll();
+
+}
+
+function addMemo(){
+
+const type =
+document.getElementById("memoType").value;
+
+const title =
+document.getElementById("memoTitle")
+.value
+.trim();
+
+const text =
+document.getElementById("memoText")
+.value
+.trim();
+
+if(!title || !text)return;
+
+state.memos.unshift({
+
+id:createId(),
+type,
+title,
+text
+
+});
+
+document.getElementById("memoTitle").value="";
+document.getElementById("memoText").value="";
+
+renderAll();
 
 }
 
@@ -539,7 +856,7 @@ state.tasks.forEach(task=>{
 const div =
 document.createElement("div");
 
-div.className=
+div.className =
 `task ${task.done?"done":""}`;
 
 div.innerHTML = `
@@ -548,9 +865,9 @@ div.innerHTML = `
 
 <input
 type="checkbox"
-${task.done?"checked":""}
-data-id="${task.id}"
 class="task-check"
+data-id="${task.id}"
+${task.done?"checked":""}
 >
 
 <div style="flex:1;">
@@ -571,10 +888,10 @@ ${task.text}
 </div>
 
 <button
-class="memo-delete"
+class="delete-btn"
 data-delete="${task.id}">
 
-✕
+삭제
 
 </button>
 
@@ -583,6 +900,55 @@ data-delete="${task.id}">
 <div class="badge ${task.priority}">
 ${task.priority}
 </div>
+
+${task.details.map(detail=>`
+
+<div class="
+detail
+${detail.done?"done":""}
+">
+
+<label>
+
+<input
+type="checkbox"
+data-task="${task.id}"
+data-detail="${detail.id}"
+${detail.done?"checked":""}
+>
+
+${detail.text}
+
+</label>
+
+</div>
+
+`).join("")}
+
+${
+!task.done
+?`
+
+<div class="detail-input-wrap">
+
+<input
+id="detail-input-${task.id}"
+placeholder="상세 업무 추가..."
+>
+
+<button
+class="add-btn"
+onclick="addDetail('${task.id}')">
+
+추가
+
+</button>
+
+</div>
+
+`
+:""
+}
 
 </div>
 
@@ -611,34 +977,71 @@ document.getElementById("memoWrap");
 
 wrap.innerHTML="";
 
-state.memos.forEach(memo=>{
+state.memos.forEach(m=>{
 
 const div =
 document.createElement("div");
 
 div.className="memo";
 
-div.innerHTML=`
+div.innerHTML = `
 
 <button
 class="memo-delete"
-data-memo-delete="${memo.id}">
+data-memo-delete="${m.id}">
 
 ✕
 
 </button>
 
 <div class="memo-type">
-${memo.type}
+${m.type}
 </div>
 
 <div class="memo-title">
-${memo.title}
+${m.title}
 </div>
 
 <div class="memo-content">
-${memo.text}
+${m.text}
 </div>
+
+`;
+
+wrap.appendChild(div);
+
+});
+
+}
+
+function renderHistory(){
+
+const wrap =
+document.getElementById("historyList");
+
+wrap.innerHTML="";
+
+state.histories.forEach(h=>{
+
+const div =
+document.createElement("div");
+
+div.className="history-item";
+
+div.innerHTML = `
+
+<div>
+📅 ${h.date}
+- ${h.text}
+</div>
+
+<button
+class="delete-btn"
+data-history-delete="${h.id}">
+
+삭제
+
+</button>
 
 `;
 
@@ -650,13 +1053,28 @@ wrap.appendChild(div);
 
 function updateProgress(){
 
-let total =
-state.tasks.length;
+let total = 0;
+let done = 0;
 
-let done =
-state.tasks.filter(
-t=>t.done
-).length;
+state.tasks.forEach(task=>{
+
+total++;
+
+if(task.done){
+done++;
+}
+
+task.details.forEach(detail=>{
+
+total++;
+
+if(detail.done){
+done++;
+}
+
+});
+
+});
 
 const percent =
 total===0
@@ -681,79 +1099,29 @@ renderTasks();
 
 renderMemos();
 
+renderHistory();
+
 updateProgress();
 
-save();
+saveData();
 
 }
 
-document
-.getElementById("taskBtn")
-.addEventListener("click",()=>{
+function openHistory(){
 
-const text =
-document.getElementById("taskInput")
-.value
-.trim();
+document.getElementById(
+"historyModal"
+).style.display="flex";
 
-const priority =
-document.getElementById("priorityInput")
-.value;
+}
 
-if(!text)return;
+function closeHistory(){
 
-state.tasks.unshift({
+document.getElementById(
+"historyModal"
+).style.display="none";
 
-id:createId(),
-text,
-priority,
-done:false
-
-});
-
-document.getElementById("taskInput").value="";
-
-renderAll();
-
-});
-
-document
-.getElementById("memoBtn")
-.addEventListener("click",()=>{
-
-const type =
-document.getElementById("memoType")
-.value;
-
-const title =
-document.getElementById("memoTitle")
-.value
-.trim();
-
-const text =
-document.getElementById("memoText")
-.value
-.trim();
-
-if(!title || !text)return;
-
-state.memos.unshift({
-
-id:createId(),
-type,
-title,
-text
-
-});
-
-document.getElementById("memoTitle").value="";
-document.getElementById("memoText").value="";
-
-renderMemos();
-
-save();
-
-});
+}
 
 document.addEventListener("change",(e)=>{
 
@@ -763,15 +1131,31 @@ e.target.classList.contains(
 )
 ){
 
-const id =
-e.target.dataset.id;
-
 const task =
 state.tasks.find(
-t=>t.id===id
+t=>t.id===e.target.dataset.id
 );
 
 task.done =
+e.target.checked;
+
+renderAll();
+
+}
+
+if(e.target.dataset.detail){
+
+const task =
+state.tasks.find(
+t=>t.id===e.target.dataset.task
+);
+
+const detail =
+task.details.find(
+d=>d.id===e.target.dataset.detail
+);
+
+detail.done =
 e.target.checked;
 
 renderAll();
@@ -786,8 +1170,7 @@ if(e.target.dataset.delete){
 
 state.tasks =
 state.tasks.filter(
-t=>
-t.id!==e.target.dataset.delete
+t=>t.id!==e.target.dataset.delete
 );
 
 renderAll();
@@ -798,13 +1181,21 @@ if(e.target.dataset.memoDelete){
 
 state.memos =
 state.memos.filter(
-m=>
-m.id!==e.target.dataset.memoDelete
+m=>m.id!==e.target.dataset.memoDelete
 );
 
-renderMemos();
+renderAll();
 
-save();
+}
+
+if(e.target.dataset.historyDelete){
+
+state.histories =
+state.histories.filter(
+h=>h.id!==e.target.dataset.historyDelete
+);
+
+renderAll();
 
 }
 
