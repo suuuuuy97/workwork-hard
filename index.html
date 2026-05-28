@@ -8,15 +8,23 @@
 
 <style>
 
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
-  font-family:sans-serif;
-  background:#f7f8fc;
   padding:30px;
+  font-family:sans-serif;
+  background:
+    radial-gradient(circle at top left,#ffe7f2 0%,transparent 25%),
+    radial-gradient(circle at bottom right,#dff4ff 0%,transparent 25%),
+    #f7f8fc;
 }
 
 h1{
-  font-size:42px;
+  font-size:44px;
+  margin-bottom:30px;
 }
 
 .container{
@@ -27,12 +35,41 @@ h1{
 
 .card{
   background:white;
-  border-radius:24px;
+  border-radius:28px;
   padding:24px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.06);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.06);
 }
 
-input,select,textarea,button{
+.top3{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:14px;
+  margin-bottom:24px;
+}
+
+.top-card{
+  padding:18px;
+  border-radius:20px;
+  color:white;
+}
+
+.top1{
+  background:#ff92b5;
+}
+
+.top2{
+  background:#b69cff;
+}
+
+.top3c{
+  background:#7ec8ff;
+}
+
+input,
+select,
+textarea,
+button{
 
   border:none;
   outline:none;
@@ -44,7 +81,9 @@ input,select,textarea,button{
   font-size:14px;
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
   background:#f3f5fa;
 }
 
@@ -52,48 +91,40 @@ button{
   cursor:pointer;
 }
 
-.top3{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:12px;
-  margin-bottom:20px;
-}
-
-.top-card{
-  color:white;
-  padding:18px;
-  border-radius:20px;
-}
-
-.top1{
-  background:#ff8fb1;
-}
-
-.top2{
-  background:#b89cff;
-}
-
-.top3c{
-  background:#7ec8ff;
+.input-wrap{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
 .task{
   background:white;
-  border-radius:20px;
+  border-radius:24px;
   padding:20px;
-  margin-bottom:16px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.05);
+  margin-bottom:18px;
+  box-shadow:
+    0 5px 15px rgba(0,0,0,0.05);
+
+  transition:0.25s;
 }
 
 .task.done{
-  opacity:0.9;
-  background:#fffafd;
-  border:2px solid #ffd9ea;
+
+  opacity:1;
+
+  background:#fff1f7;
+
+  border:3px solid #ffb7d3;
+
+  box-shadow:
+    0 6px 20px rgba(255,105,180,0.12);
 }
 
 .task.done .task-title{
+
   text-decoration:line-through;
-  color:#999;
+
+  color:#666;
 }
 
 .task-title{
@@ -103,17 +134,21 @@ button{
 
 .done-badge{
 
-  display:inline-block;
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:4px;
 
   margin-left:10px;
 
-  padding:6px 10px;
+  padding:7px 12px;
 
   border-radius:999px;
 
-  background:#ffe4ef;
+  background:#ff5ca8;
 
-  color:#ff4f93;
+  color:white;
 
   font-size:11px;
 
@@ -153,6 +188,30 @@ button{
 .detail.done{
   opacity:0.6;
   text-decoration:line-through;
+}
+
+.detail-input-wrap{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+}
+
+.progress-wrap{
+  margin-top:20px;
+}
+
+.progress-bar{
+  height:14px;
+  background:#ececec;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:
+    linear-gradient(90deg,#ffb3d2,#ffd59e);
 }
 
 .memo{
@@ -235,23 +294,6 @@ button{
   padding:14px 0;
 }
 
-.progress-wrap{
-  margin-top:20px;
-}
-
-.progress-bar{
-  height:14px;
-  background:#ececec;
-  border-radius:999px;
-  overflow:hidden;
-}
-
-.progress-fill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#ffb3d2,#ffd59e);
-}
-
 @media(max-width:1000px){
 
   .container{
@@ -273,15 +315,18 @@ button{
 슈냥의 슬기로운 회사생활 ✨
 </h1>
 
-<br>
-
 <div class="container">
 
+  <!-- 왼쪽 -->
   <div>
 
     <div class="card">
 
-      <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+      ">
 
         <h2>💼 오늘의 업무</h2>
 
@@ -295,12 +340,12 @@ button{
 
       <div id="top3" class="top3"></div>
 
-      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <div class="input-wrap">
 
         <input
           id="taskInput"
           style="flex:1;"
-          placeholder="오늘 해야할 일을 추가해보자!"
+          placeholder="오늘 업무 입력..."
         >
 
         <select id="priorityInput">
@@ -333,6 +378,7 @@ button{
 
   </div>
 
+  <!-- 오른쪽 -->
   <div>
 
     <div class="card">
@@ -346,21 +392,23 @@ button{
       <textarea
         id="mindInput"
         rows="6"
-        placeholder="오늘의 다짐"
+        placeholder="오늘의 다짐..."
       ></textarea>
 
       <div class="progress-wrap">
 
         <div style="margin-bottom:10px;">
+
           진행률:
           <span id="percent">0%</span>
+
         </div>
 
         <div class="progress-bar">
 
           <div
-            id="progressFill"
-            class="progress-fill">
+            class="progress-fill"
+            id="progressFill">
           </div>
 
         </div>
@@ -379,12 +427,12 @@ button{
 
       <br>
 
-      <div style="display:flex;gap:10px;">
+      <div class="input-wrap">
 
         <select id="memoType">
 
           <option>
-            💬 카톡/메신저
+            💬 카톡
           </option>
 
           <option>
@@ -395,8 +443,8 @@ button{
 
         <input
           id="memoTitle"
-          placeholder="사업소명"
           style="flex:1;"
+          placeholder="사업소명"
         >
 
       </div>
@@ -406,7 +454,7 @@ button{
       <textarea
         id="memoText"
         rows="5"
-        placeholder="요청 내용"
+        placeholder="요청 내용..."
       ></textarea>
 
       <br><br>
@@ -425,6 +473,7 @@ button{
 
 </div>
 
+<!-- 히스토리 -->
 <div class="modal" id="historyModal">
 
   <div class="modal-content">
@@ -517,16 +566,18 @@ function addTask(){
 
   if(!text) return;
 
-  tasks.unshift({
+  tasks.push({
 
     id:createId(),
     text,
     priority,
     done:false,
+
     emoji:
       emojis[
         Math.floor(Math.random()*emojis.length)
       ],
+
     details:[]
 
   });
@@ -571,6 +622,7 @@ function renderTasks(){
     low:1
   };
 
+  /* 완료는 아래로 */
   const sorted =
     [...tasks]
     .sort((a,b)=>{
@@ -641,8 +693,7 @@ function renderTasks(){
 
             </div>
 
-            <button
-              class="delete-btn">
+            <button class="delete-btn">
               삭제
             </button>
 
@@ -656,15 +707,12 @@ function renderTasks(){
 
           <div class="detail-list"></div>
 
-          <div style="
-            display:flex;
-            gap:10px;
-          ">
+          <div class="detail-input-wrap">
 
             <input
               class="detail-input"
-              placeholder="상세 업무 추가..."
               style="flex:1;"
+              placeholder="상세 업무 추가..."
             >
 
             <button class="detail-btn">
@@ -679,6 +727,7 @@ function renderTasks(){
 
     `;
 
+    /* 완료 */
     div
     .querySelector(".task-check")
     .addEventListener("change",()=>{
@@ -691,6 +740,7 @@ function renderTasks(){
 
     });
 
+    /* 삭제 */
     div
     .querySelector(".delete-btn")
     .addEventListener("click",()=>{
@@ -704,6 +754,7 @@ function renderTasks(){
 
     });
 
+    /* 상세업무 */
     const detailList =
       div.querySelector(".detail-list");
 
@@ -747,6 +798,7 @@ function renderTasks(){
 
     });
 
+    /* 상세 추가 */
     const detailInput =
       div.querySelector(".detail-input");
 
@@ -809,12 +861,15 @@ function renderTop3(){
 
   const top =
     [...tasks]
+
     .filter(t=>!t.done)
+
     .sort((a,b)=>
       order[b.priority]
       -
       order[a.priority]
     )
+
     .slice(0,3);
 
   top.forEach((task,index)=>{
